@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png" />
-    <h1>{{ msg }}</h1>
-    <button @click="showToast">show toast</button>
+    <button @click="showImg('hello world')">点击</button>
   </div>
 </template>
 
@@ -15,14 +13,14 @@ export default {
     }
   },
   methods: {
-    showToast () {
-      this.$hevueImgPreview()
+    showImg (url) {
+      this.$hevueImgPreview({ msg: url })
     }
   }
 }
 </script>
 
-<style lang="scss">
+<style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

@@ -1,3 +1,9 @@
+/*
+ * @Author: heyongsheng 
+ * @Date: 2020-04-22 15:40:42 
+ * @Last Modified by: heyongsheng
+ * @Last Modified time: 2020-04-23 09:57:22
+ */
 import Vue from 'vue'
 import VueToast from './hevue-img-preview.vue'
 
@@ -39,7 +45,7 @@ ToastConstructor.prototype.closeToast = function () {
 }
 
 const Toast = (options = {}) => {
-  instance.mes = options.mes || '正在开发中……'
+  instance.mes = options.mes
   instance.timeout = ~~options.timeout || 2000
   instance.callback = options.callback
 
@@ -47,7 +53,7 @@ const Toast = (options = {}) => {
 
   //禁止滚动
   pageScroll.lock()
-  // 定时关闭
+
   const timer = setTimeout(() => {
     clearTimeout(timer)
     instance.closeToast()

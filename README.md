@@ -1,6 +1,6 @@
 # hevue-img-preview
 
-> 一个基于vue的图片预览组件
+> 基于vue.js的图片预览组件
 
 ## Build Setup
 
