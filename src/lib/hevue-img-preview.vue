@@ -2,7 +2,7 @@
  * @Author: heyongsheng 
  * @Date: 2020-04-22 15:40:32 
  * @Last Modified by: heyongsheng
- * @Last Modified time: 2020-04-25 16:57:56
+ * @Last Modified time: 2020-04-26 16:02:23
  */
 <template>
   <transition name="fade">
@@ -203,22 +203,23 @@ export default {
   transform: rotate(90deg);
 }
 .he-control-bar {
-  width: 236px;
+  width: 233px;
   height: 44px;
   bottom: 10%;
   left: 50%;
   padding: 0 22px;
-  margin-left: -140px;
+  margin-left: -139px;
   position: absolute;
   border-radius: 22px;
-  display: flex;
-  justify-content: space-between;
+  /* display: flex;
+  justify-content: space-between; */
 }
 .he-control-btn {
   line-height: 44px;
   font-size: 24px;
   cursor: pointer;
-  padding: 0 5px;
+  padding: 0 9px;
+  display: inline-block;
   transition: all 0.2s;
 }
 .he-control-btn:hover {
