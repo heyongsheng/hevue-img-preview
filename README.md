@@ -13,7 +13,15 @@ import hevueImgPreview from 'hevue-img-preview'
 Vue.use(hevueImgPreview)
 
 # 使用
-this.$hevueImgPreview(url)
+给任意对象添加任意事件，例如
+<img :src="src" @click="previewImg(url)">
+即可在事件里调用方法进行预览
+methods: {
+	previewImg (url) {
+		this.$hevueImgPreview(url)
+	}
+}
+
 ```
 
 ## 可配置项
