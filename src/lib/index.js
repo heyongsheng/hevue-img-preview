@@ -2,7 +2,7 @@
  * @Author: heyongsheng 
  * @Date: 2020-04-22 15:40:42 
  * @Last Modified by: heyongsheng
- * @Last Modified time: 2020-04-23 09:57:22
+ * @Last Modified time: 2020-04-25 16:58:25
  */
 import Vue from 'vue'
 import VueToast from './hevue-img-preview.vue'
@@ -11,53 +11,27 @@ const ToastConstructor = Vue.extend(VueToast)
 
 const instance = new ToastConstructor().$mount()
 
-const pageScroll = (() => {
-  const fn = (e) => {
-    let evt = e || window.event
-    evt.preventDefault()
-    evt.stopPropagation()
-  }
-  let islock = false
-
-  return {
-    lock (el) {
-      if (islock) return
-      islock = true;
-      (el || document).addEventListener('mousewheel', fn);
-      (el || document).addEventListener('touchmove', fn)
-    },
-    unlock (el) {
-      islock = false;
-      (el || document).removeEventListener('mousewheel', fn);
-      (el || document).removeEventListener('touchmove', fn)
-    }
-  }
-})()
-
-ToastConstructor.prototype.closeToast = function () {
-  const el = instance.$el
-  el.parentNode && el.parentNode.removeChild(el)
-
-  //恢复滚动
-  pageScroll.unlock()
-
-  typeof this.callback === 'function' && this.callback()
-}
-
 const Toast = (options = {}) => {
-  instance.mes = options.mes
-  instance.timeout = ~~options.timeout || 2000
-  instance.callback = options.callback
+  if (typeof options === 'string') {
+    instance.url = options
+  } else if (typeof options === 'object' && options.constructor !== Array) {
+    instance.url = options.url
+  } else {
+    if (options.constructor !== Array) {
+      console.error('hevue-img-preview 组件参数仅能接收字符串和对象，但您传入的是 ' + typeof options + '\nhevue-img-preview parameter can only receive strings and objects, but what you pass in is ' + typeof options)
+    } else {
+      console.error('hevue-img-preview 组件参数仅能接收字符串和对象，但您传入的是 array\nhevue-img-preview parameter can only receive strings and objects, but what you pass in is array')
+    }
+    return
+  }
+  instance.mainBackground = options.mainBackground || 'rgba(255,255,255,.6)'
+  instance.controlColor = options.controlColor
+  instance.controlBackground = options.controlBackground || 'rgba(109, 109, 109, .6)'
+  instance.closeColor = options.closeColor || 'rgba(109, 109, 109, .6)'
+  instance.show = true
+  instance.instance = instance
 
   document.body.appendChild(instance.$el)
-
-  //禁止滚动
-  pageScroll.lock()
-
-  const timer = setTimeout(() => {
-    clearTimeout(timer)
-    instance.closeToast()
-  }, instance.timeout + 100)
 }
 
 const install = (Vue) => {

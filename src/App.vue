@@ -1,6 +1,45 @@
 <template>
   <div id="app">
-    <button @click="showImg('hello world')">点击</button>
+    <button
+      @click="showImg('https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg')"
+    >点击</button>
+    <p>hl</p>
+    <p>hl</p>
+    <p>hl</p>
+    <p>hl</p>
+    <p>hl</p>
+    <p>hl</p>
+    <p>hl</p>
+    <p>hl</p>
+    <p>hl</p>
+    <p>hl</p>
+    <p>hl</p>
+    <p>hl</p>
+    <p>hl</p>
+    <p>hl</p>
+    <p>hl</p>
+    <p>hl</p>
+    <p>hl</p>
+    <p>hl</p>
+    <p>hl</p>
+    <p>hl</p>
+    <p>hl</p>
+    <p>hl</p>
+    <p>hl</p>
+    <p>hl</p>
+    <p>hl</p>
+    <p>hl</p>
+    <p>hl</p>
+    <p>hl</p>
+    <p>hl</p>
+    <p>hl</p>
+    <p>hl</p>
+    <p>hl</p>
+    <p>hl</p>
+    <p>hl</p>
+    <p>hl</p>
+    <p>hl</p>
+    <p>hl</p>
   </div>
 </template>
 
@@ -14,38 +53,11 @@ export default {
   },
   methods: {
     showImg (url) {
-      this.$hevueImgPreview({ msg: url })
+      this.$hevueImgPreview(url)
     }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-
-h1,
-h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
 </style>

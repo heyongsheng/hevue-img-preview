@@ -2,8 +2,9 @@ var path = require('path')
 var webpack = require('webpack')
 
 module.exports = {
-  // entry: './src/main.js',
-  entry: './src/lib/index.js',
+  // entry: { app: ['babel-polyfill', './src/main.js'] },
+  entry: { app: ['babel-polyfill', './src/lib/index.js'] },
+  // entry: './src/lib/index.js',
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
@@ -40,6 +41,10 @@ module.exports = {
         options: {
           name: '[name].[ext]?[hash]'
         }
+      },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
+        loader: 'file-loader'
       }
     ]
   },
@@ -52,6 +57,7 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     noInfo: true,
+    disableHostCheck: true,
     overlay: true
   },
   performance: {
