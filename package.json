@@ -1,7 +1,7 @@
 {
   "name": "hevue-img-preview",
-  "description": "本组件基于 vue 编写，仅传入一个图片地址，即可实现图片预览效果，预览背景色，关闭按钮颜色，控制条的背景也和字体颜色都可自定义，兼容 ie9+，火狐，Safari，谷歌浏览器。如果能帮上你，希望可以移步 [GitHub](https://github.com/heyongsheng) https://github.com/heyongsheng 给个小星星",
-  "version": "1.0.0",
+  "description": "> 本组件基于 vue 编写，仅传入一个图片地址，即可实现图片预览效果，比较适合给文章及页面的所有图片添加预览效果，预览背景色，关闭按钮颜色，控制条的背景也和字体颜色都可自定义，兼容 ie9+，火狐，Safari，谷歌浏览器，不过暂不支持多图预览。如果能帮上你，希望可以移步 [GitHub](https://github.com/heyongsheng) https://github.com/heyongsheng 给个小星星",
+  "version": "1.0.1",
   "author": "贺永胜 <1378431028@qq.com>",
   "license": "MIT",
   "private": false,
