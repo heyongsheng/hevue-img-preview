@@ -1,6 +1,12 @@
 # hevue-img-preview 简介
 
-> 本组件基于 vue 编写，仅传入一个图片地址，即可实现图片预览效果，预览背景色，关闭按钮颜色，控制条的背景也和字体颜色都可自定义，兼容 ie9+，火狐，Safari，谷歌浏览器。如果能帮上你，希望可以移步 [GitHub](https://github.com/heyongsheng) https://github.com/heyongsheng 给个小星星
+> 本组件基于 vue 编写，仅传入一个图片地址，即可实现图片预览效果，预览背景色，关闭按钮颜色，控制条的背景也和字体颜色都可自定义，兼容 ie9+，火狐，Safari，谷歌浏览器，不过暂不支持多图预览。如果能帮上你，希望可以移步 [GitHub](https://github.com/heyongsheng) https://github.com/heyongsheng 给个小星星
+
+## 示例预览
+
+> 在线预览网址 [https://heyongsheng.github.io/#/](https://heyongsheng.github.io/#/)
+
+![](https://user-gold-cdn.xitu.io/2020/4/27/171b94b6a0f7b8dd?w=599&h=272&f=gif&s=1344649)
 
 ## 使用方法
 
@@ -42,4 +48,13 @@ methods: {
 
 ## 作者注
 
-> 在开发的过程中，为了性能和兼容性，其实舍弃了很多东西，例如背景的高斯模糊`background-filter`, 和字体颜色及背景颜色的渐变。不过为了满足大家个性化的要求，本插件尽量的做到了个性化定制，可以自己搭配出符合项目主题的配色，如果有疑问，也可以加入 QQ 群：595472617 进行反馈!
+> 在开发的过程中，为了性能和兼容性，其实舍弃了很多东西，例如背景的高斯模糊`background-filter`, 和字体颜色及背景颜色的渐变。不过为了满足大家个性化的要求，本插件尽量的做到了个性化定制，可以自己搭配出符合项目主题的配色，如果有疑问，也可以用以下方式和作者联系
+
+**添加请备注掘金**
+
+作者 QQ：1378431028
+
+QQ 群：595472617
+
+作者微信：heyongsheng1996
+![](https://user-gold-cdn.xitu.io/2020/4/27/171b950ccc0a1695?w=541&h=721&f=png&s=133763)
