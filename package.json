@@ -1,0 +1,51 @@
+{
+  "name": "hevue-img-preview",
+  "description": "> 本组件基于 vue 编写，仅传入一个图片地址，即可实现图片预览效果，比较适合给文章及页面的所有图片添加预览效果，预览背景色，关闭按钮颜色，控制条的背景也和字体颜色都可自定义，兼容 ie9+，火狐，Safari，谷歌浏览器，不过暂不支持多图预览。如果能帮上你，希望可以移步 [GitHub](https://github.com/heyongsheng/hevue-img-preview) https://github.com/heyongsheng/hevue-img-preview 给个小星星",
+  "version": "2.0.0",
+  "author": "贺永胜 <1378431028@qq.com>",
+  "license": "MIT",
+  "private": false,
+  "main": "dist/hevue-img-preview.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/heyongsheng/hevue-img-preview"
+  },
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot --host 0.0.0.0",
+    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
+  },
+  "keywords": [
+    "hevue-img-preview",
+    "vue-img-preview",
+    "vue-img",
+    "vue-img-view",
+    "img-view",
+    "view-preview",
+    "hevue"
+  ],
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "file-loader": "^1.1.11",
+    "url-loader": "^4.1.0",
+    "vue": "^2.5.11"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-stage-3": "^6.24.1",
+    "cross-env": "^5.0.5",
+    "css-loader": "^0.28.7",
+    "file-loader": "^1.1.11",
+    "vue-loader": "^13.0.5",
+    "vue-template-compiler": "^2.4.4",
+    "webpack": "^3.6.0",
+    "webpack-dev-server": "^2.9.1"
+  }
+}
