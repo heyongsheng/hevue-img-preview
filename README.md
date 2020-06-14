@@ -80,7 +80,7 @@ this.$hevueImgPreview({
 
 > 码云链接：[https://gitee.com/ihope_top/hevue-img-preview](https://gitee.com/ihope_top/hevue-img-preview)
 
-**添加请备注 掘金**
+**添加请备注 码云**
 
 作者 QQ：1378431028
 
