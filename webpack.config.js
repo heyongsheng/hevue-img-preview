@@ -2,9 +2,8 @@ var path = require('path')
 var webpack = require('webpack')
 
 module.exports = {
-  // entry: { app: ['babel-polyfill', './src/main.js'] },
-  entry: { app: ['babel-polyfill', './src/lib/index.js'] },
-  // entry: './src/lib/index.js',
+  // entry: { app: ['babel-polyfill', './src/main.js'] }, // 本地运行用这个
+  entry: { app: ['babel-polyfill', './src/lib/index.js'] }, // 线上打包用这个
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',

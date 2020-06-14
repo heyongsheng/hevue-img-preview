@@ -2,7 +2,7 @@
  * @Author: heyongsheng 
  * @Date: 2020-04-22 15:40:32 
  * @Last Modified by: heyongsheng
- * @Last Modified time: 2020-04-26 16:02:23
+ * @Last Modified time: 2020-06-14 22:14:31
  */
 <template>
   <transition name="fade">
@@ -24,6 +24,18 @@
         />
         <div class="iconfont he-close-icon" @click="close" :style="'color:'+closeColor">&#xe764;</div>
         <div
+          class="arrow arrow-left iconfont"
+          @click="toogleImg(false)"
+          v-if="multiple"
+          :style="'color:' + controlColor + ';background: '+controlBackground"
+        >&#xe620;</div>
+        <div
+          class="arrow arrow-right iconfont"
+          @click="toogleImg(true)"
+          v-if="multiple"
+          :style="'color:' + controlColor + ';background: '+controlBackground"
+        >&#xe60d;</div>
+        <div
           class="he-control-bar"
           :style="'color:' + controlColor + ';background: '+controlBackground"
         >
@@ -34,6 +46,11 @@
           <div class="he-control-btn iconfont" @click="rotateFunc(-90)">&#xe670;</div>
           <div class="he-control-btn iconfont" @click="rotateFunc(90)">&#xe66f;</div>
         </div>
+        <div
+          class="he-control-num"
+          v-if="multiple"
+          :style="'color:' + controlColor + ';background: '+controlBackground"
+        >{{imgIndex + 1}} / {{imgList.length}}</div>
       </div>
     </div>
   </transition>
@@ -52,7 +69,16 @@ export default {
     controlColor: String, // 控制条字体颜色
     controlBackground: String, // 控制条背景颜色
     closeColor: String, // 关闭图标的颜色
-    instance: Object
+    instance: Object,
+    multiple: {
+      type: Boolean,
+      default: false,
+    },
+    nowImgIndex: {
+      type: Number,
+      default: 0,
+    },
+    imgList: Array
   },
   data () {
     return {
@@ -65,7 +91,8 @@ export default {
       isFull: false,
       maxWH: 'max-width:100%;max-height:100%;',
       clientX: 0,
-      clientY: 0
+      clientY: 0,
+      imgIndex: 0
     }
   },
   mounted () {
@@ -85,6 +112,24 @@ export default {
           document.body.addEventListener("DOMMouseScroll", this.scrollFunc)
           // 禁止火狐浏览器下拖拽图片的默认事件
           document.ondragstart = function () { return false }
+          // 判断是否多选
+          if (this.multiple) {
+            if (Array.isArray(this.imgList) && this.imgList.length > 0) {
+              this.imgIndex = Number(this.nowImgIndex) || 0
+              this.url = this.imgList[this.imgIndex]
+            } else {
+              console.error('imgList 为空或格式不正确')
+            }
+          } else {
+            var ImgObj = new Image()
+            ImgObj.src = this.url
+            if (ImgObj.fileSize > 0 || (ImgObj.width > 0 && ImgObj.height > 0)) {
+              return true
+            } else {
+              console.error('传入图片地址不正确--组件hevue-img-preview')
+            }
+
+          }
         })
       }
     }
@@ -106,6 +151,21 @@ export default {
       this.imgRotate = 0
       this.imgTop = 0
       this.imgLeft = 0
+    },
+    // 切换图片
+    toogleImg (bool) {
+      if (bool) {
+        this.imgIndex++
+        if (this.imgIndex > this.imgList.length - 1) {
+          this.imgIndex = 0
+        }
+      } else {
+        this.imgIndex--
+        if (this.imgIndex < 0) {
+          this.imgIndex = this.imgList.length - 1
+        }
+      }
+      this.url = this.imgList[this.imgIndex]
     },
     // 旋转图片
     rotateFunc (deg) {
@@ -166,8 +226,8 @@ export default {
 </script>
 
 <style scoped>
-/* @import './font/iconfont.css'; */
-@import '//at.alicdn.com/t/font_1776686_rwjnz23j7wf.css';
+@import './iconfont/iconfont.css';
+/* @import '//at.alicdn.com/t/font_1776686_mw0jz39v97.css'; */
 .hevue-wrap {
   position: fixed;
   top: 0;
@@ -199,6 +259,31 @@ export default {
   cursor: pointer;
   transition: all 0.2s;
 }
+.arrow {
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  position: absolute;
+  top: 50%;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  font-size: 28px;
+  opacity: 0.6;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.arrow:hover {
+  opacity: 0.8;
+  font-size: 32px;
+}
+.arrow-left {
+  left: 50px;
+}
+.arrow-right {
+  right: 50px;
+}
 .he-close-icon:hover {
   transform: rotate(90deg);
 }
@@ -213,6 +298,16 @@ export default {
   border-radius: 22px;
   /* display: flex;
   justify-content: space-between; */
+}
+.he-control-num {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  padding: 0 22px;
+  font-size: 16px;
+  border-radius: 15px;
 }
 .he-control-btn {
   line-height: 44px;

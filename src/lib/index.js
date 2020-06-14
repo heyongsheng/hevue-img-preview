@@ -2,7 +2,7 @@
  * @Author: heyongsheng 
  * @Date: 2020-04-22 15:40:42 
  * @Last Modified by: heyongsheng
- * @Last Modified time: 2020-04-25 16:58:25
+ * @Last Modified time: 2020-06-14 21:43:07
  */
 import Vue from 'vue'
 import VueToast from './hevue-img-preview.vue'
@@ -28,6 +28,9 @@ const Toast = (options = {}) => {
   instance.controlColor = options.controlColor
   instance.controlBackground = options.controlBackground || 'rgba(109, 109, 109, .6)'
   instance.closeColor = options.closeColor || 'rgba(109, 109, 109, .6)'
+  instance.multiple = options.multiple
+  instance.nowImgIndex = options.nowImgIndex
+  instance.imgList = options.imgList
   instance.show = true
   instance.instance = instance
 
