@@ -2,7 +2,7 @@
  * @Author: heyongsheng 
  * @Date: 2020-04-22 15:40:42 
  * @Last Modified by: heyongsheng
- * @Last Modified time: 2020-06-14 21:43:07
+ * @Last Modified time: 2020-07-08 22:49:13
  */
 import Vue from 'vue'
 import VueToast from './hevue-img-preview.vue'
@@ -31,6 +31,7 @@ const Toast = (options = {}) => {
   instance.multiple = options.multiple
   instance.nowImgIndex = options.nowImgIndex
   instance.imgList = options.imgList
+  instance.keyboard = options.keyboard
   instance.show = true
   instance.instance = instance
 

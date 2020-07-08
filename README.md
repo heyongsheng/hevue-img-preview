@@ -1,6 +1,6 @@
 # hevue-img-preview 简介
 
-> 本组件是一个基于 vue 编写的 vue 图片预览组件，支持单图和多图预览，仅传入一个图片地址，即可实现图片预览效果，比较适合给文章及页面的所有图片添加预览效果。预览背景色，关闭按钮颜色，控制条的背景也和字体颜色都可自定义，兼容 ie9+，火狐，Safari，谷歌浏览器，支持多图预览。如果能帮上你，希望可以移步[码云](https://gitee.com/ihope_top/hevue-img-preview) 给个小星星，如果有任何使用意见或建议，也欢迎回复或者提交 issure
+> 本组件是一个基于 vue 编写的 vue 图片预览组件，支持单图和多图预览，仅传入一个图片地址，即可实现图片预览效果，比较适合给文章及页面的所有图片添加预览效果。预览背景色，关闭按钮颜色，控制条的背景也和字体颜色都可自定义，兼容 ie9+，火狐，Safari，谷歌浏览器，支持多图预览。如果能帮上你，希望可以移步 [GitHub](https://github.com/heyongsheng/hevue-img-preview) ，或者[码云](https://gitee.com/ihope_top/hevue-img-preview) 给个小星星，如果有任何使用意见或建议，也欢迎回复或者提交 issure
 
 ## 示例预览
 
@@ -71,16 +71,29 @@ this.$hevueImgPreview({
 | multiple          | 布尔值 true/false                        | 是否多图预览                   |
 | nowImgIndex       | Number 格式，如默认展示第二张，传入 1    | 多图预览时默认显示的图片下标   |
 | imgList           | Array 格式 [url1, url2, url3]            | 多图预览时传入的数组           |
+| keyboard          | 布尔值 true/false                        | 是否开启键盘控制               |
+
+如开启键盘控制事件后，相对应功能控制按键如下
+| 按键 | 功能  
+| ----------------- | ----------------------------------------
+| w | 放大
+| s | 缩小
+| a | 上一张
+| d | 下一张
+| q | 逆时针旋转
+| e | 顺时针旋转
+| r | 图片复位
+| esc | 关闭图片预览
 
 \*如不考虑兼容性问题，上述的背景颜色均可接收渐变色
 
 ## 作者注
 
-> 本人前端小白一枚，工作经验较少，所写东西尽量保证没 bug，但性能界面什么的可能没办法做到最优，如果您有什么使用中的建议或意见，欢迎反馈给我，可以加联系方式，也可以直接回复，或者提个`issur`[建议此方法]，如果对您有所帮助，万分期待您能给个给个小星星，您的支持是我前进的最大动力，如果能到最下面打赏一下，祝你一生平安，永不脱发
+> 本人前端小白一枚，工作经验较少，所写东西尽量保证没 bug，但性能界面什么的可能没办法做到最优，如果您有什么使用中的建议或意见，欢迎反馈给我，可以加联系方式，也可以直接回复，或者到`GitHub`提个`issur`[建议此方法]，如果对您有所帮助，万分期待您能给个赞并且到`GitHub`给个小星星，您的支持是我前进的最大动力，如果能到最下面打赏一下，祝你一生平安，永不脱发
+
+> GitHub 链接：[https://github.com/heyongsheng/hevue-img-preview](https://github.com/heyongsheng/hevue-img-preview)
 
 > 码云链接：[https://gitee.com/ihope_top/hevue-img-preview](https://gitee.com/ihope_top/hevue-img-preview)
-
-**添加请备注 码云**
 
 作者 QQ：1378431028
 
@@ -88,9 +101,3 @@ QQ 群：595472617
 
 作者微信：heyongsheng1996
 ![](https://user-gold-cdn.xitu.io/2020/4/27/171b950ccc0a1695?w=541&h=721&f=png&s=133763)
-
-最后不要脸的要个打赏【金额随意，一分钱也行哟，嘿嘿】
-
-![](https://user-gold-cdn.xitu.io/2020/6/14/172b382762fb0b51?w=990&h=1540&f=jpeg&s=251410)
-
-![](https://user-gold-cdn.xitu.io/2020/6/14/172b382dc66777fa?w=1118&h=1534&f=png&s=128571)
