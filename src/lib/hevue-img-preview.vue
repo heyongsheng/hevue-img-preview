@@ -2,7 +2,7 @@
  * @Author: heyongsheng 
  * @Date: 2020-04-22 15:40:32 
  * @Last Modified by: heyongsheng
- * @Last Modified time: 2020-06-14 22:14:31
+ * @Last Modified time: 2020-07-08 23:19:22
  */
 <template>
   <transition name="fade">
@@ -15,13 +15,17 @@
       :style="'background:' + mainBackground"
     >
       <div class="he-img-wrap">
+        <img src="./loading.gif" v-show="imgState === 1" />
+        <!-- <div class="iconfont loading">&#xe6b1;</div> -->
         <img
-          :src="url"
+          :src="imgurl"
           ref="heImView"
+          v-show="imgState === 2"
           class="he-img-view"
           :style="'transform: scale('+imgScale+') rotate('+imgRotate+'deg);margin-top:'+imgTop+'px;margin-left:'+imgLeft+'px;' + maxWH"
           @mousedown="addMove"
         />
+        <div class="iconfont hevue-img-error" v-show="imgState === 3">&#xec0d;</div>
         <div class="iconfont he-close-icon" @click="close" :style="'color:'+closeColor">&#xe764;</div>
         <div
           class="arrow arrow-left iconfont"
@@ -74,11 +78,16 @@ export default {
       type: Boolean,
       default: false,
     },
+    keyboard: {
+      type: Boolean,
+      default: false,
+    },
     nowImgIndex: {
       type: Number,
       default: 0,
     },
-    imgList: Array
+    imgList: Array,
+
   },
   data () {
     return {
@@ -92,7 +101,10 @@ export default {
       maxWH: 'max-width:100%;max-height:100%;',
       clientX: 0,
       clientY: 0,
-      imgIndex: 0
+      imgIndex: 0,
+      canRun: true,
+      imgurl: '',
+      imgState: 1
     }
   },
   mounted () {
@@ -116,19 +128,24 @@ export default {
           if (this.multiple) {
             if (Array.isArray(this.imgList) && this.imgList.length > 0) {
               this.imgIndex = Number(this.nowImgIndex) || 0
-              this.url = this.imgList[this.imgIndex]
+              // this.url = this.imgList[this.imgIndex]
+              this.changeUrl(this.imgList[this.imgIndex], this.imgIndex)
             } else {
               console.error('imgList 为空或格式不正确')
             }
           } else {
-            var ImgObj = new Image()
-            ImgObj.src = this.url
-            if (ImgObj.fileSize > 0 || (ImgObj.width > 0 && ImgObj.height > 0)) {
-              return true
-            } else {
-              console.error('传入图片地址不正确--组件hevue-img-preview')
-            }
-
+            this.changeUrl(this.url)
+            // var ImgObj = new Image()
+            // ImgObj.src = this.url
+            // if (ImgObj.fileSize > 0 || (ImgObj.width > 0 && ImgObj.height > 0)) {
+            //   return true
+            // } else {
+            //   console.error('传入图片地址不正确--组件hevue-img-preview')
+            // }
+          }
+          // 判断是否开启键盘事件
+          if (this.keyboard) {
+            document.addEventListener('keydown', this.keyHandleDebounce)
           }
         })
       }
@@ -145,6 +162,10 @@ export default {
       document.body.removeEventListener("DOMMouseScroll", this.scrollFunc)
       //恢复火狐及Safari浏览器下的图片拖拽
       document.ondragstart = null
+      // 移除键盘事件
+      if (this.keyboard) {
+        document.removeEventListener('keydown', this.keyHandleDebounce)
+      }
     },
     initImg () {
       this.imgScale = 1
@@ -152,7 +173,11 @@ export default {
       this.imgTop = 0
       this.imgLeft = 0
     },
-    // 切换图片
+    /**
+     * 切换图片
+     * true 下一张
+     * false 上一张
+     */
     toogleImg (bool) {
       if (bool) {
         this.imgIndex++
@@ -165,7 +190,30 @@ export default {
           this.imgIndex = this.imgList.length - 1
         }
       }
-      this.url = this.imgList[this.imgIndex]
+      // this.url = this.imgList[this.imgIndex]
+      this.changeUrl(this.imgList[this.imgIndex], this.imgIndex)
+    },
+    // 改变图片地址
+    changeUrl (url, index) {
+      this.imgState = 1
+      let img = new Image()
+      img.src = url
+      img.onload = () => {
+        if (index != undefined && index == this.imgIndex) {
+          this.imgState = 2
+          this.imgurl = url
+        } else if (index == undefined) {
+          this.imgState = 2
+          this.imgurl = url
+        }
+      }
+      img.onerror = () => {
+        if (index != undefined && index == this.imgIndex) {
+          this.imgState = 3
+        } else if (index == undefined) {
+          this.imgState = 3
+        }
+      }
     },
     // 旋转图片
     rotateFunc (deg) {
@@ -220,6 +268,54 @@ export default {
       this.imgTop += movementY
       this.clientX = e.clientX
       this.clientY = e.clientY
+    },
+    keyHandleDebounce (e) {
+      if (this.canRun) {
+        // 如果this.canRun为true证明当前可以执行函数
+        this.keyHandle(e)
+        this.canRun = false // 执行函数后一段时间内不可再次执行
+        setTimeout(() => {
+          this.canRun = true // 等到了我们设定的时间之后，把this.canRun改为true，可以再次执行函数
+        }, 300)
+      }
+    },
+    // 键盘事件
+    keyHandle (e) {
+      var e = window.event || e
+      var key = e.keyCode || e.which || e.charCode
+      switch (key) {
+        case 27: // esc
+          this.close()
+          break
+        case 65: // a键-上一张
+          if (this.multiple) {
+            this.toogleImg(false)
+          }
+          break
+        case 68: // d键-下一张
+          if (this.multiple) {
+            this.toogleImg(true)
+          }
+          break
+        case 87: // w键-放大
+          this.scaleFunc(0.15)
+          break
+        case 83: // s键-缩小
+          this.scaleFunc(-0.15)
+          break
+        case 81: // q键-逆时针旋转
+          this.rotateFunc(-90)
+          break
+        case 69: // e键-顺时针旋转
+          this.rotateFunc(90)
+          break
+        case 82: // r键-复位键
+          this.initImg()
+          break
+
+        default:
+          break
+      }
     }
   }
 }
@@ -238,6 +334,7 @@ export default {
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
+  z-index: 999999;
 }
 .he-img-wrap {
   width: 100%;
@@ -327,5 +424,9 @@ export default {
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
+}
+.hevue-img-error {
+  font-size: 56px;
+  color: #ccc;
 }
 </style>
