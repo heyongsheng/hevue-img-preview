@@ -83,6 +83,7 @@ this.$hevueImgPreview({
 | q | 逆时针旋转
 | e | 顺时针旋转
 | r | 图片复位
+| esc | 关闭图片预览
 
 \*如不考虑兼容性问题，上述的背景颜色均可接收渐变色
 
@@ -93,8 +94,6 @@ this.$hevueImgPreview({
 > GitHub 链接：[https://github.com/heyongsheng/hevue-img-preview](https://github.com/heyongsheng/hevue-img-preview)
 
 > 码云链接：[https://gitee.com/ihope_top/hevue-img-preview](https://gitee.com/ihope_top/hevue-img-preview)
-
-**添加请备注 GitHub**
 
 作者 QQ：1378431028
 
