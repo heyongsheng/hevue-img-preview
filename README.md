@@ -74,7 +74,7 @@ this.$hevueImgPreview({
 | keyboard          | 布尔值 true/false                        | 是否开启键盘控制               |
 
 如开启键盘控制事件后，相对应功能控制按键如下
-| 按键 | 功能  
+| 按键 | 功能
 | ----------------- | ----------------------------------------
 | w | 放大
 | s | 缩小
@@ -101,3 +101,23 @@ QQ 群：595472617
 
 作者微信：heyongsheng1996
 ![](https://user-gold-cdn.xitu.io/2020/4/27/171b950ccc0a1695?w=541&h=721&f=png&s=133763)
+
+
+> 增加部分
+>
+> 1. ts支持或者是更好的代码提示
+>
+> 2. 可以考虑不打包vue
+>
+> 3. 如果需要支持ts 需要在 `shims-vue.d.ts` 内添加如下代码
+>
+> ```javascript
+> import { HeVueImgPreviewOptions } from 'hevue-img-preview';
+> declare module 'vue/types/vue' {
+>    interface Vue {
+>        $hevueImgPreview(url?: string): void;
+>        $hevueImgPreview(options?: HeVueImgPreviewOptions): void;
+>    }
+> }
+>
+> ```
