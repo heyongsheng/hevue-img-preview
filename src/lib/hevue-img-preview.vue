@@ -1,9 +1,5 @@
-/*
- * @Author: heyongsheng 
- * @Date: 2020-04-22 15:40:32 
- * @Last Modified by: heyongsheng
- * @Last Modified time: 2020-07-08 23:19:22
- */
+/* * @Author: heyongsheng * @Date: 2020-04-22 15:40:32 * @Last Modified by:
+heyongsheng * @Last Modified time: 2020-07-08 23:19:22 */
 <template>
   <transition name="fade">
     <div
@@ -11,7 +7,8 @@
       id="hevue-wrap"
       v-if="show"
       ref="heImg"
-      @mouseup="removeMove"
+      @mouseup="removeMove('pc')"
+      @touchend="removeMove('mobile')"
       :style="'background:' + mainBackground"
     >
       <div class="he-img-wrap">
@@ -22,39 +19,85 @@
           ref="heImView"
           v-show="imgState === 2"
           class="he-img-view"
-          :style="'transform: scale('+imgScale+') rotate('+imgRotate+'deg);margin-top:'+imgTop+'px;margin-left:'+imgLeft+'px;' + maxWH"
+          :style="
+            'transform: scale(' +
+              imgScale +
+              ') rotate(' +
+              imgRotate +
+              'deg);margin-top:' +
+              imgTop +
+              'px;margin-left:' +
+              imgLeft +
+              'px;' +
+              maxWH
+          "
           @mousedown="addMove"
+          @touchstart="addMoveMobile"
         />
-        <div class="iconfont hevue-img-error" v-show="imgState === 3">&#xec0d;</div>
-        <div class="iconfont he-close-icon" @click="close" :style="'color:'+closeColor">&#xe764;</div>
+        <div class="iconfont hevue-img-error" v-show="imgState === 3">
+          &#xec0d;
+        </div>
+        <div
+          class="iconfont he-close-icon"
+          @click="close"
+          :style="'color:' + closeColor"
+        >
+          &#xe764;
+        </div>
         <div
           class="arrow arrow-left iconfont"
           @click="toogleImg(false)"
           v-if="multiple"
-          :style="'color:' + controlColor + ';background: '+controlBackground"
-        >&#xe620;</div>
+          :style="'color:' + controlColor + ';background: ' + controlBackground"
+        >
+          &#xe620;
+        </div>
         <div
           class="arrow arrow-right iconfont"
           @click="toogleImg(true)"
           v-if="multiple"
-          :style="'color:' + controlColor + ';background: '+controlBackground"
-        >&#xe60d;</div>
+          :style="'color:' + controlColor + ';background: ' + controlBackground"
+        >
+          &#xe60d;
+        </div>
         <div
           class="he-control-bar"
-          :style="'color:' + controlColor + ';background: '+controlBackground"
+          :style="'color:' + controlColor + ';background: ' + controlBackground"
         >
-          <div class="he-control-btn iconfont" @click="scaleFunc(-0.15)">&#xe65e;</div>
-          <div class="he-control-btn iconfont" @click="scaleFunc(0.15)">&#xe65d;</div>
-          <div class="he-control-btn iconfont" v-show="isFull" @click="imgToggle">&#xe698;</div>
-          <div class="he-control-btn iconfont" v-show="!isFull" @click="imgToggle">&#xe86b;</div>
-          <div class="he-control-btn iconfont" @click="rotateFunc(-90)">&#xe670;</div>
-          <div class="he-control-btn iconfont" @click="rotateFunc(90)">&#xe66f;</div>
+          <div class="he-control-btn iconfont" @click="scaleFunc(-0.15)">
+            &#xe65e;
+          </div>
+          <div class="he-control-btn iconfont" @click="scaleFunc(0.15)">
+            &#xe65d;
+          </div>
+          <div
+            class="he-control-btn iconfont"
+            v-show="isFull"
+            @click="imgToggle"
+          >
+            &#xe698;
+          </div>
+          <div
+            class="he-control-btn iconfont"
+            v-show="!isFull"
+            @click="imgToggle"
+          >
+            &#xe86b;
+          </div>
+          <div class="he-control-btn iconfont" @click="rotateFunc(-90)">
+            &#xe670;
+          </div>
+          <div class="he-control-btn iconfont" @click="rotateFunc(90)">
+            &#xe66f;
+          </div>
         </div>
         <div
           class="he-control-num"
           v-if="multiple"
-          :style="'color:' + controlColor + ';background: '+controlBackground"
-        >{{imgIndex + 1}} / {{imgList.length}}</div>
+          :style="'color:' + controlColor + ';background: ' + controlBackground"
+        >
+          {{ imgIndex + 1 }} / {{ imgList.length }}
+        </div>
       </div>
     </div>
   </transition>
@@ -62,7 +105,7 @@
 
 <script>
 export default {
-  name: 'hevue-img-preview',
+  name: "hevue-img-preview",
   props: {
     show: {
       type: Boolean,
@@ -76,20 +119,19 @@ export default {
     instance: Object,
     multiple: {
       type: Boolean,
-      default: false,
+      default: false
     },
     keyboard: {
       type: Boolean,
-      default: false,
+      default: false
     },
     nowImgIndex: {
       type: Number,
-      default: 0,
+      default: 0
     },
-    imgList: Array,
-
+    imgList: Array
   },
-  data () {
+  data() {
     return {
       // imgWidth: 0,
       // imgHeight: 0,
@@ -98,43 +140,73 @@ export default {
       imgLeft: 0,
       imgRotate: 0,
       isFull: false,
-      maxWH: 'max-width:100%;max-height:100%;',
+      maxWH: "max-width:100%;max-height:100%;",
       clientX: 0,
       clientY: 0,
       imgIndex: 0,
       canRun: true,
-      imgurl: '',
-      imgState: 1
-    }
+      imgurl: "",
+      imgState: 1,
+      start: [
+        {
+          clientX: 217,
+          clientY: 279,
+          force: 1,
+          identifier: 0,
+          pageX: 217,
+          pageY: 279,
+          radiusX: 11.5,
+          radiusY: 11.5,
+          rotationAngle: 0,
+          screenX: 493,
+          screenY: 456
+        },
+        {
+          clientX: 247,
+          clientY: 273,
+          force: 1,
+          identifier: 0,
+          pageX: 247,
+          pageY: 273,
+          radiusX: 11.5,
+          radiusY: 11.5,
+          rotationAngle: 0,
+          screenX: 523,
+          screenY: 450
+        }
+      ],
+      mobileScale: 0
+    };
   },
-  mounted () {
-    this.initImg()
-
+  mounted() {
+    this.initImg();
   },
   watch: {
-    url () {
-      this.initImg()
+    url() {
+      this.initImg();
     },
-    show (newV) {
+    show(newV) {
       if (newV) {
         this.$nextTick(_ => {
-          let _dom = document.getElementById('hevue-wrap')
-          _dom.onmousewheel = this.scrollFunc
-          // 火狐浏览器没有onmousewheel事件，用DOMMouseScroll代替
-          document.body.addEventListener("DOMMouseScroll", this.scrollFunc)
+          let _dom = document.getElementById("hevue-wrap");
+          _dom.onmousewheel = this.scrollFunc;
+          // 火狐浏览器没有onmousewheel事件，用DOMMouseScroll代替(滚轮事件)
+          document.body.addEventListener("DOMMouseScroll", this.scrollFunc);
           // 禁止火狐浏览器下拖拽图片的默认事件
-          document.ondragstart = function () { return false }
+          document.ondragstart = function() {
+            return false;
+          };
           // 判断是否多选
           if (this.multiple) {
             if (Array.isArray(this.imgList) && this.imgList.length > 0) {
-              this.imgIndex = Number(this.nowImgIndex) || 0
+              this.imgIndex = Number(this.nowImgIndex) || 0;
               // this.url = this.imgList[this.imgIndex]
-              this.changeUrl(this.imgList[this.imgIndex], this.imgIndex)
+              this.changeUrl(this.imgList[this.imgIndex], this.imgIndex);
             } else {
-              console.error('imgList 为空或格式不正确')
+              console.error("imgList 为空或格式不正确");
             }
           } else {
-            this.changeUrl(this.url)
+            this.changeUrl(this.url);
             // var ImgObj = new Image()
             // ImgObj.src = this.url
             // if (ImgObj.fileSize > 0 || (ImgObj.width > 0 && ImgObj.height > 0)) {
@@ -145,184 +217,240 @@ export default {
           }
           // 判断是否开启键盘事件
           if (this.keyboard) {
-            document.addEventListener('keydown', this.keyHandleDebounce)
+            document.addEventListener("keydown", this.keyHandleDebounce);
           }
-        })
+        });
       }
     }
   },
   methods: {
-    close () {
+    close() {
       // this.$closehevueImgPreview()
-      this.instance.show = false
-      this.initImg()
-      this.maxWH = 'max-width:100%;max-height:100%;'
-      this.isFull = false
+      this.instance.show = false;
+      this.initImg();
+      this.maxWH = "max-width:100%;max-height:100%;";
+      this.isFull = false;
       // 移除火狐浏览器下的鼠标滚动事件
-      document.body.removeEventListener("DOMMouseScroll", this.scrollFunc)
+      document.body.removeEventListener("DOMMouseScroll", this.scrollFunc);
       //恢复火狐及Safari浏览器下的图片拖拽
-      document.ondragstart = null
+      document.ondragstart = null;
       // 移除键盘事件
       if (this.keyboard) {
-        document.removeEventListener('keydown', this.keyHandleDebounce)
+        document.removeEventListener("keydown", this.keyHandleDebounce);
       }
     },
-    initImg () {
-      this.imgScale = 1
-      this.imgRotate = 0
-      this.imgTop = 0
-      this.imgLeft = 0
+    initImg() {
+      this.imgScale = 1;
+      this.imgRotate = 0;
+      this.imgTop = 0;
+      this.imgLeft = 0;
     },
     /**
      * 切换图片
      * true 下一张
      * false 上一张
      */
-    toogleImg (bool) {
+    toogleImg(bool) {
       if (bool) {
-        this.imgIndex++
+        this.imgIndex++;
         if (this.imgIndex > this.imgList.length - 1) {
-          this.imgIndex = 0
+          this.imgIndex = 0;
         }
       } else {
-        this.imgIndex--
+        this.imgIndex--;
         if (this.imgIndex < 0) {
-          this.imgIndex = this.imgList.length - 1
+          this.imgIndex = this.imgList.length - 1;
         }
       }
       // this.url = this.imgList[this.imgIndex]
-      this.changeUrl(this.imgList[this.imgIndex], this.imgIndex)
+      this.changeUrl(this.imgList[this.imgIndex], this.imgIndex);
     },
     // 改变图片地址
-    changeUrl (url, index) {
-      this.imgState = 1
-      let img = new Image()
-      img.src = url
+    changeUrl(url, index) {
+      this.imgState = 1;
+      let img = new Image();
+      img.src = url;
       img.onload = () => {
         if (index != undefined && index == this.imgIndex) {
-          this.imgState = 2
-          this.imgurl = url
+          this.imgState = 2;
+          this.imgurl = url;
         } else if (index == undefined) {
-          this.imgState = 2
-          this.imgurl = url
+          this.imgState = 2;
+          this.imgurl = url;
         }
-      }
+      };
       img.onerror = () => {
         if (index != undefined && index == this.imgIndex) {
-          this.imgState = 3
+          this.imgState = 3;
         } else if (index == undefined) {
-          this.imgState = 3
+          this.imgState = 3;
         }
-      }
+      };
     },
     // 旋转图片
-    rotateFunc (deg) {
-      this.imgRotate += deg
+    rotateFunc(deg) {
+      this.imgRotate += deg;
     },
     // 图片缩放
-    scaleFunc (num) {
-      if (this.imgScale <= .2 && num < 0) return
-      this.imgScale += num
+    scaleFunc(num, bool) {
+      if (this.imgScale <= 0.2 && num < 0) return;
+      if (bool) {
+        this.imgScale = num;
+      } else {
+        this.imgScale += num;
+      }
     },
     // 图片原尺寸切换
-    imgToggle () {
-      this.initImg()
+    imgToggle() {
+      this.initImg();
       if (this.isFull) {
-        this.maxWH = 'max-width:100%;max-height:100%;'
+        this.maxWH = "max-width:100%;max-height:100%;";
       } else {
-        this.maxWH = ''
+        this.maxWH = "";
       }
-      this.isFull = !this.isFull
+      this.isFull = !this.isFull;
     },
-    scrollFunc (e) {
-
-      e = e || window.event
+    // 鼠标滚轮缩放
+    scrollFunc(e) {
+      e = e || window.event;
       // e.returnValue = false // ie
       // 火狐下没有wheelDelta，用detail代替，由于detail值的正负和wheelDelta相反，所以取反
-      e.delta = e.wheelDelta || -e.detail
+      e.delta = e.wheelDelta || -e.detail;
 
-      e.preventDefault()
-      if (e.delta > 0) { //当滑轮向上滚动时
-        this.scaleFunc(0.015)
+      e.preventDefault();
+      if (e.delta > 0) {
+        //当滑轮向上滚动时
+        this.scaleFunc(0.015);
       }
-      if (e.delta < 0) { //当滑轮向下滚动时
-        this.scaleFunc(-0.015)
+      if (e.delta < 0) {
+        //当滑轮向下滚动时
+        this.scaleFunc(-0.015);
       }
     },
-    addMove (e) {
-      e = e || window.event
-      this.clientX = e.clientX
-      this.clientY = e.clientY
-      this.$refs.heImg.onmousemove = this.moveFunc
+    // 鼠标按下
+    addMove(e) {
+      e = e || window.event;
+      this.clientX = e.clientX;
+      this.clientY = e.clientY;
+      this.$refs.heImg.onmousemove = this.moveFunc;
     },
-    removeMove () {
-      this.$refs.heImg.onmousemove = null
+    // 手指按下事件
+    addMoveMobile(e) {
+      e.preventDefault();
+      e = e || window.event;
+      if (e.touches.length > 1) {
+        this.start = e.touches;
+      } else {
+        this.clientX = e.touches[0].pageX;
+        this.clientY = e.touches[0].pageY;
+      }
+      // 添加手指拖动事件
+      this.$refs.heImg.ontouchmove = this.moveFuncMobile;
     },
-    moveFunc (e) {
-      e = e || window.event
-      e.preventDefault()
-      let movementX = e.clientX - this.clientX
-      let movementY = e.clientY - this.clientY
-      event.clientY
-      this.imgLeft += movementX
-      this.imgTop += movementY
-      this.clientX = e.clientX
-      this.clientY = e.clientY
+    // 鼠标拖动
+    moveFunc(e) {
+      e = e || window.event;
+      e.preventDefault();
+      let movementX = e.clientX - this.clientX;
+      let movementY = e.clientY - this.clientY;
+      event.clientY;
+      this.imgLeft += movementX;
+      this.imgTop += movementY;
+      this.clientX = e.clientX;
+      this.clientY = e.clientY;
     },
-    keyHandleDebounce (e) {
+    // 手指拖动
+    moveFuncMobile(e) {
+      e = e || window.event;
+      console.log(e);
+      if (e.touches.length > 1) {
+        var now = e.touches;
+        var scale =
+          this.getDistance(now[0], now[1]) /
+          this.getDistance(this.start[0], this.start[1]);
+        // this.mobileScale = scale;
+        this.scaleFunc(scale + this.mobileScale, true);
+      } else {
+        let touch = e.touches[0];
+        e.preventDefault();
+        let movementX = touch.pageX - this.clientX;
+        let movementY = touch.pageY - this.clientY;
+        event.clientY;
+        this.imgLeft += movementX;
+        this.imgTop += movementY;
+        this.clientX = touch.pageX;
+        this.clientY = touch.pageY;
+      }
+    },
+    // 移除拖动事件
+    removeMove(type) {
+      if (type === "pc") {
+        this.$refs.heImg.onmousemove = null;
+      } else {
+        this.mobileScale = this.imgScale;
+        this.$refs.heImg.ontouchmove = null;
+      }
+    },
+    keyHandleDebounce(e) {
       if (this.canRun) {
         // 如果this.canRun为true证明当前可以执行函数
-        this.keyHandle(e)
-        this.canRun = false // 执行函数后一段时间内不可再次执行
+        this.keyHandle(e);
+        this.canRun = false; // 执行函数后一段时间内不可再次执行
         setTimeout(() => {
-          this.canRun = true // 等到了我们设定的时间之后，把this.canRun改为true，可以再次执行函数
-        }, 300)
+          this.canRun = true; // 等到了我们设定的时间之后，把this.canRun改为true，可以再次执行函数
+        }, 300);
       }
     },
     // 键盘事件
-    keyHandle (e) {
-      var e = window.event || e
-      var key = e.keyCode || e.which || e.charCode
+    keyHandle(e) {
+      var e = window.event || e;
+      var key = e.keyCode || e.which || e.charCode;
       switch (key) {
         case 27: // esc
-          this.close()
-          break
+          this.close();
+          break;
         case 65: // a键-上一张
           if (this.multiple) {
-            this.toogleImg(false)
+            this.toogleImg(false);
           }
-          break
+          break;
         case 68: // d键-下一张
           if (this.multiple) {
-            this.toogleImg(true)
+            this.toogleImg(true);
           }
-          break
+          break;
         case 87: // w键-放大
-          this.scaleFunc(0.15)
-          break
+          this.scaleFunc(0.15);
+          break;
         case 83: // s键-缩小
-          this.scaleFunc(-0.15)
-          break
+          this.scaleFunc(-0.15);
+          break;
         case 81: // q键-逆时针旋转
-          this.rotateFunc(-90)
-          break
+          this.rotateFunc(-90);
+          break;
         case 69: // e键-顺时针旋转
-          this.rotateFunc(90)
-          break
+          this.rotateFunc(90);
+          break;
         case 82: // r键-复位键
-          this.initImg()
-          break
+          this.initImg();
+          break;
 
         default:
-          break
+          break;
       }
+    },
+    //缩放 勾股定理方法-求两点之间的距离
+    getDistance(p1, p2) {
+      var x = p2.pageX - p1.pageX,
+        y = p2.pageY - p1.pageY;
+      return Math.sqrt(x * x + y * y);
     }
   }
-}
+};
 </script>
 
 <style scoped>
-@import './iconfont/iconfont.css';
+@import "./iconfont/iconfont.css";
 /* @import '//at.alicdn.com/t/font_1776686_mw0jz39v97.css'; */
 .hevue-wrap {
   position: fixed;
@@ -345,7 +473,7 @@ export default {
   color: #fff;
 }
 .he-img-view {
-  transition: transform 0.3s;
+  /* transition: transform 0.3s; */
 }
 .he-close-icon {
   position: absolute;
