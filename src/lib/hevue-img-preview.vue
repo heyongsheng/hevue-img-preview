@@ -9,14 +9,18 @@ heyongsheng * @Last Modified time: 2020-07-08 23:19:22 */
       ref="heImg"
       @mouseup="removeMove('pc')"
       @touchend="removeMove('mobile')"
+      @click="clickMask"
       :style="'background:' + mainBackground"
     >
+      <!-- 用于临时在手机端展示一些调试信息 -->
+      <!-- <div>{{ logText }}</div> -->
       <div class="he-img-wrap">
         <img src="./loading.gif" v-show="imgState === 1" />
         <!-- <div class="iconfont loading">&#xe6b1;</div> -->
         <img
           :src="imgurl"
           ref="heImView"
+          @click.stop=""
           v-show="imgState === 2"
           class="he-img-view"
           :style="
@@ -39,14 +43,14 @@ heyongsheng * @Last Modified time: 2020-07-08 23:19:22 */
         </div>
         <div
           class="iconfont he-close-icon"
-          @click="close"
+          @click.stop="close"
           :style="'color:' + closeColor"
         >
           &#xe764;
         </div>
         <div
           class="arrow arrow-left iconfont"
-          @click="toogleImg(false)"
+          @click.stop="toogleImg(false)"
           v-if="multiple"
           :style="'color:' + controlColor + ';background: ' + controlBackground"
         >
@@ -54,7 +58,7 @@ heyongsheng * @Last Modified time: 2020-07-08 23:19:22 */
         </div>
         <div
           class="arrow arrow-right iconfont"
-          @click="toogleImg(true)"
+          @click.stop="toogleImg(true)"
           v-if="multiple"
           :style="'color:' + controlColor + ';background: ' + controlBackground"
         >
@@ -62,32 +66,33 @@ heyongsheng * @Last Modified time: 2020-07-08 23:19:22 */
         </div>
         <div
           class="he-control-bar"
+          @click.stop
           :style="'color:' + controlColor + ';background: ' + controlBackground"
         >
-          <div class="he-control-btn iconfont" @click="scaleFunc(-0.15)">
+          <div class="he-control-btn iconfont" @click.stop="scaleFunc(-0.15)">
             &#xe65e;
           </div>
-          <div class="he-control-btn iconfont" @click="scaleFunc(0.15)">
+          <div class="he-control-btn iconfont" @click.stop="scaleFunc(0.15)">
             &#xe65d;
           </div>
           <div
             class="he-control-btn iconfont"
             v-show="isFull"
-            @click="imgToggle"
+            @click.stop="imgToggle"
           >
             &#xe698;
           </div>
           <div
             class="he-control-btn iconfont"
             v-show="!isFull"
-            @click="imgToggle"
+            @click.stop="imgToggle"
           >
             &#xe86b;
           </div>
-          <div class="he-control-btn iconfont" @click="rotateFunc(-90)">
+          <div class="he-control-btn iconfont" @click.stop="rotateFunc(-90)">
             &#xe670;
           </div>
-          <div class="he-control-btn iconfont" @click="rotateFunc(90)">
+          <div class="he-control-btn iconfont" @click.stop="rotateFunc(90)">
             &#xe66f;
           </div>
         </div>
@@ -111,6 +116,7 @@ export default {
       type: Boolean,
       default: false
     },
+    clickMaskCLose: String,
     url: String,
     mainBackground: String, // 整体背景颜色
     controlColor: String, // 控制条字体颜色
@@ -147,6 +153,7 @@ export default {
       canRun: true,
       imgurl: "",
       imgState: 1,
+      logText: "",
       start: [
         {
           clientX: 217,
@@ -175,7 +182,7 @@ export default {
           screenY: 450
         }
       ],
-      mobileScale: 0
+      mobileScale: 0 // 手指离开时图片的缩放比例
     };
   },
   mounted() {
@@ -240,6 +247,7 @@ export default {
       }
     },
     initImg() {
+      this.mobileScale = 1;
       this.imgScale = 1;
       this.imgRotate = 0;
       this.imgTop = 0;
@@ -320,11 +328,11 @@ export default {
       e.preventDefault();
       if (e.delta > 0) {
         //当滑轮向上滚动时
-        this.scaleFunc(0.015);
+        this.scaleFunc(0.05);
       }
       if (e.delta < 0) {
         //当滑轮向下滚动时
-        this.scaleFunc(-0.015);
+        this.scaleFunc(-0.05);
       }
     },
     // 鼠标按下
@@ -362,14 +370,26 @@ export default {
     // 手指拖动
     moveFuncMobile(e) {
       e = e || window.event;
-      console.log(e);
+      // console.log(e);
       if (e.touches.length > 1) {
         var now = e.touches;
         var scale =
           this.getDistance(now[0], now[1]) /
           this.getDistance(this.start[0], this.start[1]);
         // this.mobileScale = scale;
-        this.scaleFunc(scale + this.mobileScale, true);
+        this.logText = `${scale},${this.mobileScale}`;
+        // 判断是否手指缩放过，如果缩放过，要在上次缩放的比例基础上进行缩放
+        if (this.mobileScale) {
+          if (scale > 1) {
+            // 放大
+            this.scaleFunc(scale + this.mobileScale - 1, true);
+          } else {
+            // 缩小
+            this.scaleFunc(scale * this.mobileScale, true);
+          }
+        } else {
+          this.scaleFunc(scale, true);
+        }
       } else {
         let touch = e.touches[0];
         e.preventDefault();
@@ -437,6 +457,13 @@ export default {
 
         default:
           break;
+      }
+    },
+    // 点击遮罩层
+    clickMask() {
+      // console.log("hello");
+      if (this.clickMaskCLose === "open") {
+        this.close();
       }
     },
     //缩放 勾股定理方法-求两点之间的距离
@@ -513,13 +540,16 @@ export default {
   transform: rotate(90deg);
 }
 .he-control-bar {
-  width: 233px;
+  width: 80%;
+  max-width: 233px;
   height: 44px;
   bottom: 10%;
-  left: 50%;
+  /* left: 50%; */
   padding: 0 22px;
-  margin-left: -139px;
+  /* margin-left: -139px; */
   position: absolute;
+  display: flex;
+  justify-content: space-between;
   border-radius: 22px;
   /* display: flex;
   justify-content: space-between; */
@@ -539,7 +569,7 @@ export default {
   font-size: 24px;
   cursor: pointer;
   padding: 0 9px;
-  display: inline-block;
+  /* display: inline-block; */
   transition: all 0.2s;
 }
 .he-control-btn:hover {
