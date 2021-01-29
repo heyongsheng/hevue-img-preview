@@ -3,7 +3,10 @@ var webpack = require("webpack");
 
 module.exports = {
   // entry: './src/main.js', // 本地运行用这个
-  entry: "./src/lib/index.js", // 线上打包用这个
+  entry:
+    process.env.NODE_ENV === "production"
+      ? "./src/lib/index.js"
+      : "./src/main.js", // 线上打包用这个
   output: {
     path: path.resolve(__dirname, "./dist"),
     publicPath: "/dist/",
