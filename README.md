@@ -36,14 +36,14 @@ methods: {
 
 - 接收一个地址字符串`this.$hevueImgPreview(url)`
 
-```
+```Javascript
 this.$hevueImgPreview('https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg') // 线上地址
 this.$hevueImgPreview('./img/logo.jpeg') // 本地地址
 ```
 
 - 接收一个对象`this.$hevueImgPreview(options)`
 
-```
+```Javascript
 # 单图预览
 this.$hevueImgPreview({
     url: 'https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg',
@@ -90,7 +90,7 @@ this.$hevueImgPreview({
 
 ## 作者注
 
-> 本人前端小白一枚，工作经验较少，所写东西尽量保证没 bug，但性能界面什么的可能没办法做到最优，如果您有什么使用中的建议或意见，欢迎反馈给我，可以加联系方式，也可以直接回复，或者到`GitHub`提个`issur`[建议此方法]，如果对您有所帮助，万分期待您能给个赞并且到`GitHub`给个小星星，您的支持是我前进的最大动力
+> 本人前端小白一枚，工作经验较少，所写东西尽量保证没 bug，但性能界面什么的可能没办法做到最优，如果您有什么使用中的建议或意见，欢迎反馈给我，可以加联系方式，也可以直接回复，或者到`GitHub`提个`issur`[建议此方法]，如果对您有所帮助，万分期待您能给个赞并且到`GitHub`给个小星星
 
 > GitHub 链接：[https://github.com/heyongsheng/hevue-img-preview](https://github.com/heyongsheng/hevue-img-preview)
 
