@@ -72,12 +72,15 @@ heyongsheng * @Last Modified time: 2020-07-08 23:19:22 */
               'color:' + controlColor + ';background: ' + controlBackground
             "
           >
+            <!-- 缩小 -->
             <div class="he-control-btn iconfont" @click.stop="scaleFunc(-0.15)">
               &#xe65e;
             </div>
+            <!-- 放大 -->
             <div class="he-control-btn iconfont" @click.stop="scaleFunc(0.15)">
               &#xe65d;
             </div>
+            <!-- 复位 -->
             <div
               class="he-control-btn iconfont"
               v-show="isFull"
@@ -85,6 +88,7 @@ heyongsheng * @Last Modified time: 2020-07-08 23:19:22 */
             >
               &#xe698;
             </div>
+            <!-- 复位 -->
             <div
               class="he-control-btn iconfont"
               v-show="!isFull"
@@ -92,9 +96,11 @@ heyongsheng * @Last Modified time: 2020-07-08 23:19:22 */
             >
               &#xe86b;
             </div>
+            <!-- 左转 -->
             <div class="he-control-btn iconfont" @click.stop="rotateFunc(-90)">
               &#xe670;
             </div>
+            <!-- 右转 -->
             <div class="he-control-btn iconfont" @click.stop="rotateFunc(90)">
               &#xe66f;
             </div>
@@ -400,7 +406,7 @@ export default {
         e.preventDefault();
         let movementX = touch.pageX - this.clientX;
         let movementY = touch.pageY - this.clientY;
-        event.clientY;
+        // event.clientY;
         this.imgLeft += movementX;
         this.imgTop += movementY;
         this.clientX = touch.pageX;
