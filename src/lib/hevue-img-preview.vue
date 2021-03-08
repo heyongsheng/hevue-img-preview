@@ -361,9 +361,9 @@ export default {
       e.preventDefault();
       let movementX = e.clientX - this.clientX;
       let movementY = e.clientY - this.clientY;
-      event.clientY;
-      this.imgLeft += movementX;
-      this.imgTop += movementY;
+      // event.clientY;
+      this.imgLeft += movementX * 2;
+      this.imgTop += movementY * 2;
       this.clientX = e.clientX;
       this.clientY = e.clientY;
     },
