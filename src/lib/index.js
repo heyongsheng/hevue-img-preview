@@ -40,7 +40,7 @@ const Toast = (options = {}) => {
   instance.clickMaskCLose = options.clickMaskCLose || "open";
   instance.nowImgIndex = options.nowImgIndex;
   instance.imgList = options.imgList;
-  instance.keyboard = options.keyboard;
+  instance.keyboard = options.keyboard || "open";
   instance.show = true;
   instance.instance = instance;
 
