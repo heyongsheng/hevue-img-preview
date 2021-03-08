@@ -407,8 +407,8 @@ export default {
         let movementX = touch.pageX - this.clientX;
         let movementY = touch.pageY - this.clientY;
         // event.clientY;
-        this.imgLeft += movementX;
-        this.imgTop += movementY;
+        this.imgLeft += movementX * 2;
+        this.imgTop += movementY * 2;
         this.clientX = touch.pageX;
         this.clientY = touch.pageY;
       }
