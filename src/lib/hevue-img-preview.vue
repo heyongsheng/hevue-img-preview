@@ -64,38 +64,43 @@ heyongsheng * @Last Modified time: 2020-07-08 23:19:22 */
         >
           &#xe60d;
         </div>
-        <div
-          class="he-control-bar"
-          @click.stop
-          :style="'color:' + controlColor + ';background: ' + controlBackground"
-        >
-          <div class="he-control-btn iconfont" @click.stop="scaleFunc(-0.15)">
-            &#xe65e;
-          </div>
-          <div class="he-control-btn iconfont" @click.stop="scaleFunc(0.15)">
-            &#xe65d;
-          </div>
+        <div class="he-control-bar-wrap">
           <div
-            class="he-control-btn iconfont"
-            v-show="isFull"
-            @click.stop="imgToggle"
+            class="he-control-bar"
+            @click.stop
+            :style="
+              'color:' + controlColor + ';background: ' + controlBackground
+            "
           >
-            &#xe698;
-          </div>
-          <div
-            class="he-control-btn iconfont"
-            v-show="!isFull"
-            @click.stop="imgToggle"
-          >
-            &#xe86b;
-          </div>
-          <div class="he-control-btn iconfont" @click.stop="rotateFunc(-90)">
-            &#xe670;
-          </div>
-          <div class="he-control-btn iconfont" @click.stop="rotateFunc(90)">
-            &#xe66f;
+            <div class="he-control-btn iconfont" @click.stop="scaleFunc(-0.15)">
+              &#xe65e;
+            </div>
+            <div class="he-control-btn iconfont" @click.stop="scaleFunc(0.15)">
+              &#xe65d;
+            </div>
+            <div
+              class="he-control-btn iconfont"
+              v-show="isFull"
+              @click.stop="imgToggle"
+            >
+              &#xe698;
+            </div>
+            <div
+              class="he-control-btn iconfont"
+              v-show="!isFull"
+              @click.stop="imgToggle"
+            >
+              &#xe86b;
+            </div>
+            <div class="he-control-btn iconfont" @click.stop="rotateFunc(-90)">
+              &#xe670;
+            </div>
+            <div class="he-control-btn iconfont" @click.stop="rotateFunc(90)">
+              &#xe66f;
+            </div>
           </div>
         </div>
+
         <div
           class="he-control-num"
           v-if="multiple"
@@ -494,7 +499,10 @@ export default {
 .he-img-wrap {
   width: 100%;
   height: 100%;
+  text-align: center;
+  vertical-align: middle;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   color: #fff;
@@ -539,18 +547,25 @@ export default {
 .he-close-icon:hover {
   transform: rotate(90deg);
 }
+.he-control-bar-wrap {
+  display: flex;
+  position: absolute;
+  width: 100%;
+  bottom: 10%;
+  left: 0;
+}
 .he-control-bar {
-  width: 80%;
-  max-width: 233px;
   height: 44px;
   bottom: 10%;
-  /* left: 50%; */
   padding: 0 22px;
-  /* margin-left: -139px; */
-  position: absolute;
+  /* position: absolute; */
+  /* left: 50%; */
+  /* display: flex;
+  justify-content: space-between; */
   display: flex;
-  justify-content: space-between;
   border-radius: 22px;
+  margin: 0 auto;
+
   /* display: flex;
   justify-content: space-between; */
 }
