@@ -133,8 +133,8 @@ export default {
       default: false
     },
     keyboard: {
-      type: Boolean,
-      default: false
+      type: String,
+      default: "open"
     },
     nowImgIndex: {
       type: Number,
@@ -228,7 +228,7 @@ export default {
             // }
           }
           // 判断是否开启键盘事件
-          if (this.keyboard) {
+          if (this.keyboard === "open") {
             document.addEventListener("keydown", this.keyHandleDebounce);
           }
         });

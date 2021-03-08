@@ -71,7 +71,7 @@ this.$hevueImgPreview({
 | multiple          | 布尔值 true/false                        | 是否多图预览                   |
 | nowImgIndex       | Number 格式，如默认展示第二张，传入 1    | 多图预览时默认显示的图片下标   |
 | imgList           | Array 格式 [url1, url2, url3]            | 多图预览时传入的数组           |
-| keyboard          | 布尔值 true/false                        | 是否开启键盘控制               |
+| keyboard          | 字符串 open/close                        | 是否开启键盘控制               |
 | clickMaskCLose    | 字符串 open/close                        | 是否可以点击遮罩层关闭         |
 
 如开启键盘控制事件后，相对应功能控制按键如下
