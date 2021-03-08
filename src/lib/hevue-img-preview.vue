@@ -1,5 +1,36 @@
-/* * @Author: heyongsheng * @Date: 2020-04-22 15:40:32 * @Last Modified by:
-heyongsheng * @Last Modified time: 2020-07-08 23:19:22 */
+<!--
+ *                                                     __----~~~~~~~~~~~------___
+ *                                    .  .   ~~//====......          __--~ ~~
+ *                    -.            \_|//     |||\\  ~~~~~~::::... /~
+ *                 ___-==_       _-~o~  \/    |||  \\            _/~~-
+ *         __---~~~.==~||\=_    -_--~/_-~|-   |\\   \\        _/~
+ *     _-~~     .=~    |  \\-_    '-~7  /-   /  ||    \      /
+ *   .~       .~       |   \\ -_    /  /-   /   ||      \   /
+ *  /  ____  /         |     \\ ~-_/  /|- _/   .||       \ /
+ *  |~~    ~~|--~~~~--_ \     ~==-/   | \~--===~~        .\
+ *           '         ~-|      /|    |-~\~~       __--~~
+ *                       |-~~-_/ |    |   ~\_   _-~            /\
+ *                            /  \     \__   \/~                \__
+ *                        _--~ _/ | .-~~____--~-/                  ~~==.
+ *                       ((->/~   '.|||' -_|    ~~-/ ,              . _||
+ *                                  -_     ~\      ~~---l__i__i__i--~~_/
+ *                                  _-~-__   ~)  \--______________--~~
+ *                                //.-~~~-~_--~- |-------~~~~~~~~
+ *                                       //.-~~~--\
+ *                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * 
+ *                               神兽保佑            永无BUG
+ -->
+
+<!--
+ * @Author: your name
+ * @Date: 2021-03-08 21:11:32
+ * @LastEditTime: 2021-03-08 22:37:42
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /hevue-img-preview/src/lib/hevue-img-preview.vue
+-->
+
 <template>
   <transition name="fade">
     <div
@@ -9,7 +40,7 @@ heyongsheng * @Last Modified time: 2020-07-08 23:19:22 */
       ref="heImg"
       @mouseup="removeMove('pc')"
       @touchend="removeMove('mobile')"
-      @click="clickMask"
+      @click.self="clickMask"
       :style="'background:' + mainBackground"
     >
       <!-- 用于临时在手机端展示一些调试信息 -->
@@ -25,15 +56,15 @@ heyongsheng * @Last Modified time: 2020-07-08 23:19:22 */
           class="he-img-view"
           :style="
             'transform: scale(' +
-              imgScale +
-              ') rotate(' +
-              imgRotate +
-              'deg);margin-top:' +
-              imgTop +
-              'px;margin-left:' +
-              imgLeft +
-              'px;' +
-              maxWH
+            imgScale +
+            ') rotate(' +
+            imgRotate +
+            'deg);margin-top:' +
+            imgTop +
+            'px;margin-left:' +
+            imgLeft +
+            'px;' +
+            maxWH
           "
           @mousedown="addMove"
           @touchstart="addMoveMobile"
@@ -48,6 +79,7 @@ heyongsheng * @Last Modified time: 2020-07-08 23:19:22 */
         >
           &#xe764;
         </div>
+        <!-- 左箭头 -->
         <div
           class="arrow arrow-left iconfont"
           @click.stop="toogleImg(false)"
@@ -56,6 +88,7 @@ heyongsheng * @Last Modified time: 2020-07-08 23:19:22 */
         >
           &#xe620;
         </div>
+        <!-- 右箭头 -->
         <div
           class="arrow arrow-right iconfont"
           @click.stop="toogleImg(true)"
@@ -104,6 +137,10 @@ heyongsheng * @Last Modified time: 2020-07-08 23:19:22 */
             <div class="he-control-btn iconfont" @click.stop="rotateFunc(90)">
               &#xe66f;
             </div>
+            <!-- 下载 -->
+            <div class="he-control-btn iconfont" @click.stop="downloadIamge">
+              &#xe694;
+            </div>
           </div>
         </div>
 
@@ -125,7 +162,7 @@ export default {
   props: {
     show: {
       type: Boolean,
-      default: false
+      default: false,
     },
     clickMaskCLose: String,
     url: String,
@@ -136,17 +173,17 @@ export default {
     instance: Object,
     multiple: {
       type: Boolean,
-      default: false
+      default: false,
     },
     keyboard: {
       type: String,
-      default: "open"
+      default: "open",
     },
     nowImgIndex: {
       type: Number,
-      default: 0
+      default: 0,
     },
-    imgList: Array
+    imgList: Array,
   },
   data() {
     return {
@@ -177,7 +214,7 @@ export default {
           radiusY: 11.5,
           rotationAngle: 0,
           screenX: 493,
-          screenY: 456
+          screenY: 456,
         },
         {
           clientX: 247,
@@ -190,10 +227,10 @@ export default {
           radiusY: 11.5,
           rotationAngle: 0,
           screenX: 523,
-          screenY: 450
-        }
+          screenY: 450,
+        },
       ],
-      mobileScale: 0 // 手指离开时图片的缩放比例
+      mobileScale: 0, // 手指离开时图片的缩放比例
     };
   },
   mounted() {
@@ -205,16 +242,16 @@ export default {
     },
     show(newV) {
       if (newV) {
-        this.$nextTick(_ => {
+        this.$nextTick((_) => {
           let _dom = document.getElementById("hevue-wrap");
           _dom.onmousewheel = this.scrollFunc;
           // 火狐浏览器没有onmousewheel事件，用DOMMouseScroll代替(滚轮事件)
           document.body.addEventListener("DOMMouseScroll", this.scrollFunc);
           // 禁止火狐浏览器下拖拽图片的默认事件
-          document.ondragstart = function() {
+          document.ondragstart = function () {
             return false;
           };
-          // 判断是否多选
+          // 判断是否多图
           if (this.multiple) {
             if (Array.isArray(this.imgList) && this.imgList.length > 0) {
               this.imgIndex = Number(this.nowImgIndex) || 0;
@@ -239,7 +276,7 @@ export default {
           }
         });
       }
-    }
+    },
   },
   methods: {
     close() {
@@ -285,11 +322,18 @@ export default {
       this.changeUrl(this.imgList[this.imgIndex], this.imgIndex);
     },
     // 改变图片地址
+    /**
+     * @description:
+     * @param {String} url 要显示的图片的url
+     * @param {Number} index 当前显示当图片下标，防止用户点击切换图片过快
+     * @return {*}
+     */
     changeUrl(url, index) {
       this.imgState = 1;
       let img = new Image();
       img.src = url;
       img.onload = () => {
+        // 如果加载出来图片当下标不是当前显示图片当下标，则不予显示（用户点击过快当时候，会出现用户点到第三张了，此时第一张图片才加载完当情况）
         if (index != undefined && index == this.imgIndex) {
           this.imgState = 2;
           this.imgurl = url;
@@ -482,8 +526,42 @@ export default {
       var x = p2.pageX - p1.pageX,
         y = p2.pageY - p1.pageY;
       return Math.sqrt(x * x + y * y);
-    }
-  }
+    },
+    /**
+     * @description:
+     * @param {String} imgsrc
+     * @param {*} name
+     * @return {*}
+     */
+    downloadIamge() {
+      //下载图片地址和图片名
+      let image = new Image();
+      // 解决跨域 Canvas 污染问题
+      image.setAttribute("crossOrigin", "anonymous");
+      image.onload = function () {
+        let canvas = document.createElement("canvas");
+        canvas.width = image.width;
+        canvas.height = image.height;
+        let context = canvas.getContext("2d");
+        context.drawImage(image, 0, 0, image.width, image.height);
+        let url = canvas.toDataURL("image/png"); //得到图片的base64编码数据
+        let a = document.createElement("a"); // 生成一个a元素
+        let event = new MouseEvent("click"); // 创建一个单击事件
+        a.download = "photo" + +new Date(); // 设置图片名称
+        a.href = url; // 将生成的URL设置为a.href属性
+        a.dispatchEvent(event); // 触发a的单击事件
+      };
+      image.onerror = function (err) {
+        console.log('图片信息不正确或图片服务器禁止访问');
+        console.log(err);
+      };
+      if (this.multiple) {
+        image.src = this.imgList[this.imgIndex];
+      } else {
+        image.src = this.url;
+      }
+    },
+  },
 };
 </script>
 
@@ -535,7 +613,7 @@ export default {
   border-radius: 50%;
   transform: translateY(-50%);
   -ms-transform: translateY(-50%);
-  font-size: 28px;
+  font-size: 3vw;
   opacity: 0.6;
   cursor: pointer;
   transition: all 0.2s;
