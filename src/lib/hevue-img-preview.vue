@@ -56,15 +56,15 @@
           class="he-img-view"
           :style="
             'transform: scale(' +
-            imgScale +
-            ') rotate(' +
-            imgRotate +
-            'deg);margin-top:' +
-            imgTop +
-            'px;margin-left:' +
-            imgLeft +
-            'px;' +
-            maxWH
+              imgScale +
+              ') rotate(' +
+              imgRotate +
+              'deg);margin-top:' +
+              imgTop +
+              'px;margin-left:' +
+              imgLeft +
+              'px;' +
+              maxWH
           "
           @mousedown="addMove"
           @touchstart="addMoveMobile"
@@ -138,9 +138,9 @@
               &#xe66f;
             </div>
             <!-- 下载 -->
-            <div class="he-control-btn iconfont" @click.stop="downloadIamge">
+            <!-- <div class="he-control-btn iconfont" @click.stop="downloadIamge">
               &#xe694;
-            </div>
+            </div> -->
           </div>
         </div>
 
@@ -162,7 +162,7 @@ export default {
   props: {
     show: {
       type: Boolean,
-      default: false,
+      default: false
     },
     clickMaskCLose: String,
     url: String,
@@ -173,17 +173,17 @@ export default {
     instance: Object,
     multiple: {
       type: Boolean,
-      default: false,
+      default: false
     },
     keyboard: {
       type: String,
-      default: "open",
+      default: "open"
     },
     nowImgIndex: {
       type: Number,
-      default: 0,
+      default: 0
     },
-    imgList: Array,
+    imgList: Array
   },
   data() {
     return {
@@ -214,7 +214,7 @@ export default {
           radiusY: 11.5,
           rotationAngle: 0,
           screenX: 493,
-          screenY: 456,
+          screenY: 456
         },
         {
           clientX: 247,
@@ -227,10 +227,10 @@ export default {
           radiusY: 11.5,
           rotationAngle: 0,
           screenX: 523,
-          screenY: 450,
-        },
+          screenY: 450
+        }
       ],
-      mobileScale: 0, // 手指离开时图片的缩放比例
+      mobileScale: 0 // 手指离开时图片的缩放比例
     };
   },
   mounted() {
@@ -242,13 +242,13 @@ export default {
     },
     show(newV) {
       if (newV) {
-        this.$nextTick((_) => {
+        this.$nextTick(_ => {
           let _dom = document.getElementById("hevue-wrap");
           _dom.onmousewheel = this.scrollFunc;
           // 火狐浏览器没有onmousewheel事件，用DOMMouseScroll代替(滚轮事件)
           document.body.addEventListener("DOMMouseScroll", this.scrollFunc);
           // 禁止火狐浏览器下拖拽图片的默认事件
-          document.ondragstart = function () {
+          document.ondragstart = function() {
             return false;
           };
           // 判断是否多图
@@ -276,7 +276,7 @@ export default {
           }
         });
       }
-    },
+    }
   },
   methods: {
     close() {
@@ -538,7 +538,7 @@ export default {
       let image = new Image();
       // 解决跨域 Canvas 污染问题
       image.setAttribute("crossOrigin", "anonymous");
-      image.onload = function () {
+      image.onload = function() {
         let canvas = document.createElement("canvas");
         canvas.width = image.width;
         canvas.height = image.height;
@@ -551,8 +551,8 @@ export default {
         a.href = url; // 将生成的URL设置为a.href属性
         a.dispatchEvent(event); // 触发a的单击事件
       };
-      image.onerror = function (err) {
-        console.log('图片信息不正确或图片服务器禁止访问');
+      image.onerror = function(err) {
+        console.log("图片信息不正确或图片服务器禁止访问");
         console.log(err);
       };
       if (this.multiple) {
@@ -560,8 +560,8 @@ export default {
       } else {
         image.src = this.url;
       }
-    },
-  },
+    }
+  }
 };
 </script>
 
