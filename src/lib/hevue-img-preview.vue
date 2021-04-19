@@ -40,7 +40,7 @@
       ref="heImg"
       @mouseup="removeMove('pc')"
       @touchend="removeMove('mobile')"
-      @click.self="clickMask"
+      @click.stop="clickMask"
       :style="'background:' + mainBackground"
     >
       <!-- 用于临时在手机端展示一些调试信息 -->
