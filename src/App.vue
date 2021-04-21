@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-08 21:11:32
- * @LastEditTime: 2021-04-19 16:43:29
+ * @LastEditTime: 2021-04-21 14:57:47
  * @LastEditors: 贺永胜
  * @Description: In User Settings Edit
  * @FilePath: /hevue-img-preview/src/App.vue
@@ -72,16 +72,16 @@ export default {
           "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1592150754468&di=007303c2184d2fcd9743a285c03d5f78&imgtype=0&src=http%3A%2F%2Fimg001.hc360.cn%2Fm2%2FM06%2F59%2FCD%2FwKhQclQmgkaEWFaoAAAAADeUpXU923.jpg",
         nowImgIndex: 0,
         multiple: true,
-        // keyboard: "close",
+        clickMaskCLose: false,
+        keyboard: false,
         imgList: [
           "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fattach.bbs.miui.com%2Fforum%2F201306%2F21%2F220728m5zcr5ecr7cqq7bw.jpg&refer=http%3A%2F%2Fattach.bbs.miui.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1617804342&t=e41bd46f90ce841e5c8ffa1feaaafd86",
           "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1592150885064&di=3b8c79295faa6502bff2bf0a0b5feb23&imgtype=0&src=http%3A%2F%2Ft8.baidu.com%2Fit%2Fu%3D1484500186%2C1503043093%26fm%3D79%26app%3D86%26f%3DJPEG%3Fw%3D1280%26h%3D853"
         ],
-        clickMaskCLose: 'close'
       };
-      // obj = {
-      //   url: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1592150754468&di=007303c2184d2fcd9743a285c03d5f78&imgtype=0&src=http%3A%2F%2Fimg001.hc360.cn%2Fm2%2FM06%2F59%2FCD%2FwKhQclQmgkaEWFaoAAAAADeUpXU923.jpg'
-      // }∏
+      // let obj = 
+      //   'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1592150754468&di=007303c2184d2fcd9743a285c03d5f78&imgtype=0&src=http%3A%2F%2Fimg001.hc360.cn%2Fm2%2FM06%2F59%2FCD%2FwKhQclQmgkaEWFaoAAAAADeUpXU923.jpg'
+      
       this.$hevueImgPreview(obj);
     }
   }

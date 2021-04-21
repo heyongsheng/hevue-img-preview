@@ -9,50 +9,30 @@ import VueToast from "./hevue-img-preview.vue";
 
 const ToastConstructor = Vue.extend(VueToast);
 
-const instance = new ToastConstructor().$mount();
+let instance
 
-const Toast = (options = {}) => {
-  if (typeof options === "string") {
-    instance.url = options;
-  } else if (typeof options === "object" && options.constructor !== Array) {
-    instance.url = options.url;
-  } else {
-    if (options.constructor !== Array) {
-      console.error(
-        "hevue-img-preview 组件参数仅能接收字符串和对象，但您传入的是 " +
-          typeof options +
-          "\nhevue-img-preview parameter can only receive strings and objects, but what you pass in is " +
-          typeof options
-      );
-    } else {
-      console.error(
-        "hevue-img-preview 组件参数仅能接收字符串和对象，但您传入的是 array\nhevue-img-preview parameter can only receive strings and objects, but what you pass in is array"
-      );
-    }
-    return;
+const ImgPreview = (options = {}) => {
+  if (typeof options === 'string') {
+    options = {
+      url: options
+    };
   }
-  instance.mainBackground = options.mainBackground || "rgba(255,255,255,.6)";
-  instance.controlColor = options.controlColor;
-  instance.controlBackground =
-    options.controlBackground || "rgba(109, 109, 109, .6)";
-  instance.closeColor = options.closeColor || "rgba(109, 109, 109, .6)";
-  instance.multiple = options.multiple;
-  instance.clickMaskCLose = options.clickMaskCLose || "open";
-  instance.nowImgIndex = options.nowImgIndex;
-  instance.imgList = options.imgList;
-  instance.keyboard = options.keyboard || "open";
-  instance.show = true;
-  instance.instance = instance;
-
-  document.body.appendChild(instance.$el);
+  options.show = true
+  instance = new ToastConstructor({
+    data: options
+  })
+  instance.$mount()
+  document.body.appendChild(instance.$el)
 };
 
-const install = Vue => {
-  Vue.prototype.$hevueImgPreview = Toast;
+const install = (Vue, opts = {}) => {
+  Vue.prototype.$hevueImgPreviewConfig = opts
+  Vue.prototype.$hevueImgPreview = ImgPreview;
 };
 
 if (typeof window !== "undefined" && window.Vue) {
-  window.Vue.use(install);
+  // window.Vue.use(install);
+  install(window.Vue)
 }
 
 export default install;

@@ -43,10 +43,14 @@
       @click.stop="clickMask"
       :style="'background:' + mainBackground"
     >
-      <!-- 用于临时在手机端展示一些调试信息 -->
-      <!-- <div>{{ logText }}</div> -->
       <div class="he-img-wrap">
-        <img src="./loading.gif" v-show="imgState === 1" />
+        <div
+          class="iconfont hevue-img-status-icon rotate-animation"
+          v-show="imgState === 1"
+          :style="'color:' + closeColor"
+        >
+          &#xe6b1;
+        </div>
         <!-- <div class="iconfont loading">&#xe6b1;</div> -->
         <img
           :src="imgurl"
@@ -69,15 +73,21 @@
           @mousedown="addMove"
           @touchstart="addMoveMobile"
         />
-        <div class="iconfont hevue-img-error" v-show="imgState === 3">
+        <!-- 图片加载失败 -->
+        <div
+          class="iconfont hevue-img-status-icon"
+          :style="'color:' + closeColor"
+          v-show="imgState === 3"
+        >
           &#xec0d;
         </div>
+        <!-- 关闭按钮 -->
         <div
           class="iconfont he-close-icon"
           @click.stop="close"
           :style="'color:' + closeColor"
         >
-          &#xe764;
+          &#xe608;
         </div>
         <!-- 左箭头 -->
         <div
@@ -159,32 +169,6 @@
 <script>
 export default {
   name: "hevue-img-preview",
-  props: {
-    show: {
-      type: Boolean,
-      default: false
-    },
-    clickMaskCLose: String,
-    url: String,
-    mainBackground: String, // 整体背景颜色
-    controlColor: String, // 控制条字体颜色
-    controlBackground: String, // 控制条背景颜色
-    closeColor: String, // 关闭图标的颜色
-    instance: Object,
-    multiple: {
-      type: Boolean,
-      default: false
-    },
-    keyboard: {
-      type: String,
-      default: "open"
-    },
-    nowImgIndex: {
-      type: Number,
-      default: 0
-    },
-    imgList: Array
-  },
   data() {
     return {
       // imgWidth: 0,
@@ -201,7 +185,6 @@ export default {
       canRun: true,
       imgurl: "",
       imgState: 1,
-      logText: "",
       start: [
         {
           clientX: 217,
@@ -230,61 +213,83 @@ export default {
           screenY: 450
         }
       ],
-      mobileScale: 0 // 手指离开时图片的缩放比例
+      mobileScale: 0, // 手指离开时图片的缩放比例
+      // 以下内容为用户传入配置
+      show: false, // 插件显示，默认为false
+      url: "", // 预览图片的地址
+      nowImgIndex: 0,
+      multiple: false,
+      imgList: [],
+      mainBackground:
+        this.$hevueImgPreviewConfig.mainBackground || "rgba(0,0,0,.4)", // 整体背景颜色
+      controlColor:
+        this.$hevueImgPreviewConfig.controlColor || "rgba(255,255,255,.6)", // 控制条字体颜色
+      controlBackground:
+        this.$hevueImgPreviewConfig.controlBackground || "rgba(61, 61, 61, .4)", // 控制条背景颜色
+      closeColor:
+        this.$hevueImgPreviewConfig.closeColor || "rgba(61, 61, 61, .4)", // 关闭图标的颜色
+      keyboard: this.$hevueImgPreviewConfig.keyboard || false,
+      clickMaskCLose: this.$hevueImgPreviewConfig.clickMaskCLose || false // 是否点击遮罩关闭，默认false
     };
   },
   mounted() {
+    console.log(this);
+    console.log(this.$hevueImgPreviewConfig);
     this.initImg();
   },
   watch: {
     url() {
       this.initImg();
     },
-    show(newV) {
-      if (newV) {
-        this.$nextTick(_ => {
-          let _dom = document.getElementById("hevue-wrap");
-          _dom.onmousewheel = this.scrollFunc;
-          // 火狐浏览器没有onmousewheel事件，用DOMMouseScroll代替(滚轮事件)
-          document.body.addEventListener("DOMMouseScroll", this.scrollFunc);
-          // 禁止火狐浏览器下拖拽图片的默认事件
-          document.ondragstart = function() {
-            return false;
-          };
-          // 判断是否多图
-          if (this.multiple) {
-            if (Array.isArray(this.imgList) && this.imgList.length > 0) {
-              this.imgIndex = Number(this.nowImgIndex) || 0;
-              // this.url = this.imgList[this.imgIndex]
-              this.changeUrl(this.imgList[this.imgIndex], this.imgIndex);
+    show: {
+      handler(newV) {
+        console.log(this.url);
+        if (newV) {
+          this.$nextTick(_ => {
+            let _dom = document.getElementById("hevue-wrap");
+            _dom.onmousewheel = this.scrollFunc;
+            // 火狐浏览器没有onmousewheel事件，用DOMMouseScroll代替(滚轮事件)
+            document.body.addEventListener("DOMMouseScroll", this.scrollFunc);
+            // 禁止火狐浏览器下拖拽图片的默认事件
+            document.ondragstart = function() {
+              return false;
+            };
+            // 判断是否多图
+            if (this.multiple) {
+              console.log(this.url);
+              if (Array.isArray(this.imgList) && this.imgList.length > 0) {
+                this.imgIndex = Number(this.nowImgIndex) || 0;
+                // this.url = this.imgList[this.imgIndex]
+                this.changeUrl(this.imgList[this.imgIndex], this.imgIndex);
+              } else {
+                console.error("imgList 为空或格式不正确");
+              }
             } else {
-              console.error("imgList 为空或格式不正确");
+              console.log(this.url);
+              this.changeUrl(this.url);
+              // var ImgObj = new Image()
+              // ImgObj.src = this.url
+              // if (ImgObj.fileSize > 0 || (ImgObj.width > 0 && ImgObj.height > 0)) {
+              //   return true
+              // } else {
+              //   console.error('传入图片地址不正确--组件hevue-img-preview')
+              // }
             }
-          } else {
-            this.changeUrl(this.url);
-            // var ImgObj = new Image()
-            // ImgObj.src = this.url
-            // if (ImgObj.fileSize > 0 || (ImgObj.width > 0 && ImgObj.height > 0)) {
-            //   return true
-            // } else {
-            //   console.error('传入图片地址不正确--组件hevue-img-preview')
-            // }
-          }
-          // 判断是否开启键盘事件
-          if (this.keyboard === "open") {
-            document.addEventListener("keydown", this.keyHandleDebounce);
-          }
-        });
-      }
+            // 判断是否开启键盘事件
+            if (this.keyboard) {
+              document.addEventListener("keydown", this.keyHandleDebounce);
+            }
+          });
+        }
+      },
+      immediate: true
     }
   },
   methods: {
     close() {
-      // this.$closehevueImgPreview()
-      this.instance.show = false;
-      this.initImg();
-      this.maxWH = "max-width:100%;max-height:100%;";
-      this.isFull = false;
+      // this.initImg();
+      // this.maxWH = "max-width:100%;max-height:100%;";
+      // this.isFull = false;
       // 移除火狐浏览器下的鼠标滚动事件
       document.body.removeEventListener("DOMMouseScroll", this.scrollFunc);
       //恢复火狐及Safari浏览器下的图片拖拽
@@ -293,6 +298,7 @@ export default {
       if (this.keyboard) {
         document.removeEventListener("keydown", this.keyHandleDebounce);
       }
+      this.show = false;
     },
     initImg() {
       this.mobileScale = 1;
@@ -431,8 +437,6 @@ export default {
         var scale =
           this.getDistance(now[0], now[1]) /
           this.getDistance(this.start[0], this.start[1]);
-        // this.mobileScale = scale;
-        this.logText = `${scale},${this.mobileScale}`;
         // 判断是否手指缩放过，如果缩放过，要在上次缩放的比例基础上进行缩放
         if (this.mobileScale) {
           if (scale > 1) {
@@ -517,7 +521,7 @@ export default {
     // 点击遮罩层
     clickMask() {
       // console.log("hello");
-      if (this.clickMaskCLose === "open") {
+      if (this.clickMaskCLose) {
         this.close();
       }
     },
@@ -598,29 +602,29 @@ export default {
   position: absolute;
   right: 50px;
   top: 50px;
-  font-size: 46px;
+  font-size: 32px;
   color: #666;
   cursor: pointer;
   transition: all 0.2s;
 }
 .arrow {
-  width: 50px;
-  height: 50px;
+  width: 42px;
+  height: 42px;
   text-align: center;
-  line-height: 50px;
+  line-height: 42px;
   position: absolute;
   top: 50%;
   border-radius: 50%;
   transform: translateY(-50%);
   -ms-transform: translateY(-50%);
-  font-size: 3vw;
+  font-size: 24px;
   opacity: 0.6;
   cursor: pointer;
   transition: all 0.2s;
 }
 .arrow:hover {
   opacity: 0.8;
-  font-size: 32px;
+  transform: translateY(-50%) scale(1.2);
 }
 .arrow-left {
   left: 50px;
@@ -642,6 +646,7 @@ export default {
   height: 44px;
   bottom: 10%;
   padding: 0 22px;
+  backdrop-filter: blur(5px);
   /* position: absolute; */
   /* left: 50%; */
   /* display: flex;
@@ -682,8 +687,19 @@ export default {
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
-.hevue-img-error {
+.hevue-img-status-icon {
   font-size: 56px;
-  color: #ccc;
+}
+
+.rotate-animation {
+  animation: rotate 1.5s linear infinite;
+}
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 </style>

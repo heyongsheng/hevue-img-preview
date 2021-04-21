@@ -1,12 +1,17 @@
 ## hevue-img-preview 简介
 
+
+[![](https://img.shields.io/static/v1?label=downloads&message=200/week&color=brightgreen)](https://www.npmjs.com/package/hevue-img-preview)
+[![](https://img.shields.io/badge/npm-3.6.0-blue)](https://www.npmjs.com/package/hevue-img-preview)
+[![](https://img.shields.io/badge/License-MIT-green)](https://www.npmjs.com/package/hevue-img-preview)
+
 > 本组件是一个基于 vue 编写的 vue 图片预览组件，支持 pc 和手机端，支持单图和多图预览，仅传入一个图片地址，即可实现图片预览效果。手机端支持单指拖拽和双指缩放。页面各组件颜色均可可自定义，实现个性化设计，如果能帮上你，希望可以移步 [GitHub](https://github.com/heyongsheng/hevue-img-preview) ，或者[码云](https://gitee.com/ihope_top/hevue-img-preview) 给个小星星，如果有任何使用意见或建议，也欢迎回复或者提交 issure
 
 ## 示例预览
 
 > 在线预览网址 [https://heyongsheng.github.io/#/](https://heyongsheng.github.io/#/)
 
-![](https://user-gold-cdn.xitu.io/2020/4/27/171b94b6a0f7b8dd?w=599&h=272&f=gif&s=1344649)
+![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a835e7a624004a98819f7b2793cff791~tplv-k3u1fbpfcp-zoom-1.image)
 
 ## 安装
 
@@ -59,20 +64,44 @@ this.$hevueImgPreview({
 })
 ```
 
-具体可配置项如下
+### 配置项
 
-| 字段              | 值                                       | 备注                           |
-| ----------------- | ---------------------------------------- | ------------------------------ |
-| url               | 图片的本地或者线上地址，多图预览时可不传 | 预览的图片地址，多图预览时省略 |
-| mainBackground    | `#fff` 或者 `rgba(255,255,255,.1)`       | 整体背景颜色（可选）           |
-| controlColor      | `#fff` 或者 `rgba(255,255,255,.1)`       | 控制条字体颜色（可选）         |
-| controlBackground | `#fff` 或者 `rgba(255,255,255,.1)`       | 控制条背景颜色 （可选）        |
-| closeColor        | `#fff` 或者 `rgba(255,255,255,.1)`       | 关闭图标的颜色 （可选）        |
-| multiple          | 布尔值 true/false                        | 是否多图预览                   |
-| nowImgIndex       | Number 格式，如默认展示第二张，传入 1    | 多图预览时默认显示的图片下标   |
-| imgList           | Array 格式 [url1, url2, url3]            | 多图预览时传入的数组           |
-| keyboard          | 字符串 open/close                        | 是否开启键盘控制               |
-| clickMaskCLose    | 字符串 open/close                        | 是否可以点击遮罩层关闭         |
+| 字段              | 类型    | 默认值               | 备注                           |
+| ----------------- | ------- | -------------------- | ------------------------------ |
+| url               | String  | 无                   | 预览的图片地址，多图预览时省略 |
+| mainBackground    | String  | rgba(0,0,0,.4)       | 整体背景颜色（可选）           |
+| controlColor      | String  | rgba(255,255,255,.6) | 控制条字体颜色（可选）         |
+| controlBackground | String  | rgba(61, 61, 61, .4) | 控制条背景颜色 （可选）        |
+| closeColor        | String  | rgba(61, 61, 61, .4) | 关闭图标的颜色 （可选）        |
+| multiple          | Boolean | false                | 是否多图预览                   |
+| nowImgIndex       | Number  | 0                    | 多图预览时默认显示的图片下标   |
+| imgList           | Array   | 无                   | 多图预览时传入的图片数组       |
+| keyboard          | Boolean | false                | 是否开启键盘控制               |
+| clickMaskCLose    | Boolean | false                | 是否可以点击遮罩层关闭         |
+
+#### 全局配置
+
+以下配置可以在引入插件时全局配置，之后便无需在调用的时候重复配置
+
+| 字段              | 类型    | 默认值               | 备注                           |
+| ----------------- | ------- | -------------------- | ------------------------------ |
+| mainBackground    | String  | rgba(0,0,0,.4)       | 整体背景颜色（可选）           |
+| controlColor      | String  | rgba(255,255,255,.6) | 控制条字体颜色（可选）         |
+| controlBackground | String  | rgba(61, 61, 61, .4) | 控制条背景颜色 （可选）        |
+| closeColor        | String  | rgba(61, 61, 61, .4) | 关闭图标的颜色 （可选）        |
+| keyboard          | Boolean | false                | 是否开启键盘控制               |
+| clickMaskCLose    | Boolean | false                | 是否可以点击遮罩层关闭         |
+
+```js
+// main.js
+import hevueImgPreview from './lib/index'
+Vue.use(hevueImgPreview, {
+  keyboard: true,
+  clickMaskCLose: true,
+  mainBackground: 'rgba(0,0,0,.4)'
+  ...
+})
+```
 
 如开启键盘控制事件后，相对应功能控制按键如下
 
@@ -87,7 +116,7 @@ this.$hevueImgPreview({
 | r | 图片复位
 | esc | 关闭图片预览
 
-\*如不考虑兼容性问题，上述的背景颜色均可接收渐变色
+*如不考虑兼容性问题，上述的背景颜色均可接收渐变色*
 
 ## 作者注
 
@@ -102,4 +131,4 @@ this.$hevueImgPreview({
 QQ 群：595472617
 
 作者微信：heyongsheng1996
-![](https://user-gold-cdn.xitu.io/2020/4/27/171b950ccc0a1695?w=541&h=721&f=png&s=133763)
+![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/57478efc7ace4a8c9e27081a26f2c8cf~tplv-k3u1fbpfcp-zoom-1.image)
