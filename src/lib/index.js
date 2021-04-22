@@ -10,6 +10,7 @@ import VueToast from "./hevue-img-preview.vue";
 const ToastConstructor = Vue.extend(VueToast);
 
 let instance
+let hevueImgPreviewConfig
 
 const ImgPreview = (options = {}) => {
   if (typeof options === 'string') {
@@ -18,6 +19,13 @@ const ImgPreview = (options = {}) => {
     };
   }
   options.show = true
+  // 优先采取局部配置，其次采取全局配置
+  Object.keys(hevueImgPreviewConfig).map(name => {
+    if ( options[name] == undefined) {
+      options[name] = hevueImgPreviewConfig[name]
+    }
+  })
+
   instance = new ToastConstructor({
     data: options
   })
@@ -26,7 +34,7 @@ const ImgPreview = (options = {}) => {
 };
 
 const install = (Vue, opts = {}) => {
-  Vue.prototype.$hevueImgPreviewConfig = opts
+  hevueImgPreviewConfig = opts
   Vue.prototype.$hevueImgPreview = ImgPreview;
 };
 

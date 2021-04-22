@@ -220,21 +220,16 @@ export default {
       nowImgIndex: 0,
       multiple: false,
       imgList: [],
-      mainBackground:
-        this.$hevueImgPreviewConfig.mainBackground || "rgba(0,0,0,.4)", // 整体背景颜色
-      controlColor:
-        this.$hevueImgPreviewConfig.controlColor || "rgba(255,255,255,.6)", // 控制条字体颜色
-      controlBackground:
-        this.$hevueImgPreviewConfig.controlBackground || "rgba(61, 61, 61, .4)", // 控制条背景颜色
-      closeColor:
-        this.$hevueImgPreviewConfig.closeColor || "rgba(61, 61, 61, .4)", // 关闭图标的颜色
-      keyboard: this.$hevueImgPreviewConfig.keyboard || false,
-      clickMaskCLose: this.$hevueImgPreviewConfig.clickMaskCLose || false // 是否点击遮罩关闭，默认false
+      // 以下为可全局配置
+      mainBackground: "rgba(0,0,0,.4)", // 整体背景颜色
+      controlColor: "rgba(255,255,255,.6)", // 控制条字体颜色
+      controlBackground: "rgba(61, 61, 61, .4)", // 控制条背景颜色
+      closeColor: "rgba(61, 61, 61, .4)", // 关闭图标的颜色
+      keyboard: false,
+      clickMaskCLose: false // 是否点击遮罩关闭，默认false
     };
   },
   mounted() {
-    console.log(this);
-    console.log(this.$hevueImgPreviewConfig);
     this.initImg();
   },
   watch: {
@@ -243,7 +238,6 @@ export default {
     },
     show: {
       handler(newV) {
-        console.log(this.url);
         if (newV) {
           this.$nextTick(_ => {
             let _dom = document.getElementById("hevue-wrap");
