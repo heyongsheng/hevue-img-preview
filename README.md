@@ -1,8 +1,8 @@
 ## hevue-img-preview 简介
 
 
-[![](https://img.shields.io/static/v1?label=downloads&message=200/week&color=brightgreen)](https://www.npmjs.com/package/hevue-img-preview)
-[![](https://img.shields.io/badge/npm-3.6.0-blue)](https://www.npmjs.com/package/hevue-img-preview)
+[![](https://img.shields.io/npm/dm/hevue-img-preview.svg)](https://www.npmjs.com/package/hevue-img-preview)
+[![](https://img.shields.io/badge/npm-3.6.2-blue)](https://www.npmjs.com/package/hevue-img-preview)
 [![](https://img.shields.io/badge/License-MIT-green)](https://www.npmjs.com/package/hevue-img-preview)
 
 > 本组件是一个基于 vue 编写的 vue 图片预览组件，支持 pc 和手机端，支持单图和多图预览，仅传入一个图片地址，即可实现图片预览效果。手机端支持单指拖拽和双指缩放。页面各组件颜色均可可自定义，实现个性化设计，如果能帮上你，希望可以移步 [GitHub](https://github.com/heyongsheng/hevue-img-preview) ，或者[码云](https://gitee.com/ihope_top/hevue-img-preview) 给个小星星，如果有任何使用意见或建议，也欢迎回复或者提交 issure
@@ -15,24 +15,27 @@
 
 ## 安装
 
-```javascript
-# 安装
-npm install hevue-img-preview --save
+使用npm进行安装
+``` bash
+npm install hevue-img-preview
+```
 
-# main.js 引入
+在main.js进行全局引入
+```javascript
 import hevueImgPreview from 'hevue-img-preview'
 Vue.use(hevueImgPreview)
+```
 
-# 使用
-给任意对象添加任意事件，例如
-<img :src="src" @click="previewImg(url)">
-即可在事件里调用方法进行预览
+在组件中进行使用
+```html
+<img :src="url" @click="previewImg(url)">
+```
+```javascript
 methods: {
 	previewImg (url) {
 		this.$hevueImgPreview(url)
 	}
 }
-
 ```
 
 ## 使用
@@ -94,7 +97,7 @@ this.$hevueImgPreview({
 
 ```js
 // main.js
-import hevueImgPreview from './lib/index'
+import hevueImgPreview from 'hevueImgPreview'
 Vue.use(hevueImgPreview, {
   keyboard: true,
   clickMaskCLose: true,
