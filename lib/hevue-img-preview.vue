@@ -1,4 +1,13 @@
 <!--
+ * @Author: 贺永胜
+ * @Date: 2021-04-19 16:39:30
+ * @email: 1378431028@qq.com
+ * @LastEditors: 贺永胜
+ * @LastEditTime: 2021-04-23 11:30:57
+ * @Description: file content
+-->
+
+<!--
  *                                                     __----~~~~~~~~~~~------___
  *                                    .  .   ~~//====......          __--~ ~~
  *                    -.            \_|//     |||\\  ~~~~~~::::... /~
@@ -22,20 +31,11 @@
  *                               神兽保佑            永无BUG
  -->
 
-<!--
- * @Author: your name
- * @Date: 2021-03-08 21:11:32
- * @LastEditTime: 2021-03-08 22:37:42
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: /hevue-img-preview/src/lib/hevue-img-preview.vue
--->
-
 <template>
   <transition name="fade">
     <div
-      class="hevue-wrap"
-      id="hevue-wrap"
+      class="hevue-imgpreview-wrap"
+      id="hevue-imgpreview-wrap"
       v-if="show"
       ref="heImg"
       @mouseup="removeMove('pc')"
@@ -240,7 +240,7 @@ export default {
       handler(newV) {
         if (newV) {
           this.$nextTick(_ => {
-            let _dom = document.getElementById("hevue-wrap");
+            let _dom = document.getElementById("hevue-imgpreview-wrap");
             _dom.onmousewheel = this.scrollFunc;
             // 火狐浏览器没有onmousewheel事件，用DOMMouseScroll代替(滚轮事件)
             document.body.addEventListener("DOMMouseScroll", this.scrollFunc);
@@ -250,24 +250,15 @@ export default {
             };
             // 判断是否多图
             if (this.multiple) {
-              console.log(this.url);
               if (Array.isArray(this.imgList) && this.imgList.length > 0) {
                 this.imgIndex = Number(this.nowImgIndex) || 0;
                 // this.url = this.imgList[this.imgIndex]
                 this.changeUrl(this.imgList[this.imgIndex], this.imgIndex);
               } else {
-                console.error("imgList 为空或格式不正确");
+                // console.error("imgList 为空或格式不正确");
               }
             } else {
-              console.log(this.url);
               this.changeUrl(this.url);
-              // var ImgObj = new Image()
-              // ImgObj.src = this.url
-              // if (ImgObj.fileSize > 0 || (ImgObj.width > 0 && ImgObj.height > 0)) {
-              //   return true
-              // } else {
-              //   console.error('传入图片地址不正确--组件hevue-img-preview')
-              // }
             }
             // 判断是否开启键盘事件
             if (this.keyboard) {
@@ -566,7 +557,7 @@ export default {
 <style scoped>
 @import "./iconfont/iconfont.css";
 /* @import '//at.alicdn.com/t/font_1776686_mw0jz39v97.css'; */
-.hevue-wrap {
+.hevue-imgpreview-wrap {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -612,9 +603,9 @@ export default {
   transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   font-size: 24px;
-  opacity: 0.6;
   cursor: pointer;
   transition: all 0.2s;
+  backdrop-filter: blur(5px);
 }
 .arrow:hover {
   opacity: 0.8;
