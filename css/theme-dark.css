@@ -1,0 +1,34 @@
+
+.hevue-imgpreview-wrap {
+  color: rgba(255,255,255,.6);
+}
+
+/* 遮罩层 */
+.hevue-imgpreview-wrap .he-img-wrap {
+  background: rgba(0, 0, 0, .8);
+  backdrop-filter: blur(8px);
+}
+
+/* 控制条 */
+.hevue-imgpreview-wrap .he-control-bar {
+  background: rgba(0,0,0,.3);
+  backdrop-filter: blur(5px);
+}
+
+/* 左右箭头 */
+.hevue-imgpreview-wrap .arrow {
+  background: rgba(0,0,0,.3);
+  backdrop-filter: blur(5px);
+}
+
+/* 关闭按钮 */
+.he-close-icon {
+  background: rgba(0,0,0,.3);
+  backdrop-filter: blur(5px);
+}
+
+/* 页码指示器 */
+.he-control-num {
+  background: rgba(0,0,0,.3);
+  backdrop-filter: blur(5px);
+}
