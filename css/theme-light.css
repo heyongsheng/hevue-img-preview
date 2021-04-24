@@ -25,7 +25,7 @@
 }
 
 /* 关闭按钮 */
-.he-close-icon {
+.hevue-imgpreview-wrap .he-close-icon {
   background: rgba(255, 255, 255, .8);
   backdrop-filter: blur(5px);
   /* box-shadow: 0 0 5px 1px rgb(0 0 0 / 10%); */
@@ -33,7 +33,7 @@
 }
 
 /* 页码指示器 */
-.he-control-num {
+.hevue-imgpreview-wrap .he-control-num {
   background: rgba(255, 255, 255, .8);
   backdrop-filter: blur(5px);
   /* box-shadow: 0 0 5px 1px rgb(0 0 0 / 10%); */
