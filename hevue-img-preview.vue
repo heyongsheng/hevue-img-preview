@@ -3,7 +3,7 @@
  * @Date: 2021-04-19 16:39:30
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2021-04-23 17:03:04
+ * @LastEditTime: 2021-04-23 21:19:26
  * @Description: file content
 -->
 
@@ -203,7 +203,7 @@ export default {
     show: {
       handler(newV) {
         if (newV) {
-          this.$nextTick((_) => {
+          this.$nextTick(() => {
             let _dom = document.getElementById('hevue-imgpreview-wrap')
             _dom.onmousewheel = this.scrollFunc
             // 火狐浏览器没有onmousewheel事件，用DOMMouseScroll代替(滚轮事件)
@@ -431,7 +431,7 @@ export default {
     },
     // 键盘事件
     keyHandle(e) {
-      var e = window.event || e
+      e = window.event || e
       var key = e.keyCode || e.which || e.charCode
       switch (key) {
         case 27: // esc

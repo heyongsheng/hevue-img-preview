@@ -2,16 +2,14 @@
 
 
 [![](https://img.shields.io/npm/dm/hevue-img-preview.svg)](https://www.npmjs.com/package/hevue-img-preview)
-[![](https://img.shields.io/badge/npm-3.6.2-blue)](https://www.npmjs.com/package/hevue-img-preview)
+[![](https://img.shields.io/github/v/release/heyongsheng/hevue-img-preview)](https://www.npmjs.com/package/hevue-img-preview)
 [![](https://img.shields.io/badge/License-MIT-green)](https://www.npmjs.com/package/hevue-img-preview)
 
-> 本组件是一个基于 vue 编写的 vue 图片预览组件，支持 pc 和手机端，支持单图和多图预览，仅传入一个图片地址，即可实现图片预览效果。手机端支持单指拖拽和双指缩放。页面各组件颜色均可可自定义，实现个性化设计，如果能帮上你，希望可以移步 [GitHub](https://github.com/heyongsheng/hevue-img-preview) ，或者[码云](https://gitee.com/ihope_top/hevue-img-preview) 给个小星星，如果有任何使用意见或建议，也欢迎回复或者提交 issure
+> 本组件是一个基于 vue 编写的 vue 图片预览组件，支持 pc 和手机端，支持单图和多图预览，仅传入一个图片地址，即可实现图片预览效果。手机端支持单指拖拽和双指缩放。如果能帮上你，希望可以移步 [GitHub](https://github.com/heyongsheng/hevue-img-preview) ，或者[码云](https://gitee.com/ihope_top/hevue-img-preview) 给个小星星，如果有任何使用意见或建议，也欢迎回复或者提交 issue
 
-## 示例预览
+## 官方文档
 
-> 在线预览网址 [https://heyongsheng.github.io/#/](https://heyongsheng.github.io/#/)
-
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a835e7a624004a98819f7b2793cff791~tplv-k3u1fbpfcp-zoom-1.image)
+> 官方使用文档请访问 [https://heyongsheng.github.io/#/](https://heyongsheng.github.io/#/)
 
 ## 安装
 
@@ -55,7 +53,6 @@ this.$hevueImgPreview('./img/logo.jpeg') // 本地地址
 # 单图预览
 this.$hevueImgPreview({
     url: 'https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg',
-    mainBackground: 'rgba(0, 0, 0, .5)', // 整体背景颜色
 })
 
 # 多图预览
@@ -63,7 +60,6 @@ this.$hevueImgPreview({
     multiple: true, // 开启多图预览模式
     nowImgIndex: 1, // 多图预览，默认展示第二张图片
     imgList: ['1.png', '2.png', '3.png'], // 需要预览的多图数组
-    mainBackground: 'rgba(0, 0, 0, .5)', // 整体背景颜色
 })
 ```
 
@@ -72,39 +68,29 @@ this.$hevueImgPreview({
 | 字段              | 类型    | 默认值               | 备注                           |
 | ----------------- | ------- | -------------------- | ------------------------------ |
 | url               | String  | 无                   | 预览的图片地址，多图预览时省略 |
-| mainBackground    | String  | rgba(0,0,0,.4)       | 整体背景颜色（可选）           |
-| controlColor      | String  | rgba(255,255,255,.6) | 控制条字体颜色（可选）         |
-| controlBackground | String  | rgba(61, 61, 61, .4) | 控制条背景颜色 （可选）        |
-| closeColor        | String  | rgba(61, 61, 61, .4) | 关闭图标的颜色 （可选）        |
 | multiple          | Boolean | false                | 是否多图预览                   |
 | nowImgIndex       | Number  | 0                    | 多图预览时默认显示的图片下标   |
 | imgList           | Array   | 无                   | 多图预览时传入的图片数组       |
 | keyboard          | Boolean | false                | 是否开启键盘控制               |
 | clickMaskCLose    | Boolean | false                | 是否可以点击遮罩层关闭         |
+| controlBar        | Boolean | true                 | 是否显示控制条及页码         |
+| closeBtn          | Boolean | true                 | 是否显示关闭按钮         |
+| arrowBtn          | Boolean | true                | 是否显示左右翻页按钮         |
 
 #### 全局配置
 
-以下配置可以在引入插件时全局配置，之后便无需在调用的时候重复配置
+对于某些配置，例如开启键盘事件，点击遮罩层关闭，我们可能要全局保持统一，但却需要在每一次调用时重复配置，为了解决这个问题，我们提供了全局配置项，您可以在引入插件的时候，将全局配置项作为第二个参数传入即可，以免再每次调用的时候重复配置。
 
-| 字段              | 类型    | 默认值               | 备注                           |
-| ----------------- | ------- | -------------------- | ------------------------------ |
-| mainBackground    | String  | rgba(0,0,0,.4)       | 整体背景颜色（可选）           |
-| controlColor      | String  | rgba(255,255,255,.6) | 控制条字体颜色（可选）         |
-| controlBackground | String  | rgba(61, 61, 61, .4) | 控制条背景颜色 （可选）        |
-| closeColor        | String  | rgba(61, 61, 61, .4) | 关闭图标的颜色 （可选）        |
-| keyboard          | Boolean | false                | 是否开启键盘控制               |
-| clickMaskCLose    | Boolean | false                | 是否可以点击遮罩层关闭         |
-
-```js
+```javascript
 // main.js
 import hevueImgPreview from 'hevueImgPreview'
 Vue.use(hevueImgPreview, {
   keyboard: true,
-  clickMaskCLose: true,
-  mainBackground: 'rgba(0,0,0,.4)'
+  clickMaskCLose: true
   ...
 })
 ```
+
 
 如开启键盘控制事件后，相对应功能控制按键如下
 
@@ -123,7 +109,7 @@ Vue.use(hevueImgPreview, {
 
 ## 作者注
 
-> 本人前端小白一枚，工作经验较少，所写东西尽量保证没 bug，但性能界面什么的可能没办法做到最优，如果您有什么使用中的建议或意见，欢迎反馈给我，可以加联系方式，也可以直接回复，或者到`GitHub`提个`issur`[建议此方法]，如果对您有所帮助，万分期待您能给个赞并且到`GitHub`给个小星星
+> 本人前端小白一枚，工作经验较少，所写东西尽量保证没 bug，但性能界面什么的可能没办法做到最优，如果您有什么使用中的建议或意见，欢迎反馈给我，可以加联系方式，也可以直接回复，或者到`GitHub`提个`issue`[建议此方法]，如果对您有所帮助，万分期待您能给个赞并且到`GitHub`给个小星星
 
 > GitHub 链接：[https://github.com/heyongsheng/hevue-img-preview](https://github.com/heyongsheng/hevue-img-preview)
 
