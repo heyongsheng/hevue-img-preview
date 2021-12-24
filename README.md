@@ -107,6 +107,16 @@ Vue.use(hevueImgPreview, {
 
 *如不考虑兼容性问题，上述的背景颜色均可接收渐变色*
 
+## 更新日志
+
+### 5.0.2
+
+组件支持实例化，调用组件将返回组件实例，支持直接通过实例关闭弹窗
+```javascript
+const hevueImgPreviewEl = this.$hevueImgPreview(...)
+hevueImgPreviewEl.close()
+```
+
 ## 作者注
 
 > 本人前端小白一枚，工作经验较少，所写东西尽量保证没 bug，但性能界面什么的可能没办法做到最优，如果您有什么使用中的建议或意见，欢迎反馈给我，可以加联系方式，也可以直接回复，或者到`GitHub`提个`issue`[建议此方法]，如果对您有所帮助，万分期待您能给个赞并且到`GitHub`给个小星星

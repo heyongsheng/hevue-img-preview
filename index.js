@@ -30,7 +30,9 @@ const ImgPreview = (options = {}) => {
     data: options
   })
   instance.$mount()
-  document.body.appendChild(instance.$el)
+  let dom = instance.$el
+  document.body.appendChild(dom)
+  return instance
 };
 
 const install = (Vue, opts = {}) => {
