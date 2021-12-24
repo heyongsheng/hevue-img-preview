@@ -3,7 +3,7 @@
  * @Date: 2021-04-19 16:39:30
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2021-04-23 21:19:26
+ * @LastEditTime: 2021-10-28 11:15:41
  * @Description: file content
 -->
 
@@ -44,12 +44,12 @@
     >
       <div class="he-img-wrap">
         <div
-          class="iconfont hevue-img-status-icon rotate-animation"
+          class="heimgfont hevue-img-status-icon rotate-animation"
           v-show="imgState === 1"
         >
           &#xe6b1;
         </div>
-        <!-- <div class="iconfont loading">&#xe6b1;</div> -->
+        <!-- <div class="heimgfont loading">&#xe6b1;</div> -->
         <img
           :src="imgurl"
           ref="heImView"
@@ -73,14 +73,14 @@
         />
         <!-- 图片加载失败 -->
         <div
-          class="iconfont hevue-img-status-icon"
+          class="heimgfont hevue-img-status-icon"
           v-show="imgState === 3"
         >
           &#xec0d;
         </div>
         <!-- 关闭按钮 -->
         <div
-          class="iconfont he-close-icon"
+          class="heimgfont he-close-icon"
           @click.stop="close"
           v-if="closeBtn"
         >
@@ -88,7 +88,7 @@
         </div>
         <!-- 左箭头 -->
         <div
-          class="arrow arrow-left iconfont"
+          class="arrow arrow-left heimgfont"
           @click.stop="toogleImg(false)"
           v-if="arrowBtn && multiple"
         >
@@ -96,7 +96,7 @@
         </div>
         <!-- 右箭头 -->
         <div
-          class="arrow arrow-right iconfont"
+          class="arrow arrow-right heimgfont"
           @click.stop="toogleImg(true)"
           v-if="arrowBtn && multiple"
         >
@@ -109,16 +109,16 @@
             @click.stop
           >
             <!-- 缩小 -->
-            <div class="he-control-btn iconfont" @click.stop="scaleFunc(-0.15)">
+            <div class="he-control-btn heimgfont" @click.stop="scaleFunc(-0.15)">
               &#xe65e;
             </div>
             <!-- 放大 -->
-            <div class="he-control-btn iconfont" @click.stop="scaleFunc(0.15)">
+            <div class="he-control-btn heimgfont" @click.stop="scaleFunc(0.15)">
               &#xe65d;
             </div>
             <!-- 复位 -->
             <div
-              class="he-control-btn iconfont"
+              class="he-control-btn heimgfont"
               v-show="isFull"
               @click.stop="imgToggle"
             >
@@ -126,22 +126,22 @@
             </div>
             <!-- 复位 -->
             <div
-              class="he-control-btn iconfont"
+              class="he-control-btn heimgfont"
               v-show="!isFull"
               @click.stop="imgToggle"
             >
               &#xe86b;
             </div>
             <!-- 左转 -->
-            <div class="he-control-btn iconfont" @click.stop="rotateFunc(-90)">
+            <div class="he-control-btn heimgfont" @click.stop="rotateFunc(-90)">
               &#xe670;
             </div>
             <!-- 右转 -->
-            <div class="he-control-btn iconfont" @click.stop="rotateFunc(90)">
+            <div class="he-control-btn heimgfont" @click.stop="rotateFunc(90)">
               &#xe66f;
             </div>
             <!-- 下载 -->
-            <!-- <div class="he-control-btn iconfont" @click.stop="downloadIamge">
+            <!-- <div class="he-control-btn heimgfont" @click.stop="downloadIamge">
               &#xe694;
             </div> -->
           </div>
