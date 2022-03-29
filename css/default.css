@@ -8,7 +8,7 @@
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
-  z-index: 999;
+  z-index: 9999;
   color: rgba(255,255,255,.6);
 }
 .hevue-imgpreview-wrap .he-img-wrap {
