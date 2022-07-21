@@ -3,7 +3,7 @@
  * @Date: 2021-04-19 16:39:30
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2021-10-28 11:15:41
+ * @LastEditTime: 2022-07-21 16:23:40
  * @Description: file content
 -->
 
@@ -36,7 +36,7 @@
     <div
       class="hevue-imgpreview-wrap"
       id="hevue-imgpreview-wrap"
-      v-if="show"
+      v-if="visible"
       ref="heImg"
       @mouseup="removeMove('pc')"
       @touchend="removeMove('mobile')"
@@ -165,6 +165,7 @@ export default {
     return {
       // imgWidth: 0,
       // imgHeight: 0,
+      visible: false, // 插件显示，默认为false
       imgScale: 1,
       imgTop: 0,
       imgLeft: 0,
@@ -180,7 +181,7 @@ export default {
       start: [{}, {}],
       mobileScale: 0, // 手指离开时图片的缩放比例
       // 以下内容为用户传入配置
-      show: false, // 插件显示，默认为false
+      // show: true, // 插件显示，默认为false
       url: '', // 预览图片的地址
       nowImgIndex: 0,
       multiple: false,
@@ -194,13 +195,15 @@ export default {
     }
   },
   mounted() {
+    console.log(this.url);
+    console.log(222);
     this.initImg()
   },
   watch: {
     url() {
       this.initImg()
     },
-    show: {
+    visible: {
       handler(newV) {
         if (newV) {
           this.$nextTick(() => {
@@ -235,8 +238,11 @@ export default {
     },
   },
   methods: {
+    show() {
+      this.visible = true
+    },
     close() {
-      // this.initImg();
+      this.initImg();
       // this.maxWH = "max-width:100%;max-height:100%;";
       // this.isFull = false;
       // 移除火狐浏览器下的鼠标滚动事件
@@ -247,7 +253,7 @@ export default {
       if (this.keyboard) {
         document.removeEventListener('keydown', this.keyHandleDebounce)
       }
-      this.show = false
+      this.visible = false
     },
     initImg() {
       this.mobileScale = 1
