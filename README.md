@@ -20,8 +20,16 @@ npm install hevue-img-preview
 
 在main.js进行全局引入
 ```javascript
+
+// vue2.x
 import hevueImgPreview from 'hevue-img-preview'
 Vue.use(hevueImgPreview)
+
+// vue3.x
+import hevueImgPreview from 'hevue-img-preview'
+const app = createApp(App)
+app.use(hevueImgPreview)
+app.mount('#app')
 ```
 
 在组件中进行使用
@@ -83,12 +91,23 @@ this.$hevueImgPreview({
 
 ```javascript
 // main.js
+
+// vue2.x
 import hevueImgPreview from 'hevueImgPreview'
 Vue.use(hevueImgPreview, {
   keyboard: true,
   clickMaskCLose: true
   ...
 })
+
+// vue3.x
+const app = createApp(App)
+app.use(hevueImgPreview, {
+  keyboard: true,
+  clickMaskCLose: true
+  ...
+})
+app.mount('#app')
 ```
 
 
@@ -105,7 +124,6 @@ Vue.use(hevueImgPreview, {
 | r | 图片复位
 | esc | 关闭图片预览
 
-*如不考虑兼容性问题，上述的背景颜色均可接收渐变色*
 
 ## 更新日志
 
@@ -116,6 +134,10 @@ Vue.use(hevueImgPreview, {
 const hevueImgPreviewEl = this.$hevueImgPreview(...)
 hevueImgPreviewEl.close()
 ```
+
+### 6.0.0
+
+组件兼容vue3.x
 
 ## 作者注
 
