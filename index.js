@@ -64,7 +64,6 @@ const install = async (app, opts = {}) => {
     app.config.globalProperties.$hevueImgPreview = ImgPreview;
   } else {
     let _vue = await (await import("vue")).default;
-    console.log(_vue);
     imgApp = _vue.extend(VueToast)
     _vue.prototype.$hevueImgPreview = ImgPreview;
   }    

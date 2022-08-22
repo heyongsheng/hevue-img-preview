@@ -3,7 +3,7 @@
  * @Date: 2021-04-19 16:39:30
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-07-21 16:23:40
+ * @LastEditTime: 2022-08-22 11:54:00
  * @Description: file content
 -->
 
@@ -195,8 +195,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.url);
-    console.log(222);
     this.initImg()
   },
   watch: {
@@ -386,7 +384,6 @@ export default {
     // 手指拖动
     moveFuncMobile(e) {
       e = e || window.event
-      // console.log(e);
       if (e.touches.length > 1) {
         var now = e.touches
         var scale =
@@ -475,7 +472,6 @@ export default {
     },
     // 点击遮罩层
     clickMask() {
-      // console.log("hello");
       if (this.clickMaskCLose) {
         this.close()
       }
