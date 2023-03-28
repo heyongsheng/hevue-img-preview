@@ -3,7 +3,7 @@
  * @Date: 2021-04-19 16:39:30
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2022-07-21 16:23:40
+ * @LastEditTime: 2023-03-28 16:25:25
  * @Description: file content
 -->
 
@@ -58,30 +58,27 @@
           class="he-img-view"
           :style="
             'transform: scale(' +
-              imgScale +
-              ') rotate(' +
-              imgRotate +
-              'deg);margin-top:' +
-              imgTop +
-              'px;margin-left:' +
-              imgLeft +
-              'px;' +
-              maxWH
+            imgScale +
+            ') rotate(' +
+            imgRotate +
+            'deg);margin-top:' +
+            imgTop +
+            'px;margin-left:' +
+            imgLeft +
+            'px;' +
+            maxWH
           "
           @mousedown="addMove"
           @touchstart="addMoveMobile"
         />
         <!-- 图片加载失败 -->
-        <div
-          class="heimgfont hevue-img-status-icon"
-          v-show="imgState === 3"
-        >
+        <div class="heimgfont hevue-img-status-icon" v-show="imgState === 3">
           &#xec0d;
         </div>
         <!-- 关闭按钮 -->
         <div
           class="heimgfont he-close-icon"
-          @click.stop="close"
+          @click.stop="close({ way: 'closeBtn' })"
           v-if="closeBtn"
         >
           &#xe608;
@@ -89,7 +86,7 @@
         <!-- 左箭头 -->
         <div
           class="arrow arrow-left heimgfont"
-          @click.stop="toogleImg(false)"
+          @click.stop="toogleImg(false, 'btn')"
           v-if="arrowBtn && multiple"
         >
           &#xe620;
@@ -97,19 +94,19 @@
         <!-- 右箭头 -->
         <div
           class="arrow arrow-right heimgfont"
-          @click.stop="toogleImg(true)"
+          @click.stop="toogleImg(true, 'btn')"
           v-if="arrowBtn && multiple"
         >
           &#xe60d;
         </div>
         <!-- 控制条 -->
         <div class="he-control-bar-wrap" v-if="controlBar">
-          <div
-            class="he-control-bar"
-            @click.stop
-          >
+          <div class="he-control-bar" @click.stop>
             <!-- 缩小 -->
-            <div class="he-control-btn heimgfont" @click.stop="scaleFunc(-0.15)">
+            <div
+              class="he-control-btn heimgfont"
+              @click.stop="scaleFunc(-0.15)"
+            >
               &#xe65e;
             </div>
             <!-- 放大 -->
@@ -147,10 +144,7 @@
           </div>
         </div>
         <!-- 页码指示器 -->
-        <div
-          class="he-control-num"
-          v-if="controlBar && multiple"
-        >
+        <div class="he-control-num" v-if="controlBar && multiple">
           {{ imgIndex + 1 }} / {{ imgList.length }}
         </div>
       </div>
@@ -192,11 +186,11 @@ export default {
       arrowBtn: true,
       keyboard: false,
       clickMaskCLose: false, // 是否点击遮罩关闭，默认false
+      closeFn: null, // 关闭回调函数
+      changeFn: null, // 切换图片回调函数
     }
   },
   mounted() {
-    console.log(this.url);
-    console.log(222);
     this.initImg()
   },
   watch: {
@@ -212,7 +206,7 @@ export default {
             // 火狐浏览器没有onmousewheel事件，用DOMMouseScroll代替(滚轮事件)
             document.body.addEventListener('DOMMouseScroll', this.scrollFunc)
             // 禁止火狐浏览器下拖拽图片的默认事件
-            document.ondragstart = function() {
+            document.ondragstart = function () {
               return false
             }
             // 判断是否多图
@@ -241,8 +235,8 @@ export default {
     show() {
       this.visible = true
     },
-    close() {
-      this.initImg();
+    close(data) {
+      this.initImg()
       // this.maxWH = "max-width:100%;max-height:100%;";
       // this.isFull = false;
       // 移除火狐浏览器下的鼠标滚动事件
@@ -254,6 +248,7 @@ export default {
         document.removeEventListener('keydown', this.keyHandleDebounce)
       }
       this.visible = false
+      this.closeFn && this.closeFn(data)
     },
     initImg() {
       this.mobileScale = 1
@@ -267,7 +262,8 @@ export default {
      * true 下一张
      * false 上一张
      */
-    toogleImg(bool) {
+    toogleImg(bool, way) {
+      let fromIndex = this.imgIndex
       if (bool) {
         this.imgIndex++
         if (this.imgIndex > this.imgList.length - 1) {
@@ -279,6 +275,15 @@ export default {
           this.imgIndex = this.imgList.length - 1
         }
       }
+      this.changeFn &&
+        this.changeFn({
+          type: bool ? 'next' : 'prev',
+          fromImgIndex: fromIndex,
+          fromImgUrl: this.imgList[fromIndex],
+          toImgIndex: this.imgIndex,
+          toImgUrl: this.imgList[this.imgIndex],
+          way,
+        })
       // this.url = this.imgList[this.imgIndex]
       this.changeUrl(this.imgList[this.imgIndex], this.imgIndex)
     },
@@ -441,16 +446,16 @@ export default {
       var key = e.keyCode || e.which || e.charCode
       switch (key) {
         case 27: // esc
-          this.close()
+          this.close({ way: 'esc' })
           break
         case 65: // a键-上一张
           if (this.multiple) {
-            this.toogleImg(false)
+            this.toogleImg(false, 'key-a')
           }
           break
         case 68: // d键-下一张
           if (this.multiple) {
-            this.toogleImg(true)
+            this.toogleImg(true, 'key-d')
           }
           break
         case 87: // w键-放大
@@ -477,7 +482,7 @@ export default {
     clickMask() {
       // console.log("hello");
       if (this.clickMaskCLose) {
-        this.close()
+        this.close({ way: 'mask' })
       }
     },
     //缩放 勾股定理方法-求两点之间的距离
@@ -497,7 +502,7 @@ export default {
       let image = new Image()
       // 解决跨域 Canvas 污染问题
       image.setAttribute('crossOrigin', 'anonymous')
-      image.onload = function() {
+      image.onload = function () {
         let canvas = document.createElement('canvas')
         canvas.width = image.width
         canvas.height = image.height
@@ -510,7 +515,7 @@ export default {
         a.href = url // 将生成的URL设置为a.href属性
         a.dispatchEvent(event) // 触发a的单击事件
       }
-      image.onerror = function(err) {
+      image.onerror = function (err) {
         console.log('图片信息不正确或图片服务器禁止访问')
         console.log(err)
       }
