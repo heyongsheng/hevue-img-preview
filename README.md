@@ -127,6 +127,14 @@ app.mount('#app')
 
 ## 更新日志
 
+### 6.1.0
+
+支持切换图片及关闭图片回调函数，想起请阅读文档
+
+### 6.0.0
+
+组件兼容vue3.x
+
 ### 5.0.2
 
 组件支持实例化，调用组件将返回组件实例，支持直接通过实例关闭弹窗
@@ -135,9 +143,7 @@ const hevueImgPreviewEl = this.$hevueImgPreview(...)
 hevueImgPreviewEl.close()
 ```
 
-### 6.0.0
 
-组件兼容vue3.x
 
 ## 求职广告
 
