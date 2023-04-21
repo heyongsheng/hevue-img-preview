@@ -1,3 +1,4 @@
+Hi! This is a small survey. I would like to know if any English speaking users are using this plugin. If so, please provide me with an issue so that I can adapt the plugin internationally. And I will write an English version of the usage document
 ## hevue-img-preview 简介
 
 
