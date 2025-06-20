@@ -1,2 +1,5 @@
 .history/
 node_modules/
+*.json
+v2/dist
+v3/dist

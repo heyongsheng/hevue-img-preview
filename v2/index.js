@@ -30,7 +30,7 @@ export function previewImages(options) {
   // container.style.zIndex = options.zIndex || '9999'
   // document.body.appendChild(container)
 
-  const app = Vue.extends(Preview)
+  const app = Vue.extend(Preview)
   const instance = new app({
     data: options,
   })
