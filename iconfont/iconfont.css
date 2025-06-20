@@ -1,8 +1,8 @@
 @font-face {
   font-family: "heimgfont"; /* Project id 1776686 */
-  src: url('iconfont.woff2?t=1635390861127') format('woff2'),
-       url('iconfont.woff?t=1635390861127') format('woff'),
-       url('iconfont.ttf?t=1635390861127') format('truetype');
+  src: url('iconfont.woff2?t=1749887467135') format('woff2'),
+       url('iconfont.woff?t=1749887467135') format('woff'),
+       url('iconfont.ttf?t=1749887467135') format('truetype');
 }
 
 .heimgfont {
@@ -11,6 +11,58 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.heimg-icona-zuozhuan902x:before {
+  content: "\e662";
+}
+
+.heimg-icona-youzhuan902x:before {
+  content: "\e663";
+}
+
+.heimg-iconnext:before {
+  content: "\e639";
+}
+
+.heimg-iconprev:before {
+  content: "\e63a";
+}
+
+.heimg-iconxiayige:before {
+  content: "\e6ca";
+}
+
+.heimg-iconshangyige:before {
+  content: "\e6cc";
+}
+
+.heimg-iconshangyige1:before {
+  content: "\e616";
+}
+
+.heimg-iconxiayige1:before {
+  content: "\e61e";
+}
+
+.heimg-iconziyouxuanzhuan:before {
+  content: "\e624";
+}
+
+.heimg-iconziyouxuanzhuan1:before {
+  content: "\e611";
+}
+
+.heimg-iconziyouxuanzhuan2:before {
+  content: "\e638";
+}
+
+.heimg-iconcaozuo-ziyouxuanzhuan:before {
+  content: "\e600";
+}
+
+.heimg-icona-ziyouxuanzhuanerwei:before {
+  content: "\e927";
 }
 
 .heimg-iconguanbi1:before {
