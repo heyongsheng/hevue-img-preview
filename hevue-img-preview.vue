@@ -3,7 +3,7 @@
  * @Date: 2021-04-19 16:39:30
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2025-06-21 05:14:39
+ * @LastEditTime: 2025-06-21 05:36:02
  * @Description: file content
 -->
 
@@ -398,7 +398,7 @@ export default {
           key: 'prev',
           icon: '&#xe62f;',
           title: '上一个',
-          show: () => true,
+          show: () => () => this.multiple,
           handle: () => {
             this.prevNextHandle(false, 'control-bar')
           },
@@ -407,7 +407,7 @@ export default {
           key: 'next',
           icon: '&#xe62e;',
           title: '下一个',
-          show: () => true,
+          show: () => () => this.multiple,
           handle: () => {
             this.prevNextHandle(true, 'control-bar')
           },
