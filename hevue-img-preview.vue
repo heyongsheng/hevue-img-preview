@@ -3,7 +3,7 @@
  * @Date: 2021-04-19 16:39:30
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2025-06-18 02:35:03
+ * @LastEditTime: 2025-06-21 05:14:39
  * @Description: file content
 -->
 
@@ -71,7 +71,7 @@
           @touchstart="addMoveMobile"
         />
       </transition-group>
-      <template v-else="false">
+      <template v-else>
         <img
           :src="item.url"
           @click.stop
@@ -151,6 +151,7 @@
             <div
               class="he-img-item"
               v-for="(item, key) in imgList"
+              :key="key"
               @click="toogleImg(key, 'thumb')"
               :class="{ active: key == imgIndex }"
             >
@@ -170,7 +171,11 @@
       <!-- 快捷键提示 -->
       <transition name="fade">
         <div class="hevue-img-help-wrap" v-show="showHevueImgHelp">
-          <div class="hevue-img-help-item" v-for="item in shortcutList">
+          <div
+            class="hevue-img-help-item"
+            v-for="item in shortcutList"
+            :key="item.keyName"
+          >
             <div class="hevue-img-help-item-label">{{ item.keyName }}：</div>
             <div class="hevue-img-help-item-desc">{{ item.desc }}</div>
           </div>
@@ -528,13 +533,13 @@ export default {
     show() {
       this.visible = true
       // this.showTranstion = true
-      setTimeout((_) => {
+      setTimeout(() => {
         this.showTranstion = true
       }, 20)
     },
     close(data) {
       this.showTranstion = false
-      setTimeout((_) => {
+      setTimeout(() => {
         this.initImg()
         // this.isFull = false;
         // 移除火狐浏览器下的鼠标滚动事件
@@ -635,7 +640,7 @@ export default {
           url,
           index,
         })
-        this.$nextTick((_) => {
+        this.$nextTick(() => {
           let targetImg = this.$refs['heImg' + index][0]
           targetImg.onload = () => {
             // 如果加载出来图片当下标不是当前显示图片当下标，则不予显示（用户点击过快当时候，会出现用户点到第三张了，此时第一张图片才加载完当情况）
@@ -830,7 +835,7 @@ export default {
       }
     },
     // 点击遮罩层
-    clickMask(e) {
+    clickMask() {
       if (this.clickMaskCLose) {
         this.close({ way: 'mask' })
       }
@@ -871,12 +876,11 @@ export default {
       }
 
       image.src = this.imgList[this.imgIndex]
-      return
-      if (this.multiple) {
-        image.src = this.imgList[this.imgIndex]
-      } else {
-        image.src = this.url
-      }
+      // if (this.multiple) {
+      //   image.src = this.imgList[this.imgIndex]
+      // } else {
+      //   image.src = this.url
+      // }
     },
     // 获取图片主色调
     isValidColor(r, g, b, a) {
@@ -997,7 +1001,7 @@ export default {
       return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)]
     },
     adjustColor(rgb, targetL = 0.5) {
-      const [h, s, l] = this.rgbToHsl(...rgb)
+      const [h, s] = this.rgbToHsl(...rgb)
       const balancedRGB = this.hslToRgb(h, s, targetL)
       return balancedRGB
     },
