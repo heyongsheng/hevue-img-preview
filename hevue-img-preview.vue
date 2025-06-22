@@ -3,7 +3,7 @@
  * @Date: 2021-04-19 16:39:30
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2025-06-21 05:36:02
+ * @LastEditTime: 2025-06-22 16:02:51
  * @Description: file content
 -->
 
@@ -164,7 +164,7 @@
           </div>
         </div>
         <!-- 页码指示器 -->
-        <div class="he-control-num" v-if="controlBar && multiple">
+        <div class="he-control-num" v-if="controlBar.length && multiple">
           {{ imgIndex + 1 }} / {{ imgList.length }}
         </div>
       </div>
@@ -217,6 +217,7 @@ export default {
       // 以下内容为用户传入配置
       // show: true, // 插件显示，默认为false
       //url: '', // 预览图片的地址 7.0 开始废弃
+      imgList: [],
       nowImgIndex: 0,
       thumbnail: true, // 是否显示缩略图，默认true
       controlBar: [],
@@ -230,7 +231,6 @@ export default {
       disabledImgRightClick: false, // 禁止图片右击
       // 以上为配置项
       showTranstion: false,
-      imgList: [],
       needLoadImg: [],
       showHevueImgHelp: false,
       shortcutList: [
@@ -435,12 +435,8 @@ export default {
       ],
     }
   },
-  created() {
-    console.log(666)
-  },
+  created() {},
   mounted() {
-    console.log()
-
     this.initImg()
   },
   computed: {
@@ -491,8 +487,6 @@ export default {
     visible: {
       handler(newV) {
         if (newV) {
-          console.log(777)
-
           this.$nextTick(() => {
             let _dom = document.getElementById('hevue-imgpreview-wrap')
             _dom.onmousewheel = this.scrollFunc
@@ -742,8 +736,6 @@ export default {
     },
     // 鼠标按下
     addMove(e) {
-      console.log(e)
-
       e = e || window.event
       this.clientX = e.clientX
       this.clientY = e.clientY
@@ -927,12 +919,10 @@ export default {
           dominantColor = key
         }
       }
-      console.log(dominantColor)
       // dominantColor = this.adjustColor(
       //   dominantColor.split(',').map(Number),
       //   0.9
       // )
-      console.log(dominantColor)
       const el = document.querySelector('.hevue-imgpreview-wrap.glass')
       el.style.setProperty(
         '--hevueimg-main-text-color',

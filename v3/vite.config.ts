@@ -6,10 +6,11 @@ import path from 'path'
 export default defineConfig({
   plugins: [vue()],
   build: {
+    outDir: '../dist/v3',
     lib: {
       entry: path.resolve(__dirname, 'index.js'),
       name: 'hevueImgPreview',
-      fileName: (format) => `hevue-img-preview.js`,
+      fileName: (format) => `index.js`,
       formats: ['umd'],
     },
     rollupOptions: {
@@ -19,7 +20,7 @@ export default defineConfig({
           vue: 'Vue',
         },
         exports: 'named',
-        assetFileNames: 'assets/[name]-[hash][extname]',
+        assetFileNames: 'index.css',
       },
     },
   },
