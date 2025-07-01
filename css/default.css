@@ -3,6 +3,7 @@
   --hevueimg-main-text-color: rgba(255, 255, 255, 0.7);
   --hevueimg-main-backdrop: blur(5px);
   --hevueimg-main-border: none;
+  --hevueimg-main-box-shadow: none;
 
   --hevueimg-mask-bg-color: var(--hevueimg-main-bg-color);
   --hevueimg-close-bg-color: var(--hevueimg-main-bg-color);
@@ -12,6 +13,14 @@
   --hevueimg-help-bg-color: var(--hevueimg-main-bg-color);
   --hevueimg-custom-rotate-bg-color: var(--hevueimg-main-bg-color);
   --hevueimg-custom-rotate-label-bg-color: var(--hevueimg-main-bg-color);
+
+  --hevueimg-close-box-shadow: var(--hevueimg-main-box-shadow);
+  --hevueimg-arrow-box-shadow: var(--hevueimg-main-box-shadow);
+  --hevueimg-controlbar-box-shadow: var(--hevueimg-main-box-shadow);
+  --hevueimg-controlnum-box-shadow: var(--hevueimg-main-box-shadow);
+  --hevueimg-help-box-shadow: var(--hevueimg-main-box-shadow);
+  --hevueimg-custom-rotate-box-shadow: var(--hevueimg-main-box-shadow);
+  --hevueimg-custom-rotate-label-box-shadow: var(--hevueimg-main-box-shadow);
 
   --hevueimg-mask-backdrop: var(--hevueimg-main-backdrop);
   --hevueimg-close-backdrop: var(--hevueimg-main-backdrop);
@@ -38,15 +47,6 @@
   --hevueimg-status-icon-text-color: var(--hevueimg-main-text-color);
 }
 
-.hevue-imgpreview-wrap.glass {
-  --hevueimg-main-bg-color: rgba(255, 255, 255, 0.3);
-  --hevueimg-main-text-color: rgba(255, 255, 255, 0.7);
-  --hevueimg-main-backdrop: blur(5px);
-  --hevueimg-main-border: 1px solid rgba(255, 255, 255, 0.3);
-
-  --hevueimg-mask-bg-color: rgba(0, 0, 0, 0.3);
-}
-
 .hevue-imgpreview-wrap {
   position: fixed;
   top: 0;
@@ -61,6 +61,10 @@
   color: var(--hevueimg-main-text-color);
   /* opacity: 0;
   transition: all 0.5s; */
+}
+
+.hevue-imgpreview-wrap.disableTransition * {
+  transition: none !important;
 }
 
 .hevue-imgpreview-wrap.heShow {
@@ -125,6 +129,7 @@
   background: var(--hevueimg-arrow-bg-color);
   backdrop-filter: var(--hevueimg-arrow-backdrop);
   border: var(--hevueimg-arrow-border);
+  box-shadow: var(--hevueimg-arrow-box-shadow);
 }
 
 .hevue-imgpreview-wrap .arrow:hover {
@@ -157,6 +162,7 @@
   background: var(--hevueimg-close-bg-color);
   backdrop-filter: var(--hevueimg-close-backdrop);
   border: var(--hevueimg-close-border);
+  box-shadow: var(--hevueimg-close-box-shadow);
 }
 
 .hevue-imgpreview-wrap .he-close-icon:hover {
@@ -194,9 +200,12 @@
   background: var(--hevueimg-custom-rotate-label-bg-color);
   backdrop-filter: var(--hevueimg-custom-rotate-label-backdrop);
   border: var(--hevueimg-custom-rotate-label-border);
+  box-shadow: var(--hevueimg-custom-rotate-label-box-shadow);
+  position: relative;
 }
 
 .hevue-custom-range {
+  position: relative;
   outline: none;
   /*去掉点击时出现的外边框*/
   -webkit-appearance: none;
@@ -208,6 +217,7 @@
   border-radius: 10px;
   background: var(--hevueimg-custom-rotate-bg-color);
   height: 8px;
+  box-shadow: var(--hevueimg-custom-rotate-box-shadow);
 }
 
 .hevue-custom-range::-webkit-slider-thumb {
@@ -218,6 +228,8 @@
   width: 15px;
   height: 15px;
   border-radius: 50%;
+  z-index: 2;
+  position: relative;
 }
 
 /* 底部控制条 */
@@ -232,6 +244,8 @@
   background: var(--hevueimg-controlbar-bg-color);
   backdrop-filter: var(--hevueimg-controlbar-backdrop);
   border: var(--hevueimg-controlbar-border);
+  box-shadow: var(--hevueimg-controlbar-box-shadow);
+  position: relative;
 }
 
 .hevue-imgpreview-wrap .he-control-btn {
@@ -240,6 +254,7 @@
   cursor: pointer;
   padding: 0 9px;
   transition: all 0.2s;
+  z-index: 2;
 }
 
 .hevue-imgpreview-wrap .he-control-btn:hover {
@@ -251,11 +266,13 @@
   padding: 10px 0;
   min-width: 600px;
   max-width: 1200px;
-  mask-image: linear-gradient(to right,
-      rgba(0, 0, 0, 0) 0%,
-      #fff 40%,
-      #fff 60%,
-      rgba(0, 0, 0, 0) 100%);
+  mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0) 0%,
+    #fff 40%,
+    #fff 60%,
+    rgba(0, 0, 0, 0) 100%
+  );
 }
 
 .hevue-imgpreview-wrap .he-imglist {
@@ -314,6 +331,8 @@
   background: var(--hevueimg-controlnum-bg-color);
   backdrop-filter: var(--hevueimg-controlnum-backdrop);
   border: var(--hevueimg-controlnum-border);
+  box-shadow: var(--hevueimg-controlnum-box-shadow);
+  position: relative;
 }
 
 .hevue-imgpreview-wrap .fade-enter-active {
@@ -361,13 +380,60 @@
   font-size: 16px;
   backdrop-filter: var(--hevueimg-help-backdrop);
   border: var(--hevueimg-help-border);
+  box-shadow: var(--hevueimg-help-box-shadow);
 }
 
 .hevue-img-help-item {
   display: flex;
+  position: relative;
+  z-index: 2;
+}
+.hevue-img-help-item * {
+  font-weight: 600;
 }
 
 .hevue-img-help-item-label {
   width: 40px;
   text-align: right;
+}
+
+.hevue-imgpreview-wrap.glass-theme {
+  --hevueimg-main-bg-color: transparent;
+  --hevueimg-main-text-color: rgba(255, 255, 255, 0.7);
+  --hevueimg-main-backdrop: none;
+
+  --hevueimg-mask-bg-color: rgba(0, 0, 0, 0.2);
+  --hevueimg-mask-backdrop: blur(5px);
+
+  /* --hevueimg-custom-rotate-bg-color: rgba(0, 0, 0, 0.2); */
+}
+
+.hevue-imgpreview-wrap.glass-theme .theme-item > span {
+  position: relative;
+  z-index: 3;
+}
+
+.hevue-imgpreview-wrap.glass-theme .theme-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  backdrop-filter: blur(1px);
+  filter: url(#glass-distortion);
+  border-radius: inherit;
+}
+
+.hevue-imgpreview-wrap.glass-theme .theme-item::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  box-shadow: inset 1px 1px 1px 0 rgb(255 255 255 / 19%),
+    inset -1px -1px 1px 100px rgba(0, 0, 0, 0.12),
+    inset -1px -1px 1px rgba(255, 255, 255, 0.1), 2px 2px 8px rgb(0 0 0 / 31%);
 }

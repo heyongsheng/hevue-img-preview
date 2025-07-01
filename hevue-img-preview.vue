@@ -3,7 +3,7 @@
  * @Date: 2021-04-19 16:39:30
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2025-06-22 16:02:51
+ * @LastEditTime: 2025-06-23 01:12:43
  * @Description: file content
 -->
 
@@ -94,36 +94,38 @@
       </div>
       <!-- 关闭按钮 -->
       <div
-        class="heimgfont he-close-icon"
+        class="heimgfont he-close-icon theme-item"
         @click.stop="close({ way: 'closeBtn' })"
         v-if="closeBtn"
       >
-        &#xe608;
+        <span>&#xe608;</span>
       </div>
       <!-- 左箭头 -->
       <div
-        class="arrow arrow-left heimgfont"
+        class="arrow arrow-left heimgfont theme-item"
         @click.stop="prevNextHandle(false, 'arrow-btn')"
         v-if="arrowBtn && multiple"
       >
-        &#xe620;
+        <span>&#xe620;</span>
       </div>
       <!-- 右箭头 -->
       <div
-        class="arrow arrow-right heimgfont"
+        class="arrow arrow-right heimgfont theme-item"
         @click.stop="prevNextHandle(true, 'arrow-btn')"
         v-if="arrowBtn && multiple"
       >
-        &#xe60d;
+        <span>&#xe60d;</span>
       </div>
       <!-- 底部控制 -->
       <div class="he-bottom-wrap">
         <!-- 自定义旋转跳 -->
         <transition name="fade">
           <div class="hevue-custom-rotate-wrap" v-show="showHevueImgRotate">
-            <span class="hevue-custom-range-label">{{ imgRotate }}°</span>
+            <span class="hevue-custom-range-label theme-item">
+              <span>{{ imgRotate }}°</span></span
+            >
             <input
-              class="hevue-custom-range"
+              class="hevue-custom-range theme-item"
               v-model.number="imgRotate"
               type="range"
               id="vol"
@@ -134,7 +136,11 @@
           </div>
         </transition>
         <!-- 控制条 -->
-        <div @click.stop class="he-control-bar" v-if="controlBar.length">
+        <div
+          @click.stop
+          class="he-control-bar theme-item"
+          v-if="controlBar.length"
+        >
           <div
             class="he-control-btn heimgfont"
             v-for="(item, key) in controlbarShowItems"
@@ -164,13 +170,16 @@
           </div>
         </div>
         <!-- 页码指示器 -->
-        <div class="he-control-num" v-if="controlBar.length && multiple">
-          {{ imgIndex + 1 }} / {{ imgList.length }}
+        <div
+          class="he-control-num theme-item"
+          v-if="controlBar.length && multiple"
+        >
+          <span>{{ imgIndex + 1 }} / {{ imgList.length }}</span>
         </div>
       </div>
       <!-- 快捷键提示 -->
       <transition name="fade">
-        <div class="hevue-img-help-wrap" v-show="showHevueImgHelp">
+        <div class="hevue-img-help-wrap theme-item" v-show="showHevueImgHelp">
           <div
             class="hevue-img-help-item"
             v-for="item in shortcutList"
@@ -182,6 +191,76 @@
         </div>
       </transition>
     </div>
+    <svg style="display: none">
+      <filter
+        id="glass-distortion"
+        x="0%"
+        y="0%"
+        width="100%"
+        height="100%"
+        filterUnits="objectBoundingBox"
+      >
+        <feTurbulence
+          type="fractalNoise"
+          baseFrequency="0.01 0.01"
+          numOctaves="1"
+          seed="5"
+          result="turbulence"
+        ></feTurbulence>
+        <!-- Seeds: 14, 17,  -->
+
+        <feComponentTransfer in="turbulence" result="mapped">
+          <feFuncR
+            type="gamma"
+            amplitude="1"
+            exponent="10"
+            offset="0.5"
+          ></feFuncR>
+          <feFuncG type="gamma" amplitude="0" exponent="1" offset="0"></feFuncG>
+          <feFuncB
+            type="gamma"
+            amplitude="0"
+            exponent="1"
+            offset="0.5"
+          ></feFuncB>
+        </feComponentTransfer>
+
+        <feGaussianBlur
+          in="turbulence"
+          stdDeviation="3"
+          result="softMap"
+        ></feGaussianBlur>
+
+        <feSpecularLighting
+          in="softMap"
+          surfaceScale="5"
+          specularConstant="1"
+          specularExponent="100"
+          lighting-color="white"
+          result="specLight"
+        >
+          <fePointLight x="-200" y="-200" z="300"></fePointLight>
+        </feSpecularLighting>
+
+        <feComposite
+          in="specLight"
+          operator="arithmetic"
+          k1="0"
+          k2="1"
+          k3="1"
+          k4="0"
+          result="litImage"
+        ></feComposite>
+
+        <feDisplacementMap
+          in="SourceGraphic"
+          in2="softMap"
+          scale="150"
+          xChannelSelector="R"
+          yChannelSelector="G"
+        ></feDisplacementMap>
+      </filter>
+    </svg>
   </div>
 </template>
 
@@ -228,6 +307,7 @@ export default {
       closeFn: null, // 关闭回调函数
       changeFn: null, // 切换图片回调函数
       customStyle: [], // 自定义样式
+      themeName: 'glass', // 主题名称，默认glass
       disabledImgRightClick: false, // 禁止图片右击
       // 以上为配置项
       showTranstion: false,
@@ -284,7 +364,7 @@ export default {
           desc: '上一张',
           handle: () => {
             if (this.multiple) {
-              this.prevNextHandle(false, 'key-a')
+              this.prevNextHandle(false, 'key-left')
             }
           },
         },
@@ -294,7 +374,7 @@ export default {
           desc: '下一张',
           handle: () => {
             if (this.multiple) {
-              this.prevNextHandle(true, 'key-d')
+              this.prevNextHandle(true, 'key-right')
             }
           },
         },
@@ -496,6 +576,14 @@ export default {
             document.ondragstart = function () {
               return false
             }
+            // 如果传入主题名称，则添加对应的主题类名
+            if (this.themeName) {
+              _dom.classList.add(this.themeName)
+            }
+            // 如果传入disableTransition，则添加对应的类名
+            if (this.disableTransition) {
+              _dom.classList.add('disableTransition')
+            }
             // 判断用户传入controlBar是否是空数组，如果是则显示所有控制项
             if (Array.isArray(this.controlBar)) {
               if (this.controlBar.length === 0) {
@@ -526,7 +614,6 @@ export default {
   methods: {
     show() {
       this.visible = true
-      // this.showTranstion = true
       setTimeout(() => {
         this.showTranstion = true
       }, 20)
