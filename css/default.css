@@ -434,6 +434,6 @@
   bottom: 0;
   border-radius: inherit;
   box-shadow: inset 1px 1px 1px 0 rgb(255 255 255 / 19%),
-    inset -1px -1px 1px 100px rgba(0, 0, 0, 0.12),
+    inset -1px -1px 1px 150px rgba(0, 0, 0, 0.12),
     inset -1px -1px 1px rgba(255, 255, 255, 0.1), 2px 2px 8px rgb(0 0 0 / 31%);
 }

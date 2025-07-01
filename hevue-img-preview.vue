@@ -3,7 +3,7 @@
  * @Date: 2021-04-19 16:39:30
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2025-06-23 01:12:43
+ * @LastEditTime: 2025-07-01 21:55:27
  * @Description: file content
 -->
 
@@ -148,7 +148,7 @@
             @click.stop="item.handle()"
             v-html="item.icon"
             v-show="item.show()"
-            :title="item.title"
+            :title="controlbarI18n[locale][item.title]"
           ></div>
         </div>
         <!-- 缩略图 -->
@@ -186,7 +186,9 @@
             :key="item.keyName"
           >
             <div class="hevue-img-help-item-label">{{ item.keyName }}：</div>
-            <div class="hevue-img-help-item-desc">{{ item.desc }}</div>
+            <div class="hevue-img-help-item-desc">
+              {{ shortI18n[locale][item.desc] }}
+            </div>
           </div>
         </div>
       </transition>
@@ -306,18 +308,49 @@ export default {
       clickMaskCLose: true, // 是否点击遮罩关闭，默认true
       closeFn: null, // 关闭回调函数
       changeFn: null, // 切换图片回调函数
-      customStyle: [], // 自定义样式
+      customStyle: {}, // 自定义样式
       themeName: 'glass', // 主题名称，默认glass
       disabledImgRightClick: false, // 禁止图片右击
       // 以上为配置项
       showTranstion: false,
       needLoadImg: [],
       showHevueImgHelp: false,
+      locale: 'zhCN', // 语言环境，默认中文
+      shortI18n: {
+        zhCN: {
+          key27: '退出预览',
+          key65: '上一张',
+          key68: '下一张',
+          key87: '放大',
+          key83: '缩小',
+          key37: '上一张',
+          key39: '下一张',
+          key38: '放大',
+          key40: '缩小',
+          key81: '逆时针旋转',
+          key69: '顺时针旋转',
+          key82: '重置旋转',
+        },
+        en: {
+          key27: 'Exit preview',
+          key65: 'Previous',
+          key68: 'Next',
+          key87: 'Zoom in',
+          key83: 'Zoom out',
+          key37: 'Previous',
+          key39: 'Next',
+          key38: 'Zoom in',
+          key40: 'Zoom out',
+          key81: 'Rotate counterclockwise',
+          key69: 'Rotate clockwise',
+          key82: 'Reset rotation',
+        },
+      },
       shortcutList: [
         {
           keyNum: 27,
           keyName: 'Esc',
-          desc: '退出预览',
+          desc: 'key27',
           handle: () => {
             this.close({ way: 'esc' })
           },
@@ -325,7 +358,7 @@ export default {
         {
           keyNum: 65,
           keyName: 'A',
-          desc: '上一张',
+          desc: 'key65',
           handle: () => {
             if (this.multiple) {
               this.prevNextHandle(false, 'key-a')
@@ -335,7 +368,7 @@ export default {
         {
           keyNum: 68,
           keyName: 'D',
-          desc: '下一张',
+          desc: 'key68',
           handle: () => {
             if (this.multiple) {
               this.prevNextHandle(true, 'key-d')
@@ -345,7 +378,7 @@ export default {
         {
           keyNum: 87,
           keyName: 'W',
-          desc: '放大',
+          desc: 'key87',
           handle: () => {
             this.scaleFunc(0.15)
           },
@@ -353,7 +386,7 @@ export default {
         {
           keyNum: 83,
           keyName: 'S',
-          desc: '缩小',
+          desc: 'key83',
           handle: () => {
             this.scaleFunc(-0.15)
           },
@@ -361,7 +394,7 @@ export default {
         {
           keyNum: 37,
           keyName: '←',
-          desc: '上一张',
+          desc: 'key37',
           handle: () => {
             if (this.multiple) {
               this.prevNextHandle(false, 'key-left')
@@ -371,7 +404,7 @@ export default {
         {
           keyNum: 39,
           keyName: '→',
-          desc: '下一张',
+          desc: 'key39',
           handle: () => {
             if (this.multiple) {
               this.prevNextHandle(true, 'key-right')
@@ -381,7 +414,7 @@ export default {
         {
           keyNum: 38,
           keyName: '↑',
-          desc: '放大',
+          desc: 'key38',
           handle: () => {
             this.scaleFunc(0.15)
           },
@@ -389,7 +422,7 @@ export default {
         {
           keyNum: 40,
           keyName: '↓',
-          desc: '缩小',
+          desc: 'key40',
           handle: () => {
             this.scaleFunc(-0.15)
           },
@@ -397,7 +430,7 @@ export default {
         {
           keyNum: 81,
           keyName: 'Q',
-          desc: '逆时针旋转',
+          desc: 'key81',
           handle: () => {
             this.rotateFunc(-90)
           },
@@ -405,7 +438,7 @@ export default {
         {
           keyNum: 69,
           keyName: 'E',
-          desc: '顺时针旋转',
+          desc: 'key69',
           handle: () => {
             this.rotateFunc(90)
           },
@@ -413,17 +446,43 @@ export default {
         {
           keyNum: 82,
           keyName: 'R',
-          desc: '复位',
+          desc: 'key82',
           handle: () => {
             this.initImg()
           },
         },
       ],
+      controlbarI18n: {
+        zhCN: {
+          zoomOut: '缩小',
+          zoomIn: '放大',
+          rotateLeft: '向左旋转',
+          customRotate: '自定义旋转',
+          rotateRight: '向右旋转',
+          reset: '复位',
+          prev: '上一个',
+          next: '下一个',
+          download: '下载',
+          help: '帮助',
+        },
+        en: {
+          zoomOut: 'Zoom Out',
+          zoomIn: 'Zoom In',
+          rotateLeft: 'Rotate Left',
+          customRotate: 'Custom Rotate',
+          rotateRight: 'Rotate Right',
+          reset: 'Reset',
+          prev: 'Prev',
+          next: 'Next',
+          download: 'Download',
+          help: 'Help',
+        },
+      },
       controlbarAllItems: [
         {
           key: 'zoomOut',
           icon: '&#xe65e;',
-          title: '缩小',
+          title: 'zoomOut',
           show: () => true,
           handle: () => {
             this.scaleFunc(-0.15)
@@ -432,7 +491,7 @@ export default {
         {
           key: 'zoomIn',
           icon: '&#xe65d;',
-          title: '放大',
+          title: 'zoomIn',
           show: () => true,
           handle: () => {
             this.scaleFunc(0.15)
@@ -441,7 +500,7 @@ export default {
         {
           key: 'rotateLeft',
           icon: '&#xe662;',
-          title: '向左旋转',
+          title: 'rotateLeft',
           show: () => true,
           handle: () => {
             this.rotateFunc(-90)
@@ -450,7 +509,7 @@ export default {
         {
           key: 'customRotate',
           icon: '&#xe927;',
-          title: '自定义旋转',
+          title: 'customRotate',
           show: () => true,
           handle: () => {
             this.showHevueImgRotate = !this.showHevueImgRotate
@@ -459,7 +518,7 @@ export default {
         {
           key: 'rotateRight',
           icon: '&#xe663;',
-          title: '向右旋转',
+          title: 'rotateRight',
           show: () => true,
           handle: () => {
             this.rotateFunc(90)
@@ -468,7 +527,7 @@ export default {
         {
           key: 'reset',
           icon: '&#xe86b;',
-          title: '复位',
+          title: 'reset',
           show: () => true,
           handle: () => {
             this.initImg()
@@ -477,7 +536,7 @@ export default {
         {
           key: 'prev',
           icon: '&#xe62f;',
-          title: '上一个',
+          title: 'prev',
           show: () => () => this.multiple,
           handle: () => {
             this.prevNextHandle(false, 'control-bar')
@@ -486,7 +545,7 @@ export default {
         {
           key: 'next',
           icon: '&#xe62e;',
-          title: '下一个',
+          title: 'next',
           show: () => () => this.multiple,
           handle: () => {
             this.prevNextHandle(true, 'control-bar')
@@ -495,7 +554,7 @@ export default {
         {
           key: 'download',
           icon: '&#xe694;',
-          title: '下载',
+          title: 'download',
           show: () => true,
           handle: () => {
             this.downloadIamge()
@@ -504,7 +563,7 @@ export default {
         {
           key: 'help',
           icon: '&#xe626;',
-          title: '帮助',
+          title: 'help',
           show: () => {
             return this.keyboard
           },
