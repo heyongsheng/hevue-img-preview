@@ -1,6 +1,6 @@
 Hi! This is a small survey. I would like to know if any English speaking users are using this plugin. If so, please provide me with an issue so that I can adapt the plugin internationally. And I will write an English version of the usage document
-## hevue-img-preview 简介
 
+## hevue-img-preview 简介
 
 [![](https://img.shields.io/npm/dm/hevue-img-preview.svg)](https://www.npmjs.com/package/hevue-img-preview)
 [![](https://img.shields.io/github/v/release/heyongsheng/hevue-img-preview)](https://www.npmjs.com/package/hevue-img-preview)
@@ -15,13 +15,14 @@ Hi! This is a small survey. I would like to know if any English speaking users a
 ## 安装
 
 使用npm进行安装
-``` bash
+
+```bash
 npm install hevue-img-preview
 ```
 
 在main.js进行全局引入
-```javascript
 
+```javascript
 // vue2.x
 import hevueImgPreview from 'hevue-img-preview'
 Vue.use(hevueImgPreview)
@@ -34,14 +35,16 @@ app.mount('#app')
 ```
 
 在组件中进行使用
+
 ```html
 <img :src="url" @click="previewImg(url)">
 ```
+
 ```javascript
 methods: {
-	previewImg (url) {
-		this.$hevueImgPreview(url)
-	}
+    previewImg (url) {
+        this.$hevueImgPreview(url)
+    }
 }
 ```
 
@@ -74,17 +77,17 @@ this.$hevueImgPreview({
 
 ### 配置项
 
-| 字段              | 类型    | 默认值               | 备注                           |
-| ----------------- | ------- | -------------------- | ------------------------------ |
-| url               | String  | 无                   | 预览的图片地址，多图预览时省略 |
-| multiple          | Boolean | false                | 是否多图预览                   |
-| nowImgIndex       | Number  | 0                    | 多图预览时默认显示的图片下标   |
-| imgList           | Array   | 无                   | 多图预览时传入的图片数组       |
-| keyboard          | Boolean | false                | 是否开启键盘控制               |
-| clickMaskCLose    | Boolean | false                | 是否可以点击遮罩层关闭         |
-| controlBar        | Boolean | true                 | 是否显示控制条及页码         |
-| closeBtn          | Boolean | true                 | 是否显示关闭按钮         |
-| arrowBtn          | Boolean | true                | 是否显示左右翻页按钮         |
+| 字段             | 类型      | 默认值   | 备注              |
+| -------------- | ------- | ----- | --------------- |
+| url            | String  | 无     | 预览的图片地址，多图预览时省略 |
+| multiple       | Boolean | false | 是否多图预览          |
+| nowImgIndex    | Number  | 0     | 多图预览时默认显示的图片下标  |
+| imgList        | Array   | 无     | 多图预览时传入的图片数组    |
+| keyboard       | Boolean | false | 是否开启键盘控制        |
+| clickMaskCLose | Boolean | false | 是否可以点击遮罩层关闭     |
+| controlBar     | Boolean | true  | 是否显示控制条及页码      |
+| closeBtn       | Boolean | true  | 是否显示关闭按钮        |
+| arrowBtn       | Boolean | true  | 是否显示左右翻页按钮      |
 
 #### 全局配置
 
@@ -111,20 +114,18 @@ app.use(hevueImgPreview, {
 app.mount('#app')
 ```
 
-
 如开启键盘控制事件后，相对应功能控制按键如下
 
-| 按键 | 功能
-| ----------------- | ----------------------------------------
-| w | 放大
-| s | 缩小
-| a | 上一张
-| d | 下一张
-| q | 逆时针旋转
-| e | 顺时针旋转
-| r | 图片复位
-| esc | 关闭图片预览
-
+| 按键  | 功能     |
+| --- | ------ |
+| w   | 放大     |
+| s   | 缩小     |
+| a   | 上一张    |
+| d   | 下一张    |
+| q   | 逆时针旋转  |
+| e   | 顺时针旋转  |
+| r   | 图片复位   |
+| esc | 关闭图片预览 |
 
 ## 更新日志
 
@@ -139,16 +140,16 @@ app.mount('#app')
 ### 5.0.2
 
 组件支持实例化，调用组件将返回组件实例，支持直接通过实例关闭弹窗
+
 ```javascript
 const hevueImgPreviewEl = this.$hevueImgPreview(...)
 hevueImgPreviewEl.close()
 ```
 
-
-
 ## 求职广告
 
 本人四年经验前端，急需前端职位，技术栈vue，element之类的，就是学历不太好，只有成人大专，有没有北京上海的大佬公司招人的，看看能不能给个机会，联系方式在下面
+
 ## 作者注
 
 > 本人前端小白一枚，工作经验较少，所写东西尽量保证没 bug，但性能界面什么的可能没办法做到最优，如果您有什么使用中的建议或意见，欢迎反馈给我，可以加联系方式，也可以直接回复，或者到`GitHub`提个`issue`[建议此方法]，如果对您有所帮助，万分期待您能给个赞并且到`GitHub`给个小星星
