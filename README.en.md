@@ -96,6 +96,7 @@ The preview method accepts parameters that can be a single image URL, an array o
 | disableTransition     | Disable transition effects | `boolean`  | false         |
 | customStyle           | Custom styles             | `object`   | -             |
 | themeName             | Theme name                | `string`   | -             |
+| zIndex                | Plug-in level          | `number`   | 9999  |
 | closeFn               | Callback function for closing the plugin | `Function` | -             |
 | changeFn              | Callback function for switching images | `Function` | -             |
 | locale                | Language                  | `string`   | zhCN          |

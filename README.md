@@ -96,6 +96,7 @@ const handleClick = () => { // [!code focus]
 | disableTransition     | 禁止过渡效果        | `boolean`  | false |
 | customStyle           | 自定义样式         | `object`   | -     |
 | themeName             | 主题名称          | `string`   | -     |
+| zIndex                | 插件层级          | `number`   | 9999  |
 | closeFn               | 插件关闭回调函数      | `Function` | -     |
 | changeFn              | 多图切换回调函数      | `Function` | -     |
 | locale                | 语言            | `string`   | zhCN  |
