@@ -1,4 +1,53 @@
 .hevue-imgpreview-wrap {
+  --hevueimg-main-bg-color: rgba(0, 0, 0, 0.3);
+  --hevueimg-main-text-color: rgba(255, 255, 255, 0.7);
+  --hevueimg-main-backdrop: blur(5px);
+  --hevueimg-main-border: none;
+  --hevueimg-main-box-shadow: none;
+
+  --hevueimg-mask-bg-color: var(--hevueimg-main-bg-color);
+  --hevueimg-close-bg-color: var(--hevueimg-main-bg-color);
+  --hevueimg-arrow-bg-color: var(--hevueimg-main-bg-color);
+  --hevueimg-controlbar-bg-color: var(--hevueimg-main-bg-color);
+  --hevueimg-controlnum-bg-color: var(--hevueimg-main-bg-color);
+  --hevueimg-help-bg-color: var(--hevueimg-main-bg-color);
+  --hevueimg-custom-rotate-bg-color: var(--hevueimg-main-bg-color);
+  --hevueimg-custom-rotate-label-bg-color: var(--hevueimg-main-bg-color);
+
+  --hevueimg-close-box-shadow: var(--hevueimg-main-box-shadow);
+  --hevueimg-arrow-box-shadow: var(--hevueimg-main-box-shadow);
+  --hevueimg-controlbar-box-shadow: var(--hevueimg-main-box-shadow);
+  --hevueimg-controlnum-box-shadow: var(--hevueimg-main-box-shadow);
+  --hevueimg-help-box-shadow: var(--hevueimg-main-box-shadow);
+  --hevueimg-custom-rotate-box-shadow: var(--hevueimg-main-box-shadow);
+  --hevueimg-custom-rotate-label-box-shadow: var(--hevueimg-main-box-shadow);
+
+  --hevueimg-mask-backdrop: var(--hevueimg-main-backdrop);
+  --hevueimg-close-backdrop: var(--hevueimg-main-backdrop);
+  --hevueimg-arrow-backdrop: var(--hevueimg-main-backdrop);
+  --hevueimg-controlbar-backdrop: var(--hevueimg-main-backdrop);
+  --hevueimg-controlnum-backdrop: var(--hevueimg-main-backdrop);
+  --hevueimg-help-backdrop: var(--hevueimg-main-backdrop);
+  --hevueimg-custom-rotate-label-backdrop: var(--hevueimg-main-backdrop);
+
+  --hevueimg-close-border: var(--hevueimg-main-border);
+  --hevueimg-arrow-border: var(--hevueimg-main-border);
+  --hevueimg-controlbar-border: var(--hevueimg-main-border);
+  --hevueimg-controlnum-border: var(--hevueimg-main-border);
+  --hevueimg-help-border: var(--hevueimg-main-border);
+  --hevueimg-custom-rotate-label-border: var(--hevueimg-main-border);
+
+  --hevueimg-custom-rotate-label-text-color: var(--hevueimg-main-text-color);
+  --hevueimg-custom-rotate-text-color: var(--hevueimg-main-text-color);
+  --hevueimg-close-icon-text-color: var(--hevueimg-main-text-color);
+  --hevueimg-arrow-text-color: var(--hevueimg-main-text-color);
+  --hevueimg-controlnum-text-color: var(--hevueimg-main-text-color);
+  --hevueimg-controlbar-text-color: var(--hevueimg-main-text-color);
+  --hevueimg-help-text-color: var(--hevueimg-main-text-color);
+  --hevueimg-status-icon-text-color: var(--hevueimg-main-text-color);
+}
+
+.hevue-imgpreview-wrap {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -9,8 +58,19 @@
   -webkit-user-select: none;
   -ms-user-select: none;
   z-index: 9999;
-  color: rgba(255,255,255,.6);
+  color: var(--hevueimg-main-text-color);
+  /* opacity: 0;
+  transition: all 0.5s; */
 }
+
+.hevue-imgpreview-wrap.disableTransition * {
+  transition: none !important;
+}
+
+.hevue-imgpreview-wrap.heShow {
+  opacity: 1;
+}
+
 .hevue-imgpreview-wrap .he-img-wrap {
   width: 100%;
   height: 100%;
@@ -20,11 +80,38 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: rgba(0, 0, 0, .3);
+  pointer-events: none;
+  opacity: 0;
+  transition: all 0.5s;
 }
+
+.hevue-imgpreview-wrap .he-img-wrap.heShow {
+  opacity: 1;
+}
+
+.hevue-imgpreview-wrap .he-img-wrap * {
+  pointer-events: initial;
+}
+
+.hevue-img-mask {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  backdrop-filter: none;
+  transition: all 0.3s;
+}
+
+.hevue-img-mask.heShow {
+  background: var(--hevueimg-mask-bg-color);
+  backdrop-filter: var(--hevueimg-mask-backdrop);
+}
+
 .hevue-imgpreview-wrap .he-img-view {
   /* transition: transform 0.3s; */
+  position: absolute;
 }
+
 .hevue-imgpreview-wrap .arrow {
   width: 42px;
   height: 42px;
@@ -38,18 +125,26 @@
   font-size: 24px;
   cursor: pointer;
   transition: all 0.2s;
-  background: rgba(0,0,0,.3);
+  color: var(--hevueimg-arrow-text-color);
+  background: var(--hevueimg-arrow-bg-color);
+  backdrop-filter: var(--hevueimg-arrow-backdrop);
+  border: var(--hevueimg-arrow-border);
+  box-shadow: var(--hevueimg-arrow-box-shadow);
 }
+
 .hevue-imgpreview-wrap .arrow:hover {
   opacity: 0.8;
   transform: translateY(-50%) scale(1.2);
 }
+
 .hevue-imgpreview-wrap .arrow-left {
   left: 50px;
 }
+
 .hevue-imgpreview-wrap .arrow-right {
   right: 50px;
 }
+
 /* 关闭按钮 */
 .hevue-imgpreview-wrap .he-close-icon {
   position: absolute;
@@ -63,18 +158,81 @@
   border-radius: 50%;
   cursor: pointer;
   transition: all 0.2s;
-  background: rgba(0,0,0,.3);
+  color: var(--hevueimg-close-icon-text-color);
+  background: var(--hevueimg-close-bg-color);
+  backdrop-filter: var(--hevueimg-close-backdrop);
+  border: var(--hevueimg-close-border);
+  box-shadow: var(--hevueimg-close-box-shadow);
 }
+
 .hevue-imgpreview-wrap .he-close-icon:hover {
   transform: rotate(90deg);
 }
-.hevue-imgpreview-wrap .he-control-bar-wrap {
+
+.hevue-imgpreview-wrap .he-bottom-wrap {
+  position: fixed;
+  bottom: 5vh;
+  z-index: 10;
   display: flex;
-  position: absolute;
-  width: 100%;
-  bottom: 10%;
-  left: 0;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
 }
+
+.hevue-imgpreview-wrap .he-bottom-wrap div {
+  pointer-events: initial;
+}
+
+/* 自定义旋转条 */
+.hevue-custom-rotate-wrap {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.hevue-custom-range-label {
+  font-size: 16px;
+  margin-bottom: 5px;
+  width: 50px;
+  border-radius: 15px;
+  color: var(--hevueimg-custom-rotate-label-text-color);
+  background: var(--hevueimg-custom-rotate-label-bg-color);
+  backdrop-filter: var(--hevueimg-custom-rotate-label-backdrop);
+  border: var(--hevueimg-custom-rotate-label-border);
+  box-shadow: var(--hevueimg-custom-rotate-label-box-shadow);
+  position: relative;
+}
+
+.hevue-custom-range {
+  position: relative;
+  outline: none;
+  /*去掉点击时出现的外边框*/
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  /*这三个是去掉那条线原有的默认样式，划重点！！*/
+
+  width: 300px;
+  border-radius: 10px;
+  background: var(--hevueimg-custom-rotate-bg-color);
+  height: 8px;
+  box-shadow: var(--hevueimg-custom-rotate-box-shadow);
+}
+
+.hevue-custom-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: var(--hevueimg-custom-rotate-text-color);
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  z-index: 2;
+  position: relative;
+}
+
+/* 底部控制条 */
 .hevue-imgpreview-wrap .he-control-bar {
   height: 44px;
   bottom: 10%;
@@ -82,38 +240,119 @@
   display: flex;
   border-radius: 22px;
   margin: 0 auto;
-  background: rgba(0,0,0,.3);
+  color: var(--hevueimg-controlbar-text-color);
+  background: var(--hevueimg-controlbar-bg-color);
+  backdrop-filter: var(--hevueimg-controlbar-backdrop);
+  border: var(--hevueimg-controlbar-border);
+  box-shadow: var(--hevueimg-controlbar-box-shadow);
+  position: relative;
 }
-.hevue-imgpreview-wrap .he-control-num {
-  position: absolute;
-  bottom: 5%;
-  left: 50%;
-  transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  padding: 0 22px;
-  font-size: 16px;
-  border-radius: 15px;
-  background: rgba(0,0,0,.3);
-}
+
 .hevue-imgpreview-wrap .he-control-btn {
   line-height: 44px;
   font-size: 24px;
   cursor: pointer;
   padding: 0 9px;
-  /* display: inline-block; */
   transition: all 0.2s;
+  z-index: 2;
 }
+
 .hevue-imgpreview-wrap .he-control-btn:hover {
   transform: scale(1.2);
 }
 
-.hevue-imgpreview-wrap .fade-enter-active,
+/* 缩略图 */
+.he-imglist-wrap {
+  padding: 10px 0;
+  min-width: 600px;
+  max-width: 1200px;
+  mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0) 0%,
+    #fff 40%,
+    #fff 60%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.hevue-imgpreview-wrap .he-imglist {
+  display: flex;
+  flex-wrap: nowrap;
+  transform: translateX(50%);
+  position: relative;
+  transition: all 0.3s;
+  left: 0;
+  backdrop-filter: blur(10px);
+}
+
+.he-imglist {
+  display: flex;
+}
+
+.he-img-item {
+  width: 100px;
+  height: 56px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s;
+  opacity: 0.8;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.he-img-item.active {
+  opacity: 1;
+  border: 2px solid #fff;
+  box-sizing: border-box;
+}
+
+.he-img-item:hover {
+  opacity: 1;
+  transform: scale(1.2);
+  z-index: 2;
+}
+
+.he-img-item-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hevue-imgpreview-wrap .he-control-num {
+  /* position: absolute; */
+  /* bottom: 5%; */
+  /* left: 50%;
+  transform: translateX(-50%); */
+  /* -ms-transform: translateX(-50%); */
+  padding: 0 22px;
+  font-size: 16px;
+  border-radius: 15px;
+  color: var(--hevueimg-controlnum-text-color);
+  background: var(--hevueimg-controlnum-bg-color);
+  backdrop-filter: var(--hevueimg-controlnum-backdrop);
+  border: var(--hevueimg-controlnum-border);
+  box-shadow: var(--hevueimg-controlnum-box-shadow);
+  position: relative;
+}
+
+.hevue-imgpreview-wrap .fade-enter-active {
+  opacity: 0;
+  transition: all 0.3s;
+}
+
 .hevue-imgpreview-wrap .fade-leave-active {
   transition: opacity 0.3s;
 }
-.hevue-imgpreview-wrap .fade-enter, .hevue-imgpreview-wrap .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+
+.hevue-imgpreview-wrap .fade-enter,
+.hevue-imgpreview-wrap .fade-leave-to {
   opacity: 0;
 }
+
+.hevue-imgpreview-wrap .fade-enter-to {
+  opacity: 1;
+}
+
 .hevue-imgpreview-wrap .hevue-img-status-icon {
   font-size: 56px;
 }
@@ -121,11 +360,80 @@
 .hevue-imgpreview-wrap .rotate-animation {
   animation: rotate 1.5s linear infinite;
 }
+
 @keyframes rotate {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+/* 快捷键提示 */
+.hevue-img-help-wrap {
+  background: var(--hevueimg-help-bg-color);
+  position: absolute;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  backdrop-filter: var(--hevueimg-help-backdrop);
+  border: var(--hevueimg-help-border);
+  box-shadow: var(--hevueimg-help-box-shadow);
+}
+
+.hevue-img-help-item {
+  display: flex;
+  position: relative;
+  z-index: 2;
+}
+.hevue-img-help-item * {
+  font-weight: 600;
+}
+
+.hevue-img-help-item-label {
+  width: 40px;
+  text-align: right;
+}
+
+.hevue-imgpreview-wrap.glass-theme {
+  --hevueimg-main-bg-color: transparent;
+  --hevueimg-main-text-color: rgba(255, 255, 255, 0.7);
+  --hevueimg-main-backdrop: none;
+
+  --hevueimg-mask-bg-color: rgba(0, 0, 0, 0.2);
+  --hevueimg-mask-backdrop: blur(5px);
+
+  /* --hevueimg-custom-rotate-bg-color: rgba(0, 0, 0, 0.2); */
+}
+
+.hevue-imgpreview-wrap.glass-theme .theme-item > span {
+  position: relative;
+  z-index: 3;
+}
+
+.hevue-imgpreview-wrap.glass-theme .theme-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  backdrop-filter: blur(1px);
+  filter: url(#glass-distortion);
+  border-radius: inherit;
+}
+
+.hevue-imgpreview-wrap.glass-theme .theme-item::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  box-shadow: inset 1px 1px 1px 0 rgb(255 255 255 / 19%),
+    inset -1px -1px 1px 150px rgba(0, 0, 0, 0.12),
+    inset -1px -1px 1px rgba(255, 255, 255, 0.1), 2px 2px 8px rgb(0 0 0 / 31%);
 }

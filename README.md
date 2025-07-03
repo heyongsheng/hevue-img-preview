@@ -1,16 +1,29 @@
-Hi! This is a small survey. I would like to know if any English speaking users are using this plugin. If so, please provide me with an issue so that I can adapt the plugin internationally. And I will write an English version of the usage document
-
 ## hevue-img-preview 简介
 
-[![](https://img.shields.io/npm/dm/hevue-img-preview.svg)](https://www.npmjs.com/package/hevue-img-preview)
-[![](https://img.shields.io/github/v/release/heyongsheng/hevue-img-preview)](https://www.npmjs.com/package/hevue-img-preview)
-[![](https://img.shields.io/badge/License-MIT-green)](https://www.npmjs.com/package/hevue-img-preview)
+<div class="img-inline-wrap" style='margin-top: 20px;'>
+<a href='https://github.com/heyongsheng/hevue-img-preview'><img src='https://img.shields.io/github/stars/heyongsheng?style=social' alt='star'></img></a>
+<!-- <a href='https://github.com/heyongsheng/hevue-img-preview'><img alt="GitHub forks" src="https://img.shields.io/github/forks/heyongsheng/hevue-img-preview?style=social"></img></a>  -->
+<a href='https://gitee.com/ihope_top/hevue-img-preview/stargazers'><img src='https://gitee.com/ihope_top/hevue-img-preview/badge/star.svg?theme=dark' alt='star'></img></a> 
+<a href='https://www.npmjs.com/package/hevue-img-preview'><img src='https://img.shields.io/npm/dm/hevue-img-preview.svg' alt='downloads'></img></a>
+<a href='https://gitee.com/ihope_top/hevue-img-preview/stargazers'><img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/heyongsheng/hevue-img-preview"></a>
+<a href='https://www.npmjs.com/package/hevue-img-preview'><img src='https://img.shields.io/badge/License-MIT-green' alt='downloads'></img></a>
+<a href='#'><img src='https://img.shields.io/badge/Vue2-%2365b687?logo=Vue.js&logoColor=white'></img></a>
+<a href='#'><img src='https://img.shields.io/badge/Vue3-%2365b687?logo=Vue.js&logoColor=white'></img></a>
+</div>
 
-> 本组件是一个基于 vue 编写的 vue 图片预览组件，支持 pc 和手机端，支持单图和多图预览，仅传入一个图片地址，即可实现图片预览效果。手机端支持单指拖拽和双指缩放。如果能帮上你，希望可以移步 [GitHub](https://github.com/heyongsheng/hevue-img-preview) ，或者[码云](https://gitee.com/ihope_top/hevue-img-preview) 给个小星星，如果有任何使用意见或建议，也欢迎回复或者提交 issue
+中文 | [English](./README.en.md)
+
+hevue-img-preview是一个基于 vue 编写的 vue 图片预览组件，已对vue2和vue3同时兼容，支持 pc 和手机端，支持单图和多图预览，仅传入一个图片地址，即可实现图片预览效果。手机端支持单指拖拽和双指缩放。页面各组件颜色均可自定义，实现个性化设计，如果能帮上你，希望可以移步 [GitHub](https://github.com/heyongsheng/hevue-img-preview) ，或者[码云](https://gitee.com/ihope_top/hevue-img-preview) 给个小星星，如果有任何使用意见或建议，也欢迎回复或者提交 issure
+
+特色：
+
+`单图预览` `多图预览` `单图预览` `缩略图` `快捷键` `自定义旋转` `切换图片事件回调` `关闭事件回调` `PC端` `移动端` `保存图片` `自定义样式`
 
 ## 官方文档
 
-> 官方使用文档请访问 [https://heyongsheng.github.io/#/](https://heyongsheng.github.io/#/)
+> 中国用户请访问 [https://img-preview-doc.it1996.com](https://img-preview-doc.it1996.com)
+> 国际用户请访问 [https://heyongsheng.github.io/en](https://heyongsheng.github.io/en)
+> 本文档仅介绍部分使用方式，更多请访问官方文档
 
 ## 安装
 
@@ -24,17 +37,21 @@ npm install hevue-img-preview
 
 ```javascript
 // vue2.x
-import hevueImgPreview from 'hevue-img-preview'
+import hevueImgPreview from 'hevue-img-preview/v2' 
 Vue.use(hevueImgPreview)
 
 // vue3.x
-import hevueImgPreview from 'hevue-img-preview'
+import hevueImgPreview from 'hevue-img-preview/v3' 
 const app = createApp(App)
 app.use(hevueImgPreview)
 app.mount('#app')
 ```
 
+## 使用
+
 在组件中进行使用
+
+***vue2***
 
 ```html
 <img :src="url" @click="previewImg(url)">
@@ -48,86 +65,59 @@ methods: {
 }
 ```
 
-## 使用
+***vue3***
 
-> this.\$hevueImgPreview() 方法可以接收一个字符串类型的 url，或者对象类型的配置，具体使用方法如下
-
-- 接收一个地址字符串`this.$hevueImgPreview(url)`
-
-```Javascript
-this.$hevueImgPreview('https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg') // 线上地址
-this.$hevueImgPreview('./img/logo.jpeg') // 本地地址
+```html
+<img :src="url" @click="previewImg(url)">
 ```
 
-- 接收一个对象`this.$hevueImgPreview(options)`
+```javascript
+import { previewImages } from 'hevue-img-preview/v3' // [!code focus]
 
-```Javascript
-# 单图预览
-this.$hevueImgPreview({
-    url: 'https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg',
-})
-
-# 多图预览
-this.$hevueImgPreview({
-    multiple: true, // 开启多图预览模式
-    nowImgIndex: 1, // 多图预览，默认展示第二张图片
-    imgList: ['1.png', '2.png', '3.png'], // 需要预览的多图数组
-})
+const handleClick = () => { // [!code focus]
+  previewImages('/1.png') // [!code focus]
+}
 ```
 
 ### 配置项
 
-| 字段             | 类型      | 默认值   | 备注              |
-| -------------- | ------- | ----- | --------------- |
-| url            | String  | 无     | 预览的图片地址，多图预览时省略 |
-| multiple       | Boolean | false | 是否多图预览          |
-| nowImgIndex    | Number  | 0     | 多图预览时默认显示的图片下标  |
-| imgList        | Array   | 无     | 多图预览时传入的图片数组    |
-| keyboard       | Boolean | false | 是否开启键盘控制        |
-| clickMaskCLose | Boolean | false | 是否可以点击遮罩层关闭     |
-| controlBar     | Boolean | true  | 是否显示控制条及页码      |
-| closeBtn       | Boolean | true  | 是否显示关闭按钮        |
-| arrowBtn       | Boolean | true  | 是否显示左右翻页按钮      |
+预览方法接受参数可以为单个图片路径，也可以为图片数组，或以下配置项
 
-#### 全局配置
-
-对于某些配置，例如开启键盘事件，点击遮罩层关闭，我们可能要全局保持统一，但却需要在每一次调用时重复配置，为了解决这个问题，我们提供了全局配置项，您可以在引入插件的时候，将全局配置项作为第二个参数传入即可，以免再每次调用的时候重复配置。
-
-```javascript
-// main.js
-
-// vue2.x
-import hevueImgPreview from 'hevueImgPreview'
-Vue.use(hevueImgPreview, {
-  keyboard: true,
-  clickMaskCLose: true
-  ...
-})
-
-// vue3.x
-const app = createApp(App)
-app.use(hevueImgPreview, {
-  keyboard: true,
-  clickMaskCLose: true
-  ...
-})
-app.mount('#app')
-```
-
-如开启键盘控制事件后，相对应功能控制按键如下
-
-| 按键  | 功能     |
-| --- | ------ |
-| w   | 放大     |
-| s   | 缩小     |
-| a   | 上一张    |
-| d   | 下一张    |
-| q   | 逆时针旋转  |
-| e   | 顺时针旋转  |
-| r   | 图片复位   |
-| esc | 关闭图片预览 |
+| 属性名                   | 说明            | 类型         | 默认值   |
+| --------------------- | ------------- | ---------- | ----- |
+| imgList               | 预览的图片地址       | `array`    | -     |
+| nowImgIndex           | 传入多图时当前图片的下标  | `number`   | 0     |
+| thumbnail             | 显示缩略图         | `boolean`  | true  |
+| controlBar            | 底部控制条配置       | `array`    | []    |
+| closeBtn              | 显示右上角关闭按钮     | `boolean`  | true  |
+| arrowBtn              | 显示左右切换按钮      |            |       |
+| clickMaskCLose        | 点击遮罩层是否关闭图片预览 | `boolean`  | true  |
+| disabledImgRightClick | 禁止图片右击事件      | `boolean`  | false |
+| disableTransition     | 禁止过渡效果        | `boolean`  | false |
+| customStyle           | 自定义样式         | `object`   | -     |
+| themeName             | 主题名称          | `string`   | -     |
+| closeFn               | 插件关闭回调函数      | `Function` | -     |
+| changeFn              | 多图切换回调函数      | `Function` | -     |
+| locale                | 语言            | `string`   | zhCN  |
 
 ## 更新日志
+
+### 7.0.0
+
+- 新增底部预览图
+- 新增支持cdn方式引入
+- 新增禁用图片右击事件
+- 新增底部控制条下载功能
+- 新增底部控制条单个控制项的显示控制
+- 新增底部控制条左右切换功能（仅多图预览时生效）
+- 新增底部控制条自定义角度旋转
+- 底部控制条新增快捷键键位帮助
+- 新增预置主题
+- 新增大量交互的过渡效果（可禁用）
+- 新增双语支持
+- 优化自定义样式支持，可控制项更多
+- 优化图片切换逻辑，已加载过的图片再次切换时不会重新加载
+- 优化vue2及vue3的全局使用及局部使用方式
 
 ### 6.1.0
 
@@ -146,21 +136,15 @@ const hevueImgPreviewEl = this.$hevueImgPreview(...)
 hevueImgPreviewEl.close()
 ```
 
-## 求职广告
+## 反馈与支持
 
-本人四年经验前端，急需前端职位，技术栈vue，element之类的，就是学历不太好，只有成人大专，有没有北京上海的大佬公司招人的，看看能不能给个机会，联系方式在下面
-
-## 作者注
-
-> 本人前端小白一枚，工作经验较少，所写东西尽量保证没 bug，但性能界面什么的可能没办法做到最优，如果您有什么使用中的建议或意见，欢迎反馈给我，可以加联系方式，也可以直接回复，或者到`GitHub`提个`issue`[建议此方法]，如果对您有所帮助，万分期待您能给个赞并且到`GitHub`给个小星星
-
-> GitHub 链接：[https://github.com/heyongsheng/hevue-img-preview](https://github.com/heyongsheng/hevue-img-preview)
-
-> 码云链接：[https://gitee.com/ihope_top/hevue-img-preview](https://gitee.com/ihope_top/hevue-img-preview)
+如果您在使用过程中有任何问题或建议都可以提交issue，或者通过一下方式进行交流。
 
 作者 QQ：1378431028
 
 QQ 群：595472617
+
+邮箱：1378431028@qq.com
 
 作者微信：heyongsheng1996
 ![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/57478efc7ace4a8c9e27081a26f2c8cf~tplv-k3u1fbpfcp-zoom-1.image)

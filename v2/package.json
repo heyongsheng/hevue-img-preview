@@ -1,0 +1,19 @@
+{
+  "name": "hevue-img-preview",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "vite build"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "vue": "^2.7.16"
+  },
+  "devDependencies": {
+    "vite": "^4.5.14",
+    "vite-plugin-vue2": "^2.0.3"
+  }
+}
