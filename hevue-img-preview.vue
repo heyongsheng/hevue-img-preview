@@ -3,7 +3,7 @@
  * @Date: 2021-04-19 16:39:30
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2025-07-01 21:55:27
+ * @LastEditTime: 2025-07-06 02:59:11
  * @Description: file content
 -->
 
@@ -152,7 +152,7 @@
           ></div>
         </div>
         <!-- 缩略图 -->
-        <div class="he-imglist-wrap" v-show="thumbnail && multiple">
+        <div class="he-imglist-wrap" v-if="thumbnail && multiple">
           <div class="he-imglist" :style="{ left: getThumbLeft() + 'px' }">
             <div
               class="he-img-item"
@@ -284,7 +284,7 @@ export default {
       isFull: false,
       maxWH: {
         'max-width': '100%',
-        'max-height': '100%',
+        'max-height': '100%'
       },
       clientX: 0,
       clientY: 0,
@@ -329,7 +329,7 @@ export default {
           key40: '缩小',
           key81: '逆时针旋转',
           key69: '顺时针旋转',
-          key82: '重置旋转',
+          key82: '重置旋转'
         },
         en: {
           key27: 'Exit preview',
@@ -343,8 +343,8 @@ export default {
           key40: 'Zoom out',
           key81: 'Rotate counterclockwise',
           key69: 'Rotate clockwise',
-          key82: 'Reset rotation',
-        },
+          key82: 'Reset rotation'
+        }
       },
       shortcutList: [
         {
@@ -353,7 +353,7 @@ export default {
           desc: 'key27',
           handle: () => {
             this.close({ way: 'esc' })
-          },
+          }
         },
         {
           keyNum: 65,
@@ -363,7 +363,7 @@ export default {
             if (this.multiple) {
               this.prevNextHandle(false, 'key-a')
             }
-          },
+          }
         },
         {
           keyNum: 68,
@@ -373,7 +373,7 @@ export default {
             if (this.multiple) {
               this.prevNextHandle(true, 'key-d')
             }
-          },
+          }
         },
         {
           keyNum: 87,
@@ -381,7 +381,7 @@ export default {
           desc: 'key87',
           handle: () => {
             this.scaleFunc(0.15)
-          },
+          }
         },
         {
           keyNum: 83,
@@ -389,7 +389,7 @@ export default {
           desc: 'key83',
           handle: () => {
             this.scaleFunc(-0.15)
-          },
+          }
         },
         {
           keyNum: 37,
@@ -399,7 +399,7 @@ export default {
             if (this.multiple) {
               this.prevNextHandle(false, 'key-left')
             }
-          },
+          }
         },
         {
           keyNum: 39,
@@ -409,7 +409,7 @@ export default {
             if (this.multiple) {
               this.prevNextHandle(true, 'key-right')
             }
-          },
+          }
         },
         {
           keyNum: 38,
@@ -417,7 +417,7 @@ export default {
           desc: 'key38',
           handle: () => {
             this.scaleFunc(0.15)
-          },
+          }
         },
         {
           keyNum: 40,
@@ -425,7 +425,7 @@ export default {
           desc: 'key40',
           handle: () => {
             this.scaleFunc(-0.15)
-          },
+          }
         },
         {
           keyNum: 81,
@@ -433,7 +433,7 @@ export default {
           desc: 'key81',
           handle: () => {
             this.rotateFunc(-90)
-          },
+          }
         },
         {
           keyNum: 69,
@@ -441,7 +441,7 @@ export default {
           desc: 'key69',
           handle: () => {
             this.rotateFunc(90)
-          },
+          }
         },
         {
           keyNum: 82,
@@ -449,8 +449,8 @@ export default {
           desc: 'key82',
           handle: () => {
             this.initImg()
-          },
-        },
+          }
+        }
       ],
       controlbarI18n: {
         zhCN: {
@@ -463,7 +463,7 @@ export default {
           prev: '上一个',
           next: '下一个',
           download: '下载',
-          help: '帮助',
+          help: '帮助'
         },
         en: {
           zoomOut: 'Zoom Out',
@@ -475,8 +475,8 @@ export default {
           prev: 'Prev',
           next: 'Next',
           download: 'Download',
-          help: 'Help',
-        },
+          help: 'Help'
+        }
       },
       controlbarAllItems: [
         {
@@ -486,7 +486,7 @@ export default {
           show: () => true,
           handle: () => {
             this.scaleFunc(-0.15)
-          },
+          }
         },
         {
           key: 'zoomIn',
@@ -495,7 +495,7 @@ export default {
           show: () => true,
           handle: () => {
             this.scaleFunc(0.15)
-          },
+          }
         },
         {
           key: 'rotateLeft',
@@ -504,7 +504,7 @@ export default {
           show: () => true,
           handle: () => {
             this.rotateFunc(-90)
-          },
+          }
         },
         {
           key: 'customRotate',
@@ -513,7 +513,7 @@ export default {
           show: () => true,
           handle: () => {
             this.showHevueImgRotate = !this.showHevueImgRotate
-          },
+          }
         },
         {
           key: 'rotateRight',
@@ -522,7 +522,7 @@ export default {
           show: () => true,
           handle: () => {
             this.rotateFunc(90)
-          },
+          }
         },
         {
           key: 'reset',
@@ -531,7 +531,7 @@ export default {
           show: () => true,
           handle: () => {
             this.initImg()
-          },
+          }
         },
         {
           key: 'prev',
@@ -540,7 +540,7 @@ export default {
           show: () => () => this.multiple,
           handle: () => {
             this.prevNextHandle(false, 'control-bar')
-          },
+          }
         },
         {
           key: 'next',
@@ -549,7 +549,7 @@ export default {
           show: () => () => this.multiple,
           handle: () => {
             this.prevNextHandle(true, 'control-bar')
-          },
+          }
         },
         {
           key: 'download',
@@ -558,7 +558,7 @@ export default {
           show: () => true,
           handle: () => {
             this.downloadIamge()
-          },
+          }
         },
         {
           key: 'help',
@@ -569,9 +569,9 @@ export default {
           },
           handle: () => {
             this.showHevueImgHelp = !this.showHevueImgHelp
-          },
-        },
-      ],
+          }
+        }
+      ]
     }
   },
   created() {},
@@ -596,9 +596,9 @@ export default {
         ...this.maxWH,
         transform: `scale(${this.imgScale}) rotate(${this.imgRotate}deg)`,
         marginTop: this.imgTop + 'px',
-        marginLeft: this.imgLeft + 'px',
+        marginLeft: this.imgLeft + 'px'
       }
-    },
+    }
   },
   watch: {
     customStyle: {
@@ -618,7 +618,7 @@ export default {
         })
       },
       immediate: true,
-      deep: true,
+      deep: true
     },
     url() {
       this.initImg()
@@ -667,8 +667,8 @@ export default {
           })
         }
       },
-      immediate: true,
-    },
+      immediate: true
+    }
   },
   methods: {
     show() {
@@ -757,7 +757,7 @@ export default {
           fromImgUrl: this.imgList[fromIndex],
           toImgIndex: this.imgIndex,
           toImgUrl: this.imgList[this.imgIndex],
-          way,
+          way
         })
       // this.url = this.imgList[this.imgIndex]
       this.changeUrl(this.imgList[this.imgIndex], this.imgIndex)
@@ -778,7 +778,7 @@ export default {
         this.imgState = 1
         this.needLoadImg.push({
           url,
-          index,
+          index
         })
         this.$nextTick(() => {
           let targetImg = this.$refs['heImg' + index][0]
@@ -855,7 +855,7 @@ export default {
       if (this.isFull) {
         this.maxWH = {
           'max-width': '100%',
-          'max-height': '100%',
+          'max-height': '100%'
         }
       } else {
         this.maxWH = ''
@@ -1140,8 +1140,8 @@ export default {
       const [h, s] = this.rgbToHsl(...rgb)
       const balancedRGB = this.hslToRgb(h, s, targetL)
       return balancedRGB
-    },
-  },
+    }
+  }
 }
 </script>
 
