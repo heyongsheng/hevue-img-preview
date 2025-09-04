@@ -109,6 +109,7 @@ const handleClick = () => { // [!code focus]
 | imgList               | 预览的图片地址       | `array`    | -     |
 | nowImgIndex           | 传入多图时当前图片的下标  | `number`   | 0     |
 | thumbnail             | 显示缩略图         | `boolean`  | true  |
+| thumbnailsList        | 缩略图列表         | `array`  | 默认使用imgList  |
 | controlBar            | 底部控制条配置       | `array`    | []    |
 | closeBtn              | 显示右上角关闭按钮     | `boolean`  | true  |
 | arrowBtn              | 显示左右切换按钮      |            |       |
@@ -123,6 +124,9 @@ const handleClick = () => { // [!code focus]
 | locale                | 语言            | `string`   | zhCN  |
 
 ## 更新日志
+
+### 7.1.3
+- 缩略图列表支持单独传入，如果您需要预览的图片数量较多或者质量较大，您可以使用thumbnailsList字段单独传入压缩后后的预览图
 
 ### 7.0.0
 
