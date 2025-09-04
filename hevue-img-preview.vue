@@ -27,28 +27,28 @@
  *                                //.-~~~-~_--~- |-------~~~~~~~~
  *                                       //.-~~~--\
  *                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * 
+ *
  *                               神兽保佑            永无BUG
  -->
 
 <template>
   <div
-    class="hevue-imgpreview-wrap"
-    id="hevue-imgpreview-wrap"
-    v-if="visible"
-    ref="heImg"
-    @mouseup="removeMove('pc')"
-    @touchend="removeMove('mobile')"
+      class="hevue-imgpreview-wrap"
+      id="hevue-imgpreview-wrap"
+      v-if="visible"
+      ref="heImg"
+      @mouseup="removeMove('pc')"
+      @touchend="removeMove('mobile')"
   >
     <div
-      class="hevue-img-mask"
-      @click.stop="clickMask"
-      :class="{ heShow: showTranstion }"
+        class="hevue-img-mask"
+        @click.stop="clickMask"
+        :class="{ heShow: showTranstion }"
     ></div>
     <div class="he-img-wrap" :class="{ heShow: showTranstion }">
       <div
-        class="heimgfont hevue-img-status-icon rotate-animation"
-        v-show="imgState === 1"
+          class="heimgfont hevue-img-status-icon rotate-animation"
+          v-show="imgState === 1"
       >
         &#xe6b1;
       </div>
@@ -56,36 +56,36 @@
       <!-- ref="heImView" -->
       <transition-group name="fade" v-if="vueVersion > 2">
         <img
-          :src="item.url"
-          @click.stop
-          :key="item.index"
-          v-for="item in needLoadImg"
-          v-show="imgState === 2 && imgIndex == item.index"
-          :ref="'heImg' + item.index"
-          class="he-img-view"
-          :style="
+            :src="item.url"
+            @click.stop
+            :key="item.index"
+            v-for="item in needLoadImg"
+            v-show="imgState === 2 && imgIndex == item.index"
+            :ref="'heImg' + item.index"
+            class="he-img-view"
+            :style="
             [imgIndex, fromIndex].includes(item.index) ? getImgPostion : maxWH
           "
-          @contextmenu="imgContextMenu"
-          @mousedown="addMove"
-          @touchstart="addMoveMobile"
+            @contextmenu="imgContextMenu"
+            @mousedown="addMove"
+            @touchstart="addMoveMobile"
         />
       </transition-group>
       <template v-else>
         <img
-          :src="item.url"
-          @click.stop
-          :key="item.index"
-          v-for="item in needLoadImg"
-          v-show="imgState === 2 && imgIndex == item.index"
-          :ref="'heImg' + item.index"
-          class="he-img-view"
-          :style="
+            :src="item.url"
+            @click.stop
+            :key="item.index"
+            v-for="item in needLoadImg"
+            v-show="imgState === 2 && imgIndex == item.index"
+            :ref="'heImg' + item.index"
+            class="he-img-view"
+            :style="
             [imgIndex, fromIndex].includes(item.index) ? getImgPostion : maxWH
           "
-          @contextmenu="imgContextMenu"
-          @mousedown="addMove"
-          @touchstart="addMoveMobile"
+            @contextmenu="imgContextMenu"
+            @mousedown="addMove"
+            @touchstart="addMoveMobile"
         />
       </template>
       <!-- 图片加载失败 -->
@@ -94,25 +94,25 @@
       </div>
       <!-- 关闭按钮 -->
       <div
-        class="heimgfont he-close-icon theme-item"
-        @click.stop="close({ way: 'closeBtn' })"
-        v-if="closeBtn"
+          class="heimgfont he-close-icon theme-item"
+          @click.stop="close({ way: 'closeBtn' })"
+          v-if="closeBtn"
       >
         <span>&#xe608;</span>
       </div>
       <!-- 左箭头 -->
       <div
-        class="arrow arrow-left heimgfont theme-item"
-        @click.stop="prevNextHandle(false, 'arrow-btn')"
-        v-if="arrowBtn && multiple"
+          class="arrow arrow-left heimgfont theme-item"
+          @click.stop="prevNextHandle(false, 'arrow-btn')"
+          v-if="arrowBtn && multiple"
       >
         <span>&#xe620;</span>
       </div>
       <!-- 右箭头 -->
       <div
-        class="arrow arrow-right heimgfont theme-item"
-        @click.stop="prevNextHandle(true, 'arrow-btn')"
-        v-if="arrowBtn && multiple"
+          class="arrow arrow-right heimgfont theme-item"
+          @click.stop="prevNextHandle(true, 'arrow-btn')"
+          v-if="arrowBtn && multiple"
       >
         <span>&#xe60d;</span>
       </div>
@@ -125,54 +125,54 @@
               <span>{{ imgRotate }}°</span></span
             >
             <input
-              class="hevue-custom-range theme-item"
-              v-model.number="imgRotate"
-              type="range"
-              id="vol"
-              min="0"
-              max="360"
-              orient="vertical"
+                class="hevue-custom-range theme-item"
+                v-model.number="imgRotate"
+                type="range"
+                id="vol"
+                min="0"
+                max="360"
+                orient="vertical"
             />
           </div>
         </transition>
         <!-- 控制条 -->
         <div
-          @click.stop
-          class="he-control-bar theme-item"
-          v-if="controlBar.length"
+            @click.stop
+            class="he-control-bar theme-item"
+            v-if="controlBar.length"
         >
           <div
-            class="he-control-btn heimgfont"
-            v-for="(item, key) in controlbarShowItems"
-            :key="key"
-            @click.stop="item.handle()"
-            v-html="item.icon"
-            v-show="item.show()"
-            :title="controlbarI18n[locale][item.title]"
+              class="he-control-btn heimgfont"
+              v-for="(item, key) in controlbarShowItems"
+              :key="key"
+              @click.stop="item.handle()"
+              v-html="item.icon"
+              v-show="item.show()"
+              :title="controlbarI18n[locale][item.title]"
           ></div>
         </div>
         <!-- 缩略图 -->
         <div class="he-imglist-wrap" v-if="thumbnail && multiple">
           <div class="he-imglist" :style="{ left: getThumbLeft() + 'px' }">
             <div
-              class="he-img-item"
-              v-for="(item, key) in imgList"
-              :key="key"
-              @click="toogleImg(key, 'thumb')"
-              :class="{ active: key == imgIndex }"
+                class="he-img-item"
+                v-for="(item, key) in thumbnailsList || imgList"
+                :key="key"
+                @click="toogleImg(key, 'thumb')"
+                :class="{ active: key == imgIndex }"
             >
               <img
-                :src="item"
-                class="he-img-item-img"
-                @contextmenu="imgContextMenu"
+                  :src="item"
+                  class="he-img-item-img"
+                  @contextmenu="imgContextMenu"
               />
             </div>
           </div>
         </div>
         <!-- 页码指示器 -->
         <div
-          class="he-control-num theme-item"
-          v-if="controlBar.length && multiple"
+            class="he-control-num theme-item"
+            v-if="controlBar.length && multiple"
         >
           <span>{{ imgIndex + 1 }} / {{ imgList.length }}</span>
         </div>
@@ -181,9 +181,9 @@
       <transition name="fade">
         <div class="hevue-img-help-wrap theme-item" v-show="showHevueImgHelp">
           <div
-            class="hevue-img-help-item"
-            v-for="item in shortcutList"
-            :key="item.keyName"
+              class="hevue-img-help-item"
+              v-for="item in shortcutList"
+              :key="item.keyName"
           >
             <div class="hevue-img-help-item-label">{{ item.keyName }}：</div>
             <div class="hevue-img-help-item-desc">
@@ -195,71 +195,71 @@
     </div>
     <svg style="display: none">
       <filter
-        id="glass-distortion"
-        x="0%"
-        y="0%"
-        width="100%"
-        height="100%"
-        filterUnits="objectBoundingBox"
+          id="glass-distortion"
+          x="0%"
+          y="0%"
+          width="100%"
+          height="100%"
+          filterUnits="objectBoundingBox"
       >
         <feTurbulence
-          type="fractalNoise"
-          baseFrequency="0.01 0.01"
-          numOctaves="1"
-          seed="5"
-          result="turbulence"
+            type="fractalNoise"
+            baseFrequency="0.01 0.01"
+            numOctaves="1"
+            seed="5"
+            result="turbulence"
         ></feTurbulence>
         <!-- Seeds: 14, 17,  -->
 
         <feComponentTransfer in="turbulence" result="mapped">
           <feFuncR
-            type="gamma"
-            amplitude="1"
-            exponent="10"
-            offset="0.5"
+              type="gamma"
+              amplitude="1"
+              exponent="10"
+              offset="0.5"
           ></feFuncR>
           <feFuncG type="gamma" amplitude="0" exponent="1" offset="0"></feFuncG>
           <feFuncB
-            type="gamma"
-            amplitude="0"
-            exponent="1"
-            offset="0.5"
+              type="gamma"
+              amplitude="0"
+              exponent="1"
+              offset="0.5"
           ></feFuncB>
         </feComponentTransfer>
 
         <feGaussianBlur
-          in="turbulence"
-          stdDeviation="3"
-          result="softMap"
+            in="turbulence"
+            stdDeviation="3"
+            result="softMap"
         ></feGaussianBlur>
 
         <feSpecularLighting
-          in="softMap"
-          surfaceScale="5"
-          specularConstant="1"
-          specularExponent="100"
-          lighting-color="white"
-          result="specLight"
+            in="softMap"
+            surfaceScale="5"
+            specularConstant="1"
+            specularExponent="100"
+            lighting-color="white"
+            result="specLight"
         >
           <fePointLight x="-200" y="-200" z="300"></fePointLight>
         </feSpecularLighting>
 
         <feComposite
-          in="specLight"
-          operator="arithmetic"
-          k1="0"
-          k2="1"
-          k3="1"
-          k4="0"
-          result="litImage"
+            in="specLight"
+            operator="arithmetic"
+            k1="0"
+            k2="1"
+            k3="1"
+            k4="0"
+            result="litImage"
         ></feComposite>
 
         <feDisplacementMap
-          in="SourceGraphic"
-          in2="softMap"
-          scale="150"
-          xChannelSelector="R"
-          yChannelSelector="G"
+            in="SourceGraphic"
+            in2="softMap"
+            scale="150"
+            xChannelSelector="R"
+            yChannelSelector="G"
         ></feDisplacementMap>
       </filter>
     </svg>
@@ -299,6 +299,7 @@ export default {
       // show: true, // 插件显示，默认为false
       //url: '', // 预览图片的地址 7.0 开始废弃
       imgList: [],
+      thumbnailsList: [], // 缩略图列表
       nowImgIndex: 0,
       thumbnail: true, // 是否显示缩略图，默认true
       controlBar: [],
@@ -647,7 +648,7 @@ export default {
             if (Array.isArray(this.controlBar)) {
               if (this.controlBar.length === 0) {
                 this.controlBar = this.controlbarAllItems.map(
-                  (item) => item.key
+                    (item) => item.key
                 )
               }
             } else {
@@ -751,14 +752,14 @@ export default {
       this.imgIndex = index
       let type = way == 'thumb' ? 'thumb' : bool ? 'next' : 'prev'
       this.changeFn &&
-        this.changeFn({
-          type,
-          fromImgIndex: fromIndex,
-          fromImgUrl: this.imgList[fromIndex],
-          toImgIndex: this.imgIndex,
-          toImgUrl: this.imgList[this.imgIndex],
-          way
-        })
+      this.changeFn({
+        type,
+        fromImgIndex: fromIndex,
+        fromImgUrl: this.imgList[fromIndex],
+        toImgIndex: this.imgIndex,
+        toImgUrl: this.imgList[this.imgIndex],
+        way
+      })
       // this.url = this.imgList[this.imgIndex]
       this.changeUrl(this.imgList[this.imgIndex], this.imgIndex)
     },
@@ -918,8 +919,8 @@ export default {
       if (e.touches.length > 1) {
         var now = e.touches
         var scale =
-          this.getDistance(now[0], now[1]) /
-          this.getDistance(this.start[0], this.start[1])
+            this.getDistance(now[0], now[1]) /
+            this.getDistance(this.start[0], this.start[1])
         // 判断是否手指缩放过，如果缩放过，要在上次缩放的比例基础上进行缩放
         if (this.mobileScale) {
           if (scale > 1) {
@@ -981,7 +982,7 @@ export default {
     //缩放 勾股定理方法-求两点之间的距离
     getDistance(p1, p2) {
       var x = p2.pageX - p1.pageX,
-        y = p2.pageY - p1.pageY
+          y = p2.pageY - p1.pageY
       return Math.sqrt(x * x + y * y)
     },
     /**
@@ -1034,9 +1035,9 @@ export default {
 
       const maxDim = 100
       const scale = Math.min(
-        maxDim / img.naturalWidth,
-        maxDim / img.naturalHeight,
-        1
+          maxDim / img.naturalWidth,
+          maxDim / img.naturalHeight,
+          1
       )
       canvas.width = img.width * scale
       canvas.height = img.height * scale
@@ -1071,12 +1072,12 @@ export default {
       // )
       const el = document.querySelector('.hevue-imgpreview-wrap.glass')
       el.style.setProperty(
-        '--hevueimg-main-text-color',
-        `rgb(${dominantColor}, .7)`
+          '--hevueimg-main-text-color',
+          `rgb(${dominantColor}, .7)`
       )
       el.style.setProperty(
-        '--hevueimg-main-text-color',
-        `rgb(${dominantColor}, .5)`
+          '--hevueimg-main-text-color',
+          `rgb(${dominantColor}, .5)`
       )
       return dominantColor // 格式如 "123,45,67"
     },
@@ -1085,10 +1086,10 @@ export default {
       g /= 255
       b /= 255
       const max = Math.max(r, g, b),
-        min = Math.min(r, g, b)
+          min = Math.min(r, g, b)
       let h,
-        s,
-        l = (max + min) / 2
+          s,
+          l = (max + min) / 2
 
       if (max === min) {
         h = s = 0 // 灰
