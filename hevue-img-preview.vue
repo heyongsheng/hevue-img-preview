@@ -3,7 +3,7 @@
  * @Date: 2021-04-19 16:39:30
  * @email: 1378431028@qq.com
  * @LastEditors: 贺永胜
- * @LastEditTime: 2025-09-04 12:31:06
+ * @LastEditTime: 2025-09-28 00:46:01
  * @Description: file content
 -->
 
@@ -148,7 +148,7 @@
             @click.stop="item.handle()"
             v-html="item.icon"
             v-show="item.show()"
-            :title="controlbarI18n[locale][item.title]"
+            :title="controlbarI18n[locale][item.key]"
           ></div>
         </div>
         <!-- 缩略图 -->
@@ -303,6 +303,7 @@ export default {
       nowImgIndex: 0,
       thumbnail: true, // 是否显示缩略图，默认true
       controlBar: [],
+      controlBarKeys: [],
       closeBtn: true,
       arrowBtn: true,
       keyboard: true,
@@ -584,7 +585,7 @@ export default {
       return parseInt(this.vue.version)
     },
     controlbarShowItems() {
-      return this.controlBar.map((item) => {
+      return this.controlBarKeys.map((item) => {
         let target = this.controlbarAllItems.find((i) => i.key === item)
         return target
       })
@@ -658,10 +659,33 @@ export default {
                 this.controlBar = this.controlbarAllItems.map(
                   (item) => item.key
                 )
+              } else {
+                this.controlBar.map((item, index) => {
+                  // 判断item是否是对象
+                  if (typeof item === 'object') {
+                    let target = this.controlbarAllItems.find(
+                      (i) => i.key === item.key
+                    )
+                    if (target) {
+                      target.disabled = item.disabled
+                      target.icon = item.icon || target.icon
+                      target.title = item.title || target.title
+                      target.handle = item.handle || target.handle
+                      item.title
+                        ? (this.controlbarI18n[this.locale][target.key] =
+                            item.title)
+                        : ''
+                    } else {
+                      this.controlbarAllItems.push(item)
+                    }
+                    this.controlBar[index] = target.key
+                  }
+                })
               }
             } else {
               this.controlBar = []
             }
+            this.controlBarKeys = this.controlBar
             // 兼容旧版本url传入方式
 
             if (this.url && (!this.imgList || this.imgList.length === 0)) {
