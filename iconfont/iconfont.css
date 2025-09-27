@@ -1,8 +1,8 @@
 @font-face {
   font-family: "heimgfont"; /* Project id 1776686 */
-  src: url('iconfont.woff2?t=1749887467135') format('woff2'),
-       url('iconfont.woff?t=1749887467135') format('woff'),
-       url('iconfont.ttf?t=1749887467135') format('truetype');
+  src: url('iconfont.woff2?t=1758991386658') format('woff2'),
+       url('iconfont.woff?t=1758991386658') format('woff'),
+       url('iconfont.ttf?t=1758991386658') format('truetype');
 }
 
 .heimgfont {
@@ -11,6 +11,86 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.heimg-iconfenxiang:before {
+  content: "\e63b";
+}
+
+.heimg-iconai53:before {
+  content: "\e6ab";
+}
+
+.heimg-iconpass-1-copy:before {
+  content: "\e61d";
+}
+
+.heimg-iconshanchu:before {
+  content: "\e642";
+}
+
+.heimg-icontongguo:before {
+  content: "\e699";
+}
+
+.heimg-iconshenhebutongguo:before {
+  content: "\e625";
+}
+
+.heimg-icontongguo1:before {
+  content: "\e632";
+}
+
+.heimg-iconbutongguo:before {
+  content: "\e634";
+}
+
+.heimg-iconshenhebutongguo1:before {
+  content: "\e613";
+}
+
+.heimg-iconicon-:before {
+  content: "\e607";
+}
+
+.heimg-icondayin:before {
+  content: "\e63e";
+}
+
+.heimg-iconweibiaoti--:before {
+  content: "\e621";
+}
+
+.heimg-iconshenhebutongguo2:before {
+  content: "\e64d";
+}
+
+.heimg-iconbutongguo1:before {
+  content: "\e65c";
+}
+
+.heimg-iconshanchu1:before {
+  content: "\e601";
+}
+
+.heimg-iconfenxiang1:before {
+  content: "\e612";
+}
+
+.heimg-iconfenxiang2:before {
+  content: "\e609";
+}
+
+.heimg-iconfenxiang3:before {
+  content: "\e643";
+}
+
+.heimg-iconxiayige2:before {
+  content: "\e62e";
+}
+
+.heimg-iconshangyige2:before {
+  content: "\e62f";
 }
 
 .heimg-icona-zuozhuan902x:before {
@@ -91,14 +171,6 @@
 
 .heimg-iconjiantouzuo:before {
   content: "\e620";
-}
-
-.heimg-iconxuanzhuan:before {
-  content: "\e66f";
-}
-
-.heimg-iconxuanzhuan1:before {
-  content: "\e670";
 }
 
 .heimg-iconyuanshibili:before {
